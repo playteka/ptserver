@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<!-- saved from url=(0040)http://getbootstrap.com/examples/navbar/ -->
+<html lang="<%=lang.language%>"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" content="">
+<meta name="author" content="Zhou Keke">
+<link rel="icon" href="./image/pt.png">
+
+<title><%=lang.Playteka%></title>
+
+<!-- Bootstrap core CSS -->
+<link href="./dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- Static navbar -->
+<nav class="navbar navbar-default">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="http://www.playteka.com"><%=lang.Playteka%></a>
+</div>
+<div id="navbar" class="navbar-collapse collapse">
+<ul class="nav navbar-nav">
+<li class="active"><a href="http://localhost:3000"><%=lang.Home%></a></li>
+<li><a href="http://www.playteka.com"><%=lang.Website%></a></li>
+<li><a href="https://github.com/playteka/playteka/wiki"><%=lang.Wiki%></a></li>
+<li><a href="https://github.com/playteka/playteka/issues"><%=lang.Report_Issues%></a></li>
+<li><a href="http://www.playteka.com"><%=lang.Contact%></a></li>
+<li><a href="#" onclick="alert('playteka v0.1.5')" ><%=lang.About%></a></li>
+</ul>
+<ul class="nav navbar-nav navbar-right">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+<%=lang.current_language%><span class="caret"></span></a>
+<ul class="dropdown-menu" role="menu">
+<% for(var i=0; i<lang.other_languages.length; i++) { %>
+<li>
+<a href='#' onclick="changeLanguage('<%= lang.other_languages[i]%>')"><%=lang.other_languages[i] %></a>
+</li>
+<% } %>
+</ul>
+</li>
+</ul>
+</div><!--/.nav-collapse -->
+</div><!--/.container-fluid -->
+</nav>
+
+<!-- Main component for a primary marketing message or call to action -->
+<div class="jumbotron">
+<h1 class="text-center"><img src="./image/playteka.png"></h1>
+<p class="text-center"><%=lang.PLAYTEKA_DESPRIPTION%></p>
+<div class="container">
+<!-- Example row of columns -->
+<div class="row">
+<div class="col-md-1"></div>
+<div class="col-md-4">
+<h2 class="form-signin-heading"><%=lang.Please_login%></h2>
+<label for="login_Email" class="sr-only"><%=lang.Email_address%></label>
+<input type="email" id="login_Email" class="form-control" placeholder="<%=lang.Email_address%>" required autofocus>
+<label for="login_Password" class="sr-only"><%=lang.Password%></label>
+<input type="password" id="login_Password" class="form-control" placeholder="<%=lang.Password%>" required>
+<div class="checkbox">
+<label><input type="checkbox" id="login_remember" value="remember-me" checked="checked"> <%=lang.Remember_me%></label>
+</div>
+<button id="login_btn" class="btn btn-lg btn-primary btn-block"><%=lang.Login%></button>
+<br>
+<div class="alert alert-danger" role="alert" id="login_alert_box" style="display:none;">
+<span class="glyphicon glyphicon-exclamation-sign"></span> login alert box </div>
+</div>
+<div class="col-md-2"></div>
+<div class="col-md-4">
+<h2 class="form-signin-heading"><%=lang.Please_sign_up%></h2>
+<label for="reg_Email" class="sr-only"><%=lang.Email_address%></label>
+<input type="email" id="reg_Email" class="form-control" placeholder="<%=lang.Email_address%>" required autofocus>
+<label for="reg_Password" class="sr-only"><%=lang.Password%></label>
+<input type="password" id="reg_Password" class="form-control" placeholder="<%=lang.Password%>" required>
+<div class="checkbox">
+<label><input type="checkbox" value="remember-me" checked="checked"> <%=lang.Remember_me%></label>
+</div>
+<button id="reg_btn" class="btn btn-lg btn-primary btn-block"><%=lang.Sign_up%></button>
+<br>
+<div class="alert alert-danger" role="alert" id="register_alert_box" style="display:none;">
+<span class="glyphicon glyphicon-exclamation-sign"></span> register alert box </div>
+</div>
+</div>
+
+</div>
+
+</div> <!-- /container -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="./dist/js/bootstrap.min.js"></script>
+
+<script>
+
+function remember(account,password){
+//if localstorage is not supported, doing nothing.
+if(typeof(Storage) == "undefined") return;
+
+// Store
+localStorage.account = account;
+localStorage.password = password;
+}
+
+function retrieve(){
+//if localstorage is not supported, doing nothing.
+if(typeof(Storage) == "undefined") return;
+
+//retrieve
+$("#login_Email").val(localStorage.account);
+$("#login_Password").val(localStorage.password);
+}
+
+
+$(document).ready(function(){
+
+$("#login_alert_box").hide();
+$("#register_alert_box").hide();
+
+$(".form-control").keyup(function(event){
+$("#login_alert_box").hide();
+$("#register_alert_box").hide();
+});
+
+retrieve(); //retrieve account and password
+
+});
+
+var changeLanguage = function(language){
+if (language == 'English') {
+window.location.assign('/login?lang=en');
+}
+else{
+window.location.assign('/login?lang=cn');
+}
+};
+
+var show_alert_box = function(which,text){
+value = '<span class="glyphicon glyphicon-exclamation-sign"></span> ' + text;
+$("#"+which+"_alert_box").html(value);
+$("#"+which+"_alert_box").show();
+};
+
+$("#login_btn").click(function(){
+var paramerters = {};
+paramerters.account = $("#login_Email").val();
+paramerters.password = $("#login_Password").val();
+
+
+var posting = $.post("/login", paramerters);
+posting.done(function(result){
+//alert("数据：" + JSON.stringify(result) + "\n状态：" + status);
+if (result.status == "success") {
+
+//save the account and password into the localstorage if 'remember me' is checked.
+if ($("#login_remember").prop("checked") ){
+remember(paramerters.account, paramerters.password);
+}
+else{ //if 'remeber me' is not checked, clear account and password from localstorage
+remember('', '');
+}
+
+
+if ('<%=redirect%>' != 'NO') { //redirect to the IDE page of the program
+window.location.assign('/blockly/app/<%=redirect%>/?&_id=<%=_id%>&lang=<%=lang.language%>');
+}
+else{  //enter the project center page
+window.location.assign('/project?lang=<%=lang.language%>');
+}
+
+}
+else{  //if error, show alert box
+show_alert_box('login', result.error);
+}
+
+})  //if posting error, show in the alert box
+.fail(function(){
+show_alert_box('login', "Network Connection error!");
+});
+
+});
+
+
+$("#reg_btn").click(function(){
+    var paramerters = {};
+    paramerters.account = $("#reg_Email").val();
+    paramerters.password = $("#reg_Password").val();
+
+    var posting = $.post("/register", paramerters);
+    posting.done(function(result){
+    	alert("数据：" + JSON.stringify(result) + "\n状态：" + status);
+    	if (result.status == "success") {
+			if ($("#login_remember").prop("checked") ){
+				remember(paramerters.account, paramerters.password);
+			}
+
+			if ('<%=redirect%>' != 'NO') { //redirect to the IDE page of the program
+				window.location.assign('/blockly/app/<%=redirect%>/?&_id=<%=_id%>&lang=<%=lang.language%>');
+			}
+			else{  //enter the project center page
+				window.location.assign('/project?lang=<%=lang.language%>');
+			}
+		}
+		else{
+			if (result.errorno == 1) {  //"User name already exists"
+			show_alert_box('register', '<%=lang.user_already_exists%>');
+			}
+		}
+	})
+	.fail(function(){
+		show_alert_box('register', '<%=lang.network_error%>');
+	});
+});
+
+
+
+</script>
+
+
+</body></html>
+
+

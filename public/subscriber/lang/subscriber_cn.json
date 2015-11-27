@@ -1,0 +1,30 @@
+{
+    "language" : "cn",
+    "current_language" : "简体中文",
+    "other_languages" : ["English"],
+    "PlayDuino" : "创意诺电路板",
+    "Home" : "主页",
+    "Website" : "网站",
+    "Wiki" : "维基",
+    "Report_Issues" : "报告问题",
+    "Contact" : "联系方式",
+    "About" : "关于",
+    "Logout" : "登出",
+    
+    "User_Profile" : "用户信息",
+    "User_Name" : "用户名",
+    "Password" : "用户密码",
+    "New_Password" : "新用户密码",
+    "Change_Password" : "修改密码",
+    "OK" : "确定",
+    
+    "not_login": "尚未登录或太久未操作导致超时",
+    "not_exist" : "项目不存在",
+    "project_deleted" : "项目已经被删除",
+    "no_modify_rights" : "您没有权限修改他人密码",
+    "wrong_password" : "密码错误，请输入正确的密码",
+    "short_password" : "新密码长度少于6个字符",
+    "password_modified" : "密码修改成功",
+    
+    "password_not_same" : "两次输入的新密码不相同，请再次输入。"
+}

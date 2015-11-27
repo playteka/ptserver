@@ -1,0 +1,23 @@
+{
+    "language" : "en",
+    "current_language" : "English",
+    "other_languages" : ["简体中文"],
+    "Playteka" : "Playteka",
+    "Home" : "Home",
+    "Website" : "Website",
+    "Wiki" : "Wiki",
+    "Report_Issues" : "Report Issues",
+    "Contact" : "Contact",
+    "About" : "About",
+    "PLAYTEKA_DESPRIPTION" : "A blockly-based visual programming enviroment to playing with Arduino, Raspberry pi, etc.",
+    "Please_login" : "Please login",
+    "Email_address" : "Email address",
+    "Password" : "Password",
+    "Remember_me" : "Remember me",
+    "Login" : "Login",
+    "Please_sign_up" : "Please sign up",
+    "Sign_up" : "Sign up",
+    "user_already_exists" : "User name alreay exists",
+    "network_error" : "Network Connection error!"
+    
+}

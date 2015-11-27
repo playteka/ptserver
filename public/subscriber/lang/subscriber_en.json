@@ -1,0 +1,30 @@
+{
+    "language" : "en",
+    "current_language" :"English",
+    "other_languages" : ["简体中文"],
+    "PlayDuino" : "PlayDuino",
+    "Home" : "Home",
+    "Website" : "Website",
+    "Wiki" : "Wiki",
+    "Report_Issues" : "Report Issues",
+    "Contact" : "Contact",
+    "About" : "About",
+    "Logout" : "Logout",
+    
+    "User_Profile" : "User Profile",
+    "User_Name" : "User Name",
+    "Password" : "Password",
+    "New_Password" : "New Password",
+    "Change_Password" : "Change Password",
+    "OK" : "OK",
+    
+    "not_login": "you haven't logged in yet",
+    "not_exist" : "project does not exist",
+    "project_deleted" : "project has been deleted",
+    "no_modify_rights" : "you have no rights to modify the password of another user",
+    "wrong_password" : "Password is wrong, please input the correct password.",
+    "short_password" : "New password length is less than 6",
+    "password_modified" : "Password modified successfully",
+    
+    "password_not_same" : "The two new passwords are not the same, please input again."
+}

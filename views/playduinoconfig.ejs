@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="<%=lang.language%>">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><%=lang.PlayDuino%></title>
+<!-- jQuery -->
+<script src="js/jquery.js"></script>
+<!-- Bootstrap Core CSS -->
+<link href="dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Core JavaScript -->
+<script src="dist/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+//change the language
+var changeLanguage = function(language){
+if (language == 'English') {
+window.location.assign('/playduinoconfig?_id=<%=_id%>&lang=en');
+}
+else{
+window.location.assign('/playduinoconfig?_id=<%=_id%>&lang=cn');
+}
+};
+
+//logout
+var logout = function(){
+var posting = $.post("/logout");
+posting.done(function(){
+window.location.assign('/login?lang=<%=lang.language%>');
+});
+};
+
+var userProfile = function(){
+window.location.assign('/subscriber?lang=<%=lang.language%>');
+};
+
+function get_heartbeat(){
+var getting = $.get('/heartbeat');
+getting.done(function(result){
+console.log(result);
+})
+.fail(function(){
+console.log("heartbeat network error");
+});
+}
+
+var updateProject = function(program, _id, data, success, error){
+data._id = _id;
+var posting = $.post("/playduinoconfig/update", data);
+posting.done(function(result){
+if (result.status == "error") {
+if (result.errorno == 1) {
+alert("you haven't logged in yet");
+}
+else if (result.errorno == 2) {
+alert("project does not exist");
+}
+else if (result.errorno == 3) {
+alert("project has been deleted");
+}
+else if (result.errorno == 4) {
+alert("you have no rights to modify program of another user");
+}
+error();
+}
+else{ //success
+success();
+}
+}).
+fail(function(){
+error();
+alert("network failed!");
+});
+};
+
+
+
+var deleteProject = function(program, _id){
+
+if (confirm("<%=lang.delete_project%>")==false) return;
+
+var posting = $.post("/project/deleteplayduino", {"_id" : _id});
+posting.done(function(result){
+if (result.status == "error") {
+alert("This project couldn't be delelted!");
+}
+else{
+window.location.assign('/project?lang=<%=lang.language%>');
+}
+}).
+fail(function(){
+alert("Operation failed!");
+});
+};
+
+var privateEvent = new Event('privateEvent');
+var publicEvent = new Event('publicEvent');
+
+var publishFlag=function(){
+var flag='PRIVATE';
+return {
+getFlag:function(){return flag;},
+setFlag:function(status){
+if (status != flag) {
+flag = status;
+if (flag == 'PRIVATE') {
+document.dispatchEvent(privateEvent);
+}
+else if (flag == 'PUBLIC') {
+document.dispatchEvent(publicEvent);
+}
+}
+}
+}
+}();
+
+document.addEventListener('privateEvent', function(event){
+$("#publish_private").attr('class', 'active');
+$("#publish_public").attr('class', 'inactive');
+});
+
+document.addEventListener('publicEvent', function(event){
+$("#publish_private").attr('class', 'inactive');
+$("#publish_public").attr('class', 'active');
+});
+
+//字符串首尾加单引号
+var QM = function(s){
+return "'" + s + "'";
+};
+
+//字符串首尾加双引号
+var DQM = function(s){
+return '"' + s + '"';
+};
+
+var openProject = function(program, _id){
+window.location.assign('/blockly/app/' + program + '/?_id=' + _id + '&lang=<%=lang.language%>');
+};
+
+var add_line = function(project){
+var _id = project._id;
+var project_name = project.project_name;
+var account = project.account;
+var date_created = project.date_created;
+var program = 'playduino';
+var text = '<tr id=' + DQM(program + _id) + '>';
+text += '<td><a onclick="openProject('+ QM(program) + ',' + QM(_id) +')"><h4 class="list-group-item-heading">' + project_name + '</h4></a></td>';
+text += '<td align="right"><h4 class="list-group-item-heading">' + account + '</h4></td>';
+text += '<td align="right"><h4 class="list-group-item-heading">' + date_created.slice(0,-5) + '</h4></td>';
+text += '</tr>';
+
+$("#forktree_table").prepend(text);
+};
+
+var add_arrow = function(){
+var text = '<tr>';
+text += '<td align="center"><span class="glyphicon glyphicon-arrow-up"></span></td>';
+text += '</tr>';
+
+$("#forktree_table").prepend(text);
+};
+
+var current = null; //handler of the current project data object
+$(document).ready(function(){
+
+//set the initial value
+var getting = $.get("/playduinoconfig/getdata?_id=<%=_id%>");
+getting.done(function(result){
+current = result;
+$("#playduino_project_name").val(result.project_name);
+$("#playduino_ipaddress").val(result.ipaddress);
+if (result.published == '0') {
+publishFlag.setFlag("PRIVATE");
+}
+else if (result.published == '1') {
+publishFlag.setFlag("PUBLIC");
+}
+})
+.fail(function(){
+window.location.assign('/login?lang=<%=lang.language%>');
+});
+
+//display the fork tree
+var posting = $.post("/playduinoconfig/forktree", {"_id":"<%=_id%>"});
+posting.done(function(result){
+var projectlist = result.body;
+for (var i = projectlist.length - 1; i >= 0; i--) {
+add_line(projectlist[i]);
+if (i > 0) {
+add_arrow();
+}
+};
+})
+.fail(function(){
+//do nothing
+});
+
+$("#playduino_project_name").keyup(function(){
+
+$("#rename_alert_box").hide();
+
+if ($("#playduino_project_name").val() != current.project_name) {
+$("#playduino_rename_button").attr("disabled", false);
+}
+else{
+$("#playduino_rename_button").attr("disabled", true);
+}
+});
+
+$("#playduino_ipaddress").keyup(function(){
+
+$("#ipaddress_alert_box").hide();
+
+if ($("#playduino_ipaddress").val() != current.ipaddress) {
+$("#playduino_change_button").attr("disabled", false);
+}
+else{
+$("#playduino_change_button").attr("disabled", true);
+}
+});
+
+$("#playduino_rename_button").click(function(){
+var new_name = $("#playduino_project_name").val();
+var data = {};
+data.project_name = new_name;
+
+updateProject('playduino','<%=_id%>', data,
+function(){ //success
+current.project_name = new_name;
+$("#rename_alert_box").attr("class", "alert alert-info");
+$("#rename_alert_box").html('<span class="glyphicon glyphicon-exclamation-sign"></span>The project has been renamed to "' + new_name + '"');
+$("#rename_alert_box").show();
+},
+function(){ //error
+
+$("#rename_alert_box").attr("class", "alert alert-danger");
+$("#rename_alert_box").html('<span class="glyphicon glyphicon-exclamation-sign"></span>Sorry, not able to rename!');
+$("#rename_alert_box").show();
+}
+);
+});
+
+$("#playduino_change_button").click(function(){
+var new_ipaddress = $("#playduino_ipaddress").val();
+var data = {};
+data.ipaddress = new_ipaddress;
+
+updateProject('playduino','<%=_id%>', data,
+function(){ //success
+current.ipaddress = new_ipaddress;
+$("#ipaddress_alert_box").attr("class", "alert alert-info");
+$("#ipaddress_alert_box").html('<span class="glyphicon glyphicon-exclamation-sign"></span>The IP address has been changed to ' + new_ipaddress);
+$("#ipaddress_alert_box").show();
+},
+function(){ //error
+
+$("#ipaddress_alert_box").attr("class", "alert alert-danger");
+$("#ipaddress_alert_box").html('<span class="glyphicon glyphicon-exclamation-sign"></span>Sorry, not able to change the IP address!');
+$("#ipaddress_alert_box").show();
+}
+);
+});
+
+$("#playduino_ok_button").click(function(){
+window.location.assign('/project?lang=<%=lang.language%>#playduino');
+});
+
+setInterval("get_heartbeat()", 30*1000);
+
+});
+
+var setPublish = function(status){
+
+var new_published = (status == "Public" ? '1' : '0');
+
+var data = {};
+data.published = new_published;
+
+updateProject('playduino','<%=_id%>', data,
+function(){ //success
+current.published = new_published;
+if (new_published == '1') {
+publishFlag.setFlag("PUBLIC");
+}
+else{
+publishFlag.setFlag("PRIVATE");
+}
+$("#publish_alert_box").attr("class", "alert alert-info");
+$("#publish_alert_box").html('<span class="glyphicon glyphicon-exclamation-sign"></span>OK. Done!');
+$("#publish_alert_box").show();
+setTimeout('$("#publish_alert_box").fadeOut(1000)', 3000);
+},
+function(){ //error
+
+$("#publish_alert_box").attr("class", "alert alert-danger");
+$("#publish_alert_box").html('<span class="glyphicon glyphicon-exclamation-sign"></span>Sorry, can not change status!');
+$("#publish_alert_box").show();
+setTimeout('$("#publish_alert_box").fadeOut(1000)', 3000);
+}
+);
+};
+
+
+
+</script>
+
+</head>
+
+<body>
+<div class="container">
+
+<!-- Static navbar -->
+<nav class="navbar navbar-default">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="#"><%=lang.PlayDuino%></a>
+</div>
+<div id="navbar" class="collapse navbar-collapse">
+<ul class="nav navbar-nav">
+<li class="active"><a href="http://localhost:3000"><%=lang.Home%></a></li>
+<li><a href="http://www.playteka.com"><%=lang.Website%></a></li>
+<li><a href="https://github.com/playteka/playteka/wiki"><%=lang.Wiki%></a></li>
+<li><a href="https://github.com/playteka/playteka/issues"><%=lang.Report_Issues%></a></li>
+<li><a href="http://www.playteka.com"><%=lang.Contact%></a></li>
+<li><a href="#" onclick="alert('playteka v0.1.5')" ><%=lang.About%></a></li>
+</ul>
+
+<ul class="nav navbar-nav navbar-right">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%=account%><span class="caret"></span></a>
+<ul class="dropdown-menu" role="menu">
+<li><a href='#' onclick="userProfile()"><%=lang.User_Profile%></a></li>
+<li><a href='#' onclick="logout()"><%=lang.Logout%></a></li>
+</ul>
+</li>
+
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+<%=lang.current_language%><span class="caret"></span></a>
+<ul class="dropdown-menu" role="menu">
+<% for(var i=0; i<lang.other_languages.length; i++) { %>
+<li>
+<a href='#' onclick="changeLanguage('<%= lang.other_languages[i]%>')"><%=lang.other_languages[i] %></a>
+</li>
+<% } %>
+</ul>
+</li>
+</ul>
+</div><!--/.nav-collapse -->
+</div>
+</nav>
+
+<!-- Main component for a success marketing message or call to action -->
+
+<div class="jumbotron">
+<h1 class="text-center"><%=lang.Project_Information%></h1>
+<br>
+<div class="container-fluid">
+<!-- Example row of columns -->
+<div class="row">
+<div class="col-md-2"></div>
+
+<div class="col-md-8">
+
+<div class="panel panel-success">
+<div class="panel-heading"><%=lang.Project_Name%></div>
+<div class="panel-body">
+<div class="input-group">
+<input type="text" class="form-control" id="playduino_project_name">
+<span class="input-group-btn">
+<button class="btn btn-primary" type="button" id="playduino_rename_button" disabled="true" onclick=""><%=lang.rename%></button>
+</span>
+</div><!-- /input-group -->
+<br>
+<div class="alert alert-danger" role="alert" id="rename_alert_box" style="display:none">
+<span class="glyphicon glyphicon-exclamation-sign"></span> rename alert box </div>
+</div> <!--/.panel-body -->
+</div> <!--/.panel-success -->
+
+<div class="panel panel-success">
+<div class="panel-heading"><%=lang.ip_address%></div>
+<div class="panel-body">
+<div class="input-group">
+<input type="text" class="form-control" id="playduino_ipaddress">
+<span class="input-group-btn">
+<button class="btn btn-primary" type="button" id="playduino_change_button" disabled="true" onclick=""><%=lang.change%></button>
+</span>
+</div><!-- /input-group -->
+<br>
+<div class="alert alert-danger" role="alert" id="ipaddress_alert_box" style="display:none">
+<span class="glyphicon glyphicon-exclamation-sign"></span> ip address alert box </div>
+</div> <!--/.panel-body -->
+</div><!--/.panel-success -->
+
+<div class="panel panel-success">
+<div class="panel-heading"><%=lang.publish%></div>
+<div class="panel-body">
+<ul class="nav nav-pills">
+<li role="presentation" id="publish_private" class="active" onclick="setPublish('Private')"><a><%=lang.Private%></a></li>
+<li role="presentation" id="publish_public" class="inactive" onclick="setPublish('Public')"><a><%=lang.Public%></a></li>
+</ul>
+<br>
+<div class="alert alert-danger" role="alert" id="publish_alert_box" style="display:none">
+<span class="glyphicon glyphicon-exclamation-sign"></span> rename alert box </div>
+</div> <!--/.panel-body -->
+</div> <!--/.panel-success -->
+
+<div class="panel panel-success">
+<div class="panel-heading"><%=lang.Project_Name%></div>
+<div class="panel-body">
+<div class="input-group">
+<input type="text" class="form-control" id="playduino_project_name">
+<span class="input-group-btn">
+<button class="btn btn-primary" type="button" id="playduino_rename_button" disabled="true" onclick=""><%=lang.rename%></button>
+</span>
+</div><!-- /input-group -->
+<br>
+<div class="alert alert-danger" role="alert" id="rename_alert_box" style="display:none">
+<span class="glyphicon glyphicon-exclamation-sign"></span> rename alert box </div>
+</div> <!--/.panel-body -->
+</div> <!--/.panel-success -->
+
+<div class="panel panel-danger">
+<div class="panel-heading"><%=lang.Delete_this_project%></div>
+<div class="panel-body">
+<button class="btn btn-danger" type="button" id="playduino_rename_button"
+onclick="deleteProject('playduino','<%=_id%>')"><%=lang.Delete%></button>
+<br>
+<div class="alert alert-danger" role="alert" id="publish_alert_box" style="display:none">
+<span class="glyphicon glyphicon-exclamation-sign"></span> rename alert box </div>
+</div> <!--/.panel-body -->
+</div> <!--/.panel-success -->
+
+<div class="panel panel-success">
+<div class="panel-heading"><%=lang.fork_tree%></div>
+<div class="panel-body">
+<table class="table table-striped table-hover" id="forktree_table">
+</table>
+</div> <!--/.panel-body -->
+</div> <!--/.panel-success -->
+
+<div align="center">
+<button class="btn btn-primary btn-lg" type="button" id="playduino_ok_button" >   <%=lang.OK%>   </button>
+</div>
+
+
+</div><!--/.col-md-6 -->
+
+<div class="col-md-3"></div>
+</div> <!-- /jumbotron -->
+</div> <!-- /container -->
+
+</body>
+</html>

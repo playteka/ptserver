@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="<%=lang.language%>">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><%=lang.PlayDuino%></title>
+<!-- jQuery -->
+<script src="js/jquery.js"></script>
+<!-- Bootstrap -->
+<link href="./dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+
+<!-- Custom styles for this template -->
+<link href="IDEStyle.css" rel="stylesheet">
+
+
+
+
+
+<!--- inject blockly -->
+<script type="text/javascript" src="../../blockly_compressed.js"></script>
+<script type="text/javascript" src="../../blocks_compressed.js"></script>
+<script type="text/javascript" src="../../javascript_compressed.js"></script>
+
+<!--- 插入语言模块 -->
+<script type="text/javascript" src="../../msg/js/<%=lang.alias_language%>.js"></script>
+<script type="text/javascript" src="./lang/<%=lang.language%>.js"></script>
+
+<!--- include blocks source files -->
+<script type="text/javascript" src="./blocks/system.js"></script>
+<script type="text/javascript" src="./blocks/board.js"></script>
+<script type="text/javascript" src="./blocks/analog.js"></script>
+<script type="text/javascript" src="./blocks/digital.js"></script>
+<script type="text/javascript" src="./blocks/button.js"></script>
+<script type="text/javascript" src="./blocks/led.js"></script>
+<script type="text/javascript" src="./blocks/RGBled.js"></script>
+<script type="text/javascript" src="./blocks/pin.js"></script>
+<script type="text/javascript" src="./blocks/servo.js"></script>
+
+<!-- Include socket.io -->
+<script src="./socket.io/socket.io.js"></script>
+
+<!-- Include filesaver -->
+<script src="./filesaver/FileSaver.js"></script>
+
+<!-- implementation of the IDE actions -->
+<script src="IDEActions.js"></script>
+
+
+<!--- javascript for main tabs -->
+<script type="text/javascript">
+//select tabs
+function tabClick(id) {
+var TABS_ = ['sketch', 'console', 'code'];
+// Deselect all tabs and hide all panes.
+for (var x in TABS_) {
+document.getElementById('tab_' + TABS_[x]).className = 'inactive';
+document.getElementById('content_' + TABS_[x]).style.display = 'none';
+}
+
+// Activate selected tab.
+document.getElementById(id).className = 'active';
+// Show the selected pane.
+var selected = id.replace('tab_', '');
+var content = document.getElementById('content_' + selected);
+content.style.display = 'block';
+}
+
+//change language when language menu is clicked
+var changeLanguage = function(language){
+if (language == 'English') {
+window.location.assign('/blockly/app/playduino?_id=<%=_id%>&lang=en');
+}
+else if (language == '简体中文')
+{
+window.location.assign('/blockly/app/playduino?_id=<%=_id%>&lang=cn');
+}
+};
+
+//logout
+var logout = function(){
+var posting = $.post("/logout");
+posting.done(function(){
+window.location.assign('/login?lang=<%=lang.language%>');
+});
+};
+
+var userProfile = function(){
+window.location.assign('/subscriber?lang=<%=lang.language%>');
+};
+
+//redirectLogin
+var redirectLogin = function(program,_id){
+window.location.assign('/login?redirect=' + program +'&_id=' + _id + '&lang=<%=lang.language%>');
+};
+
+//prompt user to save the program before leave the page
+window.onbeforeunload = function() {
+if (saveFlag.getReadonly() == "NO" && saveFlag.getFlag() == "MODIFIED" ) {
+return "<%=lang.changes_not_saved%>";
+};
+}
+
+function get_heartbeat(){
+var getting = $.get('/heartbeat');
+getting.done(function(result){
+console.log(result);
+})
+.fail(function(){
+console.log("heartbeat network error");
+});
+}
+
+//the flag of login
+var program_id = '<%=_id%>';
+var isLogin = <%=isLogin%>;
+
+//the workspace of Blockly
+var workspace;
+
+//define update function when change happens
+function myUpdateFunction() {
+all_devices.init();
+var code = Blockly.JavaScript.workspaceToCode(workspace);
+all_devices.append();
+
+//update code textarea and set 'MODIFIED' flag when javascript code is changed
+if(code != document.getElementById('textarea_code').value){
+document.getElementById('textarea_code').value = code;
+saveFlag.setFlag('MODIFIED');
+}
+}
+
+$(document).ready(function(){
+
+//select tab_sketch panel
+tabClick("tab_sketch");
+
+//inject blockly
+var workspace = Blockly.inject( document.getElementById('content_sketch'),
+{media: '../../media/', toolbox:document.getElementById('toolbox')} );
+
+//add change listener of blockly
+workspace.addChangeListener(myUpdateFunction);
+
+//download the xml from server and load it into blockly area
+download_xml('playduino', '<%=_id%>');
+
+setInterval("get_heartbeat()", 30*1000);
+});
+
+</script>
+</head>
+
+<body>
+<table> <tr valign="top"> <td>
+<nav class="navbar navbar-default" role="navigation">
+<div class="container">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="#"><%=lang.PlayDuino%></a>
+</div>
+<div id="navbar" class="collapse navbar-collapse">
+<ul class="nav navbar-nav">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%=lang.File%><span class="caret"></span></a>
+<ul class="dropdown-menu" role="menu">
+<li><a href="#"><%=lang.Open_XML_File%></a></li>
+<li class="divider"></li>
+<li><a href="#" onclick="save()"><%=lang.Save_as_XML_File%></a></li>
+</ul>
+</li>
+<li><a href="#about"><%=lang.About%></a></li>
+</ul>
+
+<ul class="nav navbar-nav navbar-right">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+<% if(account) { %>
+<%=account%>
+<% } else { %>
+<%=lang.Guest%>
+<% } %>
+<span class="caret"></span></a>
+<ul class="dropdown-menu" role="menu">
+<% if(account) { %>
+<li><a href='#' onclick="userProfile()"><%=lang.User_Profile%></a></li>
+<li><a href='#' onclick="logout()"><%=lang.Logout%></a></li>
+<% } else { %>
+<li><a href='#' onclick="redirectLogin('playduino', '<%=_id%>')"><%=lang.Login%></a></li>
+<% } %>
+</ul>
+</li>
+
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+<%=lang.current_language%><span class="caret"></span></a>
+<ul class="dropdown-menu" role="menu">
+<% for(var i=0; i<lang.other_languages.length; i++) { %>
+<li>
+<a href='#' onclick="changeLanguage('<%= lang.other_languages[i]%>')"><%=lang.other_languages[i] %></a>
+</li>
+<% } %>
+</ul>
+</li>
+</ul>
+
+
+</div><!--/.nav-collapse -->
+</div>
+</nav>
+
+<div class="container-fluid" > <!--it makes blockly slightly shorter than window height -->
+<div class="row">
+<div class="col-md-3">
+<ul class="nav nav-pills nav-justified" >
+<li id="tab_sketch" role="presentation" class="active" onclick="tabClick(this.id)"><a href="#"><%=lang.Sketch%></a></li>
+<li id="tab_console" role="presentation  class="inactive" onclick="tabClick(this.id)"><a href="#"><%=lang.Console%></a></li>
+<li id="tab_code" role="presentation" class="inactive" onclick="tabClick(this.id)"><a href="#"><%=lang.Code%></a></li>
+</ul>
+</div> <!-- col-md-3 -->
+
+<div class="col-md-2">
+<button type="button" class="btn btn-danger" id='info_connect' aria-label="Left Align" disabled='true'>127.0.0.1</button>
+</div> <!-- col-md-2 -->
+
+<div class="col-md-7">
+<div class="btn-group">
+<button type="button" id="runButton" class="btn btn-primary" aria-label="Left Align" disabled='true' onclick="run()">
+<span class="glyphicon glyphicon-play" aria-hidden="true" </span><%=lang.Run%></button>
+<button type="button" id="stopButton" class="btn btn-primary" aria-label="Left Align" disabled='true' onclick="stop()" >
+<span class="glyphicon glyphicon-stop" aria-hidden="true"></span><%=lang.Stop%></button>
+<button type="button" class="btn btn-danger" id='info_run' aria-label="Left Align" disabled='true'>Stopped</button>
+</div> <!-- btn-group -->
+<div class="btn-group">
+<button type="button" id="saveButton" class="btn btn-primary" aria-label="Left Align" onclick="upload_xml('playduino', '<%=_id%>') ">
+<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> <%=lang.Save%></button>
+<button type="button" class="btn btn-success" id='info_save' aria-label="Left Align" disabled='true'>Saved</button>
+</div> <!-- btn-group -->
+<div class="btn-group">
+<button type="button" id="forkButton" class="btn btn-primary" aria-label="Left Align" onclick="fork('playduino', '<%=_id%>', '<%=lang.language%>') " style="display:none">
+<span class="glyphicon glyphicon-random" aria-hidden="true"></span> <%=lang.Fork%></button>
+<button type="button" class="btn btn-danger" id='info_fork' aria-label="Left Align" disabled='true' style="display:none">Note: Modification won't be saved</button>
+</div> <!-- btn-group -->
+</div> <!-- col-md-7 -->
+</div> <!-- row -->
+</div> <!-- container-fluid-->
+
+</td></tr>
+
+<tr valign="top" >
+<td id="blocklyArea" align='center'>
+
+<div id="content_sketch"></div>
+
+<div id="content_code"  style="display:none;">
+<textarea id="textarea_code" readonly></textarea>
+</div>
+
+<div id="content_console" style="display:none; ">
+<textarea id="textarea_console" readonly></textarea>
+<div class="input-group">
+<span class="input-group-addon">>></span>
+<input type="text" class="form-control" id="commandline" onkeypress="commandline_keypress(event)">
+<span class="input-group-addon"><%=lang.Enter%></span>
+</div>
+</div>
+</td>
+</tr>
+</table>
+
+
+
+
+
+
+
+<xml id="toolbox" style="display: none">
+
+<category name="<%=lang.Logic%>">
+<block type="controls_if"></block>
+<block type="logic_compare"></block>
+<block type="logic_operation"></block>
+<block type="logic_negate"></block>
+<block type="logic_boolean"></block>
+<block type="logic_null"></block>
+<block type="logic_ternary"></block>
+</category>
+
+<category name="<%=lang.Loop%>">
+<block type="controls_repeat_ext">
+<value name="TIMES">
+<block type="math_number">
+<field name="NUM">10</field>
+</block>
+</value>
+</block>
+<block type="controls_whileUntil"></block>
+<block type="controls_for">
+<value name="FROM">
+<block type="math_number">
+<field name="NUM">1</field>
+</block>
+</value>
+<value name="TO">
+<block type="math_number">
+<field name="NUM">10</field>
+</block>
+</value>
+<value name="BY">
+<block type="math_number">
+<field name="NUM">1</field>
+</block>
+</value>
+</block>
+<block type="controls_forEach"></block>
+<block type="controls_flow_statements"></block>
+</category>
+
+<category name="<%=lang.Math%>">
+<block type="math_number"></block>
+<block type="math_arithmetic"></block>
+<block type="math_single"></block>
+<block type="math_trig"></block>
+<block type="math_constant"></block>
+<block type="math_number_property"></block>
+<block type="math_change">
+<value name="DELTA">
+<block type="math_number">
+<field name="NUM">1</field>
+</block>
+</value>
+</block>
+<block type="math_round"></block>
+<block type="math_on_list"></block>
+<block type="math_modulo"></block>
+<block type="math_constrain">
+<value name="LOW">
+<block type="math_number">
+<field name="NUM">1</field>
+</block>
+</value>
+<value name="HIGH">
+<block type="math_number">
+<field name="NUM">100</field>
+</block>
+</value>
+</block>
+<block type="math_random_int">
+<value name="FROM">
+<block type="math_number">
+<field name="NUM">1</field>
+</block>
+</value>
+<value name="TO">
+<block type="math_number">
+<field name="NUM">100</field>
+</block>
+</value>
+</block>
+<block type="math_random_float"></block>
+</category>
+
+<category name="<%=lang.Text%>">
+<block type="text"></block>
+<block type="text_join"></block>
+<block type="text_append">
+<value name="TEXT">
+<block type="text"></block>
+</value>
+</block>
+<block type="text_length"></block>
+<block type="text_isEmpty"></block>
+<block type="text_indexOf">
+<value name="VALUE">
+<block type="variables_get">
+<field name="VAR">text</field>
+</block>
+</value>
+</block>
+<block type="text_charAt">
+<value name="VALUE">
+<block type="variables_get">
+<field name="VAR">text</field>
+</block>
+</value>
+</block>
+<block type="text_getSubstring">
+<value name="STRING">
+<block type="variables_get">
+<field name="VAR">text</field>
+</block>
+</value>
+</block>
+<block type="text_changeCase"></block>
+<block type="text_trim"></block>
+<block type="text_print"></block>
+<block type="text_prompt_ext">
+<value name="TEXT">
+<block type="text"></block>
+</value>
+</block>
+</category>
+
+<category name="<%=lang.List%>">
+<block type="lists_create_empty"></block>
+<block type="lists_create_with"></block>
+<block type="lists_repeat">
+<value name="NUM">
+<block type="math_number">
+<field name="NUM">5</field>
+</block>
+</value>
+</block>
+<block type="lists_length"></block>
+<block type="lists_isEmpty"></block>
+<block type="lists_indexOf">
+<value name="VALUE">
+<block type="variables_get">
+<field name="VAR">list</field>
+</block>
+</value>
+</block>
+<block type="lists_getIndex">
+<value name="VALUE">
+<block type="variables_get">
+<field name="VAR">list</field>
+</block>
+</value>
+</block>
+<block type="lists_setIndex">
+<value name="LIST">
+<block type="variables_get">
+<field name="VAR">list</field>
+</block>
+</value>
+</block>
+<block type="lists_getSublist">
+<value name="LIST">
+<block type="variables_get">
+<field name="VAR">list</field>
+</block>
+</value>
+</block>
+</category>
+
+<category name="<%=lang.Variable%>" custom="VARIABLE"></category>
+
+<category name="<%=lang.Function%>" custom="PROCEDURE"></category>
+
+<category name="<%=lang.System%>">
+<block type="print_method"></block>
+</category>
+
+<category name="<%=lang.Board%>">
+<block type="main_board"></block>
+<block type="board_loop_event">
+<value name="interval">
+<block type="math_number">
+<field name="NUM">1000</field>
+</block>
+</value>
+</block>
+<block type="board_wait_event">
+<value name="duration">
+<block type="math_number">
+<field name="NUM">2000</field>
+</block>
+</value>
+</block>
+<block type="board_pinmode_method"></block>
+<block type="board_analogwrite_method"></block>
+<block type="board_digitalwrite_method"></block>
+<block type="board_servowrite_method"></block>
+</category>
+
+<category name="<%=lang.Led%>">
+<block type="led_device">
+<value name="pin">
+<block type="math_number">
+<field name="NUM">13</field>
+</block>
+</value>
+</block>
+<block type="led_on_method"></block>
+<block type="led_off_method"></block>
+<block type="led_toggle_method"></block>
+<block type="led_blink_method"></block>
+<block type="led_brightness_method"></block>
+</category>
+
+<category name="<%=lang.Button%>">
+<block type="button_device"></block>
+<block type="button_press_event"></block>
+<block type="button_release_event"></block>
+<block type="button_hold_event"></block>
+</category>
+
+<category name="<%=lang.Analog%>">
+<block type="analog_device"></block>
+<block type="analog_change_event"></block>
+<block type="analog_data_event"></block>
+<block type="analog_value_parameter"></block>
+</category>
+
+<category name="<%=lang.Digital%>">
+<block type="digital_device"></block>
+<block type="digital_change_event"></block>
+<block type="digital_data_event"></block>
+<block type="digital_value_parameter"></block>
+</category>
+
+<category name="<%=lang.Pin%>">
+<block type="pin_device"></block>
+<block type="pin_write_method"></block>
+<block type="pin_high_method"></block>
+<block type="pin_low_method"></block>
+</category>
+
+<category name="<%=lang.RGBLed%>">
+<block type="RGBled_device"></block>
+<block type="RGBled_color_method"></block>
+<block type="color_constant"></block>
+</category>
+
+<category name="<%=lang.Servo%>">
+<block type="servo_device">
+<value name="pin">
+<block type="math_number">
+<field name="NUM">3</field>
+</block>
+</value>
+<value name="min">
+<block type="math_number">
+<field name="NUM">0</field>
+</block>
+</value>
+<value name="max">
+<block type="math_number">
+<field name="NUM">180</field>
+</block>
+</value>
+</block>
+<block type="servo_to_method"></block>
+<block type="servo_min_method"></block>
+<block type="servo_max_method"></block>
+<block type="servo_sweep_method">
+<value name="between">
+<block type="math_number">
+<field name="NUM">0</field>
+</block>
+</value>
+<value name="and">
+<block type="math_number">
+<field name="NUM">180</field>
+</block>
+</value>
+</block> <!-- servo_sweep_method -->
+<block type="servo_stop_method"></block>
+<block type="servo_cw_method"></block>
+<block type="servo_ccw_method"></block>
+</category>
+
+</xml>
+
+</body>
+</html>
+
