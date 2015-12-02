@@ -17,7 +17,7 @@ var playduino = require('./routes/playduino.js');
 var heartbeat = require('./routes/heartbeat.js');
 
 var mongoose = require('mongoose');
-var db = mongoose.connect('mongodb://localhost/playteka', function(err) {
+var db = mongoose.connect('mongodb://player:tech@localhost:27017/playteka', function(err) {
                           if(err) {
                           console.log('mongodb connection error', err);
                           } else {
