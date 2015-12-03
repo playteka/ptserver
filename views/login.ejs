@@ -205,7 +205,7 @@ $("#reg_btn").click(function(){
 
     var posting = $.post("/register", paramerters);
     posting.done(function(result){
-    	alert("数据：" + JSON.stringify(result) + "\n状态：" + status);
+    	//alert("数据：" + JSON.stringify(result) + "\n状态：" + status);
     	if (result.status == "success") {
 			if ($("#login_remember").prop("checked") ){
 				remember(paramerters.account, paramerters.password);

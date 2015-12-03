@@ -3,6 +3,27 @@
 <head>
 <title><%= title %></title>
 <link rel='stylesheet' href='/stylesheets/style.css' />
+
+<script type="text/javascript">
+
+                      //get language for browsers other than IE10 or ealier versions
+                      var currentLang = navigator.language;
+                      
+                      //get language for browsers of IE10 or ealier versions
+                      if(!currentLang){
+                      currentLang = navigator.browserLanguage;
+                      }
+                      
+                      if(currentLang == 'zh-CN'){
+                      window.location.assign('/login?lang=cn');
+                      }
+                      else{
+                      window.location.assign('/login?lang=en');
+                      }
+                      
+    
+    </script>
+
 </head>
 <body>
 <h1><%= title %></h1>
