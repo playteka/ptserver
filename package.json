@@ -14,7 +14,9 @@
     "morgan": "~1.6.1",
     "serve-favicon": "~2.3.0",
     "express-session": "latest",
+    "connect-redis": "latest",
     "mongoose": "latest",
-    "mongoose-unique-validator" : "latest"
+    "mongoose-unique-validator" : "latest",
+    "log4js" : "latest"
   }
 }
