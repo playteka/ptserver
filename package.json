@@ -16,7 +16,6 @@
     "express-session": "latest",
     "connect-redis": "latest",
     "mongoose": "latest",
-    "mongoose-unique-validator" : "latest",
-    "log4js" : "latest"
+    "mongoose-unique-validator" : "latest"
   }
 }
