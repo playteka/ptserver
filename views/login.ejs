@@ -204,28 +204,39 @@ $("#reg_btn").click(function(){
     paramerters.password = $("#reg_Password").val();
 
     var posting = $.post("/register", paramerters);
+	console.log("login.ejs:" + "post/register:" + JSON.stringify(paramerters));
+	
     posting.done(function(result){
-    	//alert("数据：" + JSON.stringify(result) + "\n状态：" + status);
+    	console.log("login.ejs:" + "post/done:" + JSON.stringify(result));
     	if (result.status == "success") {
 			if ($("#login_remember").prop("checked") ){
 				remember(paramerters.account, paramerters.password);
+				  console.log("login.ejs:" + "post/done/remember:" + JSON.stringify(paramerters));
 			}
 
 			if ('<%=redirect%>' != 'NO') { //redirect to the IDE page of the program
 				window.location.assign('/blockly/app/<%=redirect%>/?&_id=<%=_id%>&lang=<%=lang.language%>');
+				  console.log("login.ejs:" + "post/done/redirect/no:");
 			}
 			else{  //enter the project center page
 				window.location.assign('/project?lang=<%=lang.language%>');
+				  console.log("login.ejs:" + "post/done/redirect/projetcenter:");
 			}
 		}
 		else{
 			if (result.errorno == 1) {  //"User name already exists"
 			show_alert_box('register', '<%=lang.user_already_exists%>');
+			  console.log("login.ejs:" + "post/done/user_already_exists");
+			}
+			else if(result.errorno ==6) {
+			show_alert_box('register', '<%=lang.password_length_less_than_6%>');
+			  console.log("login.ejs:" + "post/done/password_length_less_than_6");				
 			}
 		}
 	})
 	.fail(function(){
 		show_alert_box('register', '<%=lang.network_error%>');
+		  console.log("login.ejs:" + "post/fail/network_error");
 	});
 });
 
