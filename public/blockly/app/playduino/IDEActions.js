@@ -183,7 +183,7 @@ function download_xml(program, _id){
                  //hide save buttong and show fork button
                  $("#saveButton").hide();
                  $("#info_save").hide();
-                 $("#forkButton").show();
+                 //$("#forkButton").show();
                  $("#info_fork").show();
                  
                  //set playduino IP to localhost when program is readonly
@@ -216,8 +216,11 @@ function download_xml(program, _id){
                  //show save button and hide fork button
                  $("#savButton").show();
                  $("#info_save").show();
-                 $("#forkButton").hide();
+                 //$("#forkButton").hide();
                  $("#info_fork").hide();
+                 
+                 //set the menu title to the project name
+                 $("#menu_title").html(result.project_name);
                  
                  //set playduino IP address and connect
                  runFlag.setIPaddress(result.ipaddress);
@@ -438,6 +441,29 @@ function commandline_keypress(event){
     }
 }
 
+// To verify if the program name is valid
+var isNotSafe = function(str) {
+    var filterString = "";
+    filterString = filterString == "" ? "'~`·!?@#$%^&*()-+./\" " : filterString
+    var ch;
+    var i;
+    var temp;
+    var error = false; // 当包含非法字符时，返回True
+    if (str.length == 0) {
+        error = true;
+        return error;
+    }
+    for (i = 0; i <= (filterString.length - 1); i++) {
+        ch = filterString.charAt(i);
+        temp = str.indexOf(ch);
+        if (temp != -1) {
+            error = true;
+            break;
+        }
+    }
+    return error;
+};
+
 function fork(program, _id, language){
     
     if (!isLogin) {  //if it is not login, then go to the login page
@@ -449,7 +475,14 @@ function fork(program, _id, language){
         }
     }
     else{ //if it is logined. Do forking and go to project page
-        var posting = $.post("/blockly/app/"+program+"/fork", {"_id" : _id});
+        //ask user to input the new program name, default name is the same name of the program
+        var current_project_name = $("#menu_title").text();
+        var project_name = prompt(LANG.enter_project_name, current_project_name);
+        if (isNotSafe(project_name)) {
+            alert(LANG.fork_failed);
+            return;
+        }
+        var posting = $.post("/blockly/app/"+program+"/fork", {"_id" : _id, "project_name" : project_name});
         posting.done(function(result){
                      if (result.status == "error") {
                      if (result.errorno == 1) {

@@ -91,6 +91,10 @@ var userProfile = function(){
 window.location.assign('/subscriber?lang=<%=lang.language%>');
 };
 
+var projectCenter = function(){
+window.location.assign('/project?lang=<%=lang.language%>');
+};
+
 //redirectLogin
 var redirectLogin = function(program,_id){
 window.location.assign('/login?redirect=' + program +'&_id=' + _id + '&lang=<%=lang.language%>');
@@ -165,16 +169,18 @@ setInterval("get_heartbeat()", 30*1000);
 <span class="icon-bar"></span>
 <span class="icon-bar"></span>
 </button>
-<a class="navbar-brand" href="#"><%=lang.PlayDuino%></a>
+<a class="navbar-brand" href="#"><%=lang.PlayDuino%>: </a>
+<a id='menu_title' class="navbar-brand" href="#"></a>
 </div>
 <div id="navbar" class="collapse navbar-collapse">
 <ul class="nav navbar-nav">
 <li class="dropdown">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%=lang.File%><span class="caret"></span></a>
 <ul class="dropdown-menu" role="menu">
-<li><a href="#"><%=lang.Open_XML_File%></a></li>
-<li class="divider"></li>
-<li><a href="#" onclick="save()"><%=lang.Save_as_XML_File%></a></li>
+<li><a href="#"><%=lang.Save%></a></li>
+<li><a href="#"><%=lang.Fork%></a></li>
+<!-- li class="divider"></li -->
+<!--li><a href="#" onclick="save()"><%=lang.Save_as_XML_File%></a></li -->
 </ul>
 </li>
 <li><a href="#about"><%=lang.About%></a></li>
@@ -192,6 +198,7 @@ setInterval("get_heartbeat()", 30*1000);
 <ul class="dropdown-menu" role="menu">
 <% if(account) { %>
 <li><a href='#' onclick="userProfile()"><%=lang.User_Profile%></a></li>
+<li><a href='#' onclick="projectCenter()"><%=lang.Project_Center%></a></li>
 <li><a href='#' onclick="logout()"><%=lang.Logout%></a></li>
 <% } else { %>
 <li><a href='#' onclick="redirectLogin('playduino', '<%=_id%>')"><%=lang.Login%></a></li>
@@ -245,9 +252,9 @@ setInterval("get_heartbeat()", 30*1000);
 <button type="button" class="btn btn-success" id='info_save' aria-label="Left Align" disabled='true'>Saved</button>
 </div> <!-- btn-group -->
 <div class="btn-group">
-<button type="button" id="forkButton" class="btn btn-primary" aria-label="Left Align" onclick="fork('playduino', '<%=_id%>', '<%=lang.language%>') " style="display:none">
+<button type="button" id="forkButton" class="btn btn-primary" aria-label="Left Align" onclick="fork('playduino', '<%=_id%>', '<%=lang.language%>') ">
 <span class="glyphicon glyphicon-random" aria-hidden="true"></span> <%=lang.Fork%></button>
-<button type="button" class="btn btn-danger" id='info_fork' aria-label="Left Align" disabled='true' style="display:none">Note: Modification won't be saved</button>
+<!-- button type="button" class="btn btn-danger" id='info_fork' aria-label="Left Align" disabled='true'>Note: Modification won't be saved</button -->
 </div> <!-- btn-group -->
 </div> <!-- col-md-7 -->
 </div> <!-- row -->

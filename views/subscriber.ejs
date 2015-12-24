@@ -23,6 +23,11 @@ window.location.assign('/subscriber?&lang=cn');
 }
 };
 
+//go to project center
+var projectCenter = function(){
+window.location.assign('/project?lang=<%=lang.language%>');
+};
+
 //logout
 var logout = function(){
 var posting = $.post("/logout");
@@ -173,9 +178,8 @@ setInterval("get_heartbeat()", 30*1000);
 <li class="dropdown">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%=account%><span class="caret"></span></a>
 <ul class="dropdown-menu" role="menu">
-<li>
-<a href='#' onclick="logout()"><%=lang.Logout%></a>
-</li>
+<li><a href='#' onclick="projectCenter()"><%=lang.ProjectCenter%></a></li>
+<li><a href='#' onclick="logout()"><%=lang.Logout%></a></li>
 </ul>
 </li>
 

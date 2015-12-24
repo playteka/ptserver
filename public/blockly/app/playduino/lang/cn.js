@@ -90,6 +90,8 @@ var LANG = {
     "MODIFIED" : "已修改",
     
     //result of download_xml
+    "enter_project_name":"请输入你的项目名称",
+    "fork_failed": "再创作失败，您输入了无效的项目名称",
     "not_login": "尚未登录或太久未操作导致超时",
     "not_exist" : "项目不存在",
     "project_deleted" : "项目已经被删除",

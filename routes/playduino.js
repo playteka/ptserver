@@ -63,6 +63,7 @@ router.post('/download', function (req, res) {
                                      if (!account) {
                                      ret.status = "readonly";
                                      ret.errorno = -1;  //program is public but not yet logged in
+                                     ret.project_name = project.project_name;
                                      ret.ipaddress = project.ipaddress;
                                      ret.xml_code = project.xml_code;
                                      res.json(ret);
@@ -70,6 +71,7 @@ router.post('/download', function (req, res) {
                                      else{
                                      ret.status = 'readonly';
                                      ret.errorno = -2;  //program is public and it belongs to others
+                                     ret.project_name = project.project_name;
                                      ret.ipaddress = project.ipaddress;
                                      ret.xml_code = project.xml_code;
                                      res.json(ret);
@@ -79,6 +81,7 @@ router.post('/download', function (req, res) {
                                      else{
                                      ret.status = 'readwrite';
                                      ret.errorno = 0;  //subscriber edit his own program
+                                     ret.project_name = project.project_name;
                                      ret.ipaddress = project.ipaddress;
                                      ret.xml_code = project.xml_code;
                                      res.json(ret);
@@ -147,7 +150,7 @@ router.post('/fork', function (req, res, next) {
             var sess = req.session;
             var account = sess.account;
             var _id = req.body._id;
-            var xml_code = req.body.xml_code;
+            var project_name = req.body.project_name;
             var ret = {};
             
             if (!account) {
@@ -173,13 +176,13 @@ router.post('/fork', function (req, res, next) {
                                      res.json(ret);
                                      }
                                      
-                                     if (project.published != '1') {
+                                     if (project.published != '1' && project.account != account) {
                                      ret.status = "error";
-                                     ret.errorno = 4;  //no rights to fork private program
+                                     ret.errorno = 4;  //no rights to fork private program of other users
                                      res.json(ret);
                                      };
                                      
-                                     PlayduinoProject.create({ 'account':account, 'project_name':project.project_name, 'xml_code':project.xml_code, "fork_from":_id}, 
+                                     PlayduinoProject.create({ 'account':account, 'project_name':project_name, 'xml_code':project.xml_code, "fork_from":_id}, 
                                                              function (err, fork_project) {
                                                              if (err){
                                                              res.json(err);
