@@ -91,6 +91,8 @@ var LANG = {
     "MODIFIED" : "Modified",
     
     //result of download_xml
+    "enter_project_name":"Please enter your project name",
+    "fork_failed": "Fork failed. Your project name is not valid.",
     "not_login": "you haven't logged in yet",
     "not_exist" : "project does not exist",
     "project_deleted" : "project has been deleted",
