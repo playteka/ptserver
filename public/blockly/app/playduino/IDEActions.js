@@ -468,7 +468,7 @@ function fork(program, _id, language){
     
     if (!isLogin) {  //if it is not login, then go to the login page
         if(confirm('Please login at first')){
-            redirectLogin('playduino', program_id);
+            redirectLogin(program, program_id);
         }
         else{
             return;

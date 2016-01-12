@@ -136,7 +136,10 @@ var add_line = function(program, project) {
     var published = (project.published == '1' ? "<%=lang.Public%>" : "<%=lang.Private%>");
     var text = '<tr id=' + DQM(program + _id) + '>';
     text += '<td><a onclick="openProject(' + QM(program) + ',' + QM(_id) + ')"><h4 class="list-group-item-heading">' + project.project_name + '</h4></a></td>';
-    text += '<td align="right"><h4 class="list-group-item-heading">' + ipaddress + '</h4></td>';
+    //playdrawing has no ipaddress
+    if(program != 'playdrawing'){
+        text += '<td align="right"><h4 class="list-group-item-heading">' + ipaddress + '</h4></td>';  
+    } 
     text += '<td align="right"><h4 class="list-group-item-heading">' + published + '</h4></td>';
     text += '<td align="right"><span class="glyphicon glyphicon-th-list" onclick="configProject(' + QM(program) + ',' + QM(_id) + ')"></span></td>';
     text += '</tr>';
@@ -181,7 +184,8 @@ var add_playpi_project = function() {
     var project_name = $("#playpi_project_name").val();
     project_name = project_name.trim();
     if (isNotSafe(project_name)) {
-        $("#playpi_alert_box").show();
+        show_alert_box('playdrawing', "project name consists of only alphabets and numbers!");
+        return;
     } else {
         add_line("playpi", project_name);
         $("#playpi_project_name").val("");
@@ -193,10 +197,30 @@ var add_playdrawing_project = function() {
     project_name = project_name.trim();
     if (isNotSafe(project_name)) {
         $("#playdrawing_alert_box").show();
-    } else {
-        add_line("playdrawing", project_name);
-        $("#playdrawing_project_name").val("");
-    }
+    } 
+    
+    var posting = $.post("/project/playdrawing", {
+        "project_name": project_name
+    });
+    posting.done(function(result) {
+        //alert("数据：" + JSON.stringify(result.body) + "\n状态：" + result.status + result.errorno);
+
+        if (result.status == "error") {
+            if (result.errorno == 1) { //not yet logined.
+                window.location.assign('/login');
+            } else if (result.errorno == 4) { //project name already exists.
+                show_alert_box("playdrawing", "Project name already exists");
+                return;
+            };
+        } else { //result.status == "success"
+            var project = result.body;
+            add_line("playdrawing", project);
+            $("#playdrawing_project_name").val("");
+        }
+    }).
+    fail(function() {
+        alert("Operation failed! Please check your network connection or consult service@playteka.com");
+    });
 };
 
 function get_heartbeat() {
@@ -215,6 +239,7 @@ $(document).ready(function() {
     $("#playpi_alert_box").hide();
     $("#playdrawing_alert_box").hide();
 
+    //insert all playduino projects into the table
     var getting = $.get("/project/playduino");
     getting.done(function(result) {
         if (result.status == 'error') {
@@ -228,9 +253,25 @@ $(document).ready(function() {
         }
     }).
     fail(function() {
-        //alert("network failed!");
+        alert("network failed!");
     });
 
+    //insert all playdrawing projects into the table
+    var getting = $.get("/project/playdrawing");
+    getting.done(function(result) {
+        if (result.status == 'error') {
+            window.location.assign('/login');
+        } else {
+            var project_list = result.body;
+            for (var i in project_list) {
+                //alert(JSON.stringify(project_list[i]));
+                add_line('playdrawing', project_list[i]);
+            }
+        }
+    }).
+    fail(function() {
+        alert("network failed!");
+    });
 
 
     $("#playduino_project_name").keyup(function(event) {
@@ -341,112 +382,80 @@ class = "btn btn-default btn-lg">
 
 <!-- Page Content -->
 
-<a name = "playduino"> </a> <div class = "content-section-a">
-
-    <div class = "container">
+<a name = "playduino"> </a> 
+<div class = "content-section-a">
+<div class = "container">
     <div class = "row">
     <div class = "col-lg-5 col-sm-6">
     <hr class = "section-heading-spacer">
-    <div class = "clearfix"> </div> <h2 class = "section-heading"> <a href = "#home"> <span class = "glyphicon glyphicon-hand-up"> </span></a> <%=lang.PlayDuino%> </h2> <div class = "input-group">
-    <input type = "text"
-class = "form-control"
-placeholder = "<%=lang.Project_Name%>"
-id = "playduino_project_name">
+    <div class = "clearfix"> </div> 
+    <h2 class = "section-heading"> <a href = "#home"> <span class = "glyphicon glyphicon-hand-up"> </span></a> <%=lang.PlayDuino%> </h2> 
+    <div class = "input-group">
+    <input type = "text" class = "form-control" placeholder = "<%=lang.Project_Name%>" id = "playduino_project_name">
     <span class = "input-group-btn">
-    <button class = "btn btn-default"
-type = "button"
-id = "playduino_addproject_button"
-onclick = "add_playduino_project()">
+    <button class = "btn btn-default" type = "button" id = "playduino_addproject_button" onclick = "add_playduino_project()">
     <span class = "glyphicon glyphicon-plus"> </span></button>
     </span> </div><!-- /input - group -->
     <br>
-    <div class = "alert alert-danger"
-role = "alert"
-id = "playduino_alert_box">
+    <div class = "alert alert-danger" role = "alert" id = "playduino_alert_box">
     <span class = "glyphicon glyphicon-exclamation-sign"> </span> Special charaters like space, ~·!?@#$%*()-+, etc must be removed.</div>
-    <table class = "table table-striped table-hover"
-id = "playduino_table">
-    </table> </div> <div class = "col-lg-5 col-lg-offset-2 col-sm-6">
-    <img class = "img-responsive"
-src = "img/ipad.png"
-alt = "">
-    </div> </div>
+    <table class = "table table-striped table-hover" id = "playduino_table">
+    </table> 
+    </div> <!-- /col-lg-5 col-sm-6 -->
+    <div class = "col-lg-5 col-lg-offset-2 col-sm-6">
+    <img class = "img-responsive" src = "img/phones.png" alt = "">
+    </div> <!-- /col img -->
+    </div> <!-- /row -->
+</div><!-- /.container -->
+</div><!-- /.content-section-a -->
 
-</div>
-<!-- /.container -->
-
-</div>
-<!-- /.content-section-a -->
-<a name = "playpi"> </a> <div class = "content-section-b">
+<a name = "playpi"> </a> 
+<div class = "content-section-b">
     <div class = "container">
     <div class = "row">
     <div class = "col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
     <hr class = "section-heading-spacer">
-    <div class = "clearfix"> </div> <h2 class = "section-heading"> <a href = "#home"> <span class = "glyphicon glyphicon-hand-up"> </span></a> <%=lang.PlayPi%> </h2> <div class = "input-group">
-    <input type = "text"
-class = "form-control"
-placeholder = "<%=lang.Project_Name%>"
-id = "playpi_project_name">
+    <div class = "clearfix"> </div> <h2 class = "section-heading"> <a href = "#home"> <span class = "glyphicon glyphicon-hand-up"> </span></a> <%=lang.PlayPi%> </h2> 
+    <div class = "input-group">
+    <input type = "text" class = "form-control" placeholder = "<%=lang.Project_Name%>" id = "playpi_project_name">
     <span class = "input-group-btn">
-    <button class = "btn btn-default"
-type = "button"
-id = "playpi_addproject_button"
-onclick = "add_playpi_project()">
+    <button class = "btn btn-default" type = "button" id = "playpi_addproject_button" onclick = "add_playpi_project()">
     <span class = "glyphicon glyphicon-plus"> </span></button>
     </span> </div><!-- /input - group -->
     <br>
-    <div class = "alert alert-danger"
-role = "alert"
-id = "playpi_alert_box">
+    <div class = "alert alert-danger" role = "alert" id = "playpi_alert_box">
     <span class = "glyphicon glyphicon-exclamation-sign"> </span> Special charaters like space, ~·!@#$%*()-+, etc must be removed.</div>
-    <table class = "table table-striped table-hover"
-id = "playpi_table">
-    </table> </div> <div class = "col-lg-5 col-sm-pull-6  col-sm-6">
-    <img class = "img-responsive"
-src = "img/dog.png"
-alt = "">
-    </div> </div>
+    <table class = "table table-striped table-hover" id = "playpi_table">
+    </table> </div> 
+    <div class = "col-lg-5 col-sm-pull-6  col-sm-6">
+    <img class = "img-responsive" src = "img/dog.png" alt = "">
+    </div> <!-- /col img -->
+    </div> <!-- /row -->
+</div><!-- /.container -->
+</div><!-- /.content-section-b -->
 
-</div>
-<!-- /.container -->
-
-</div>
-<!-- /.content-section-b -->
 <a name = "playdrawing"> </a> <div class = "content-section-a">
     <div class = "container">
     <div class = "row">
     <div class = "col-lg-5 col-sm-6">
     <hr class = "section-heading-spacer">
     <div class = "clearfix"> </div> <h2 class = "section-heading"> <a href = "#home"> <span class = "glyphicon glyphicon-hand-up"> </span></a> <%=lang.PlayDrawing%> </h2> <div class = "input-group">
-    <input type = "text"
-class = "form-control"
-placeholder = "<%=lang.Project_Name%>"
-id = "playdrawing_project_name">
+    <input type = "text" class = "form-control" placeholder = "<%=lang.Project_Name%>" id = "playdrawing_project_name">
     <span class = "input-group-btn">
-    <button class = "btn btn-default"
-type = "button"
-id = "playdrawing_addproject_button"
-onclick = "add_playdrawing_project()">
+    <button class = "btn btn-default" type = "button" id = "playdrawing_addproject_button" onclick = "add_playdrawing_project()">
     <span class = "glyphicon glyphicon-plus"> </span></button>
     </span> </div><!-- /input - group -->
     <br>
-    <div class = "alert alert-danger"
-role = "alert"
-id = "playdrawing_alert_box">
+    <div class = "alert alert-danger" role = "alert" id = "playdrawing_alert_box">
     <span class = "glyphicon glyphicon-exclamation-sign"> </span> Special charaters like space, ~·!@#$%*()-+, etc must be removed.</div>
-    <table class = "table table-striped table-hover"
-id = "playdrawing_table">
-    </table> </div> <div class = "col-lg-5 col-lg-offset-2 col-sm-6">
-    <img class = "img-responsive"
-src = "img/phones.png"
-alt = "">
-    </div> </div>
-
-</div>
-<!-- /.container -->
-
-</div>
-<!-- /.content-section-a -->
+    <table class = "table table-striped table-hover" id = "playdrawing_table">
+    </table> </div> 
+    <div class = "col-lg-5 col-lg-offset-2 col-sm-6">
+    <img class = "img-responsive" src = "img/ipad.png" alt = "">
+    </div><!-- /col img -->
+    </div><!-- /row -->
+</div><!-- /.container -->
+</div><!-- /.content-section-a -->
 
 <a name = "contact"> </a> <div class = "banner">
 

@@ -85,10 +85,42 @@ PlaypiProjectSchema.plugin(uniqueValidator);
 //PlaypiProjectSchema.index({ account: 1, project_name: 1}, { unique: true });
 
 var PlaydrawingProjectSchema = new Schema({
-    account: String,
-    project_name: String,
-    xml_code: String,
-    active: String
+    account: {
+        type: String,
+        required: true
+    },
+    project_name: {
+        type: String,
+        required: true
+    },
+    xml_code: {
+        type: String,
+        default: null
+    },
+    ipaddress: {  //not used
+        type: String,
+        default: '127.0.0.1'
+    },
+    active: {
+        type: String,
+        default: '1'
+    },
+    published: {
+        type: String,
+        default: '1'
+    },
+    fork_from: {
+        type: String,
+        default: null
+    },
+    date_created: {
+        type: Date,
+        default: Date.now()
+    },
+    date_modified: {
+        type: Date,
+        default: Date.now()
+    }
 });
 PlaydrawingProjectSchema.plugin(uniqueValidator);
 //PlaydrawingProject.index({ account: 1, project_name: 1}, { unique: true });

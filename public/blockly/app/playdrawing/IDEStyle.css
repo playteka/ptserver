@@ -1,0 +1,78 @@
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.starter-template {
+    padding: 40px 15px;
+    text-align: center;
+}
+
+.scrollspy-example {
+    height: 100px;
+    overflow: auto;
+    overflow-x:hidden;
+    overflow-y:visible;
+}
+
+.row {
+    margin-bottom: 3px;
+}
+
+table {
+    height: 100%;
+    width: 100%;
+}
+#blocklyArea {
+    height: 99%;
+}
+
+#content_sketch {
+    height: 98%;
+    width: 98%;
+    
+    overflow: auto;
+}
+
+#content_canvas {
+    height: 98%;
+    width: 98%;
+    
+    overflow: auto;
+}
+
+#processing_iframe{
+    border : 0px;   
+}
+
+#content_console {
+    height: 98%;
+    width: 98%;
+    
+    overflow: auto;
+}
+
+#content_code {
+    height: 98%;
+    width: 98;
+    
+    overflow: auto;
+}
+
+#textarea_console {
+    height: 90%;
+    width: 100%;
+    border: 1px solid #ccc;
+    resize: none;
+    overflow: auto;
+}
+
+#textarea_code {
+    height: 100%;
+    width: 98%;
+    border: 1px solid #ccc;
+    resize: none;
+    overflow: auto;
+}
+

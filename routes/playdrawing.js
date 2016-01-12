@@ -3,8 +3,9 @@ var router = express.Router();
 
 var mongoose = require('mongoose');
 var Subscriber = require('../db/schema.js').Subscriber;
-var PlayduinoProject = require('../db/schema.js').PlayduinoProject;
+var PlaydrawingProject = require('../db/schema.js').PlaydrawingProject;
 
+//display the playdrawing page
 router.get('/', function(req, res) {
     if (!req.query._id) {
         res.redirect('/login'); //if no project id, then go to login page
@@ -15,25 +16,25 @@ router.get('/', function(req, res) {
     resource._id = req.query._id;
 
     if (req.query.lang == "cn") {
-        var lang = require("../public/blockly/app/playduino/lang/playduino_cn.json");
+        var lang = require("../public/blockly/app/playdrawing/lang/playdrawing_cn.json");
     } else {
-        var lang = require("../public/blockly/app/playduino/lang/playduino_en.json");
+        var lang = require("../public/blockly/app/playdrawing/lang/playdrawing_en.json");
     }
     resource.lang = lang;
     resource.account = sess.account;
     resource.isLogin = resource.account == null ? false : true;
 
-    res.render('playduino.ejs', resource);
+    res.render('playdrawing.ejs', resource);
 });
 
-
+//download playdrawing program
 router.post('/download', function(req, res) {
     var sess = req.session;
     var account = sess.account;
     var _id = req.body._id;
     var ret = {};
 
-    PlayduinoProject.findOne({
+    PlaydrawingProject.findOne({
         '_id': _id
     }, function(err, project) {
         if (err) {
@@ -87,6 +88,7 @@ router.post('/download', function(req, res) {
     });
 });
 
+//upload and save the playdrawing program
 router.post('/upload', function(req, res, next) {
     var sess = req.session;
     var account = sess.account;
@@ -100,7 +102,7 @@ router.post('/upload', function(req, res, next) {
         res.json(ret);
     }
 
-    PlayduinoProject.findOne({
+    PlaydrawingProject.findOne({
         '_id': _id
     }, function(err, project) {
         if (err) {
@@ -143,6 +145,7 @@ router.post('/upload', function(req, res, next) {
     });
 });
 
+//fork the program
 router.post('/fork', function(req, res, next) {
     var sess = req.session;
     var account = sess.account;
@@ -156,7 +159,7 @@ router.post('/fork', function(req, res, next) {
         res.json(ret);
     }
 
-    PlayduinoProject.findOne({
+    PlaydrawingProject.findOne({
         '_id': _id
     }, function(err, project) {
         if (err) {
@@ -180,7 +183,7 @@ router.post('/fork', function(req, res, next) {
                 res.json(ret);
             };
 
-            PlayduinoProject.create({
+            PlaydrawingProject.create({
                     'account': account,
                     'project_name': project_name,
                     'xml_code': project.xml_code,

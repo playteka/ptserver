@@ -94,6 +94,7 @@ alert("Operation failed!");
 });
 };
 
+/*
 var privateEvent = new Event('privateEvent');
 var publicEvent = new Event('publicEvent');
 
@@ -124,6 +125,7 @@ document.addEventListener('publicEvent', function(event){
 $("#publish_private").attr('class', 'inactive');
 $("#publish_public").attr('class', 'active');
 });
+*/
 
 //字符串首尾加单引号
 var QM = function(s){
@@ -411,21 +413,6 @@ setTimeout('$("#publish_alert_box").fadeOut(1000)', 3000);
 <div class="alert alert-danger" role="alert" id="publish_alert_box" style="display:none">
 <span class="glyphicon glyphicon-exclamation-sign"></span> rename alert box </div>
 </div> 
-</div> <!--/.panel-success -->
-
-<div class="panel panel-success">
-<div class="panel-heading"><%=lang.Project_Name%></div>
-<div class="panel-body">
-<div class="input-group">
-<input type="text" class="form-control" id="playduino_project_name">
-<span class="input-group-btn">
-<button class="btn btn-primary" type="button" id="playduino_rename_button" disabled="true" onclick=""><%=lang.rename%></button>
-</span>
-</div><!-- /input-group -->
-<br>
-<div class="alert alert-danger" role="alert" id="rename_alert_box" style="display:none">
-<span class="glyphicon glyphicon-exclamation-sign"></span> rename alert box </div>
-</div> <!--/.panel-body -->
 </div> <!--/.panel-success -->
 
 <div class="panel panel-danger">

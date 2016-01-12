@@ -15,6 +15,7 @@ var subscriber = require('./routes/subscriber.js');
 var project = require('./routes/project.js');
 var playduinoconfig = require('./routes/playduinoconfig.js');
 var playduino = require('./routes/playduino.js');
+var playdrawing = require('./routes/playdrawing.js');
 var heartbeat = require('./routes/heartbeat.js');
 
 var mongoose = require('mongoose');
@@ -50,6 +51,7 @@ app.use('/subscriber', subscriber);
 app.use('/project', project);
 app.use('/playduinoconfig', playduinoconfig);
 app.use('/blockly/app/playduino', playduino);
+app.use('/blockly/app/playdrawing', playdrawing);
 app.use('/heartbeat', heartbeat);
 //app.get('/users', users.list);
 //app.post('/register', users.register);
