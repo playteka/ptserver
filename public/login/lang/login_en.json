@@ -19,6 +19,7 @@
     "Sign_up" : "Sign up",
     "user_already_exists" : "User name alreay exists",
     "password_length_less_than_6" : "The length of password is less than 6",
+    "user_name_is_not_a_valid_email_address" : "User name is not a valid email address",
     "network_error" : "Network Connection error!"
     
 }

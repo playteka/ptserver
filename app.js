@@ -53,8 +53,6 @@ app.use('/playduinoconfig', playduinoconfig);
 app.use('/blockly/app/playduino', playduino);
 app.use('/blockly/app/playdrawing', playdrawing);
 app.use('/heartbeat', heartbeat);
-//app.get('/users', users.list);
-//app.post('/register', users.register);
 
 
 // catch 404 and forward to error handler

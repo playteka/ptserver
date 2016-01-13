@@ -342,13 +342,20 @@ function run() {
 }
 
 function stop() {
-    //send the 'stop' message to broker
-    if (broker_socekt != null) {
-        broker_socekt.emit('stop', 'stop');
-    };
+	//get container
+	var container = document.getElementById("content_canvas");
+	//get iframe
+	var oldIframe = document.getElementById("processing_iframe");
+	//remove the iframe if it exists
+	if(oldIframe){
+		container.removeChild(oldIframe);
+	}
 
-    //disable stop button
-    //document.getElementById('stopButton').disabled = true;
+    //set the status to stopped
+    runFlag.setFlag('STOPPED');
+    
+    //show the sketch tab
+    tabClick('tab_sketch');
 }
 
 
