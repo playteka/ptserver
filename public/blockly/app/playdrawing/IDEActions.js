@@ -322,7 +322,7 @@ function run() {
 	var scriptEnd = '<\/script>';
 	//create canvas for processing		
 	var newIframe = createCanvas();
-	newIframe.width = '1024';newIframe.height = '768';
+	//newIframe.width = '1024';newIframe.height = '768';
 	//create datauri	
 	var datauri = 'data:text/html;charset=utf-8,' +
 			encodeURIComponent('<!DOCTYPE html>'+

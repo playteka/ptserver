@@ -44,7 +44,9 @@ table {
 
 #processing_iframe{
     border : 0px;
-    padding: 0px;   
+    padding: 0px;
+    height: 98%;
+    width: 98%; 
 }
 
 #content_console {
