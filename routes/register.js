@@ -6,19 +6,10 @@ var Subscriber = require('../db/schema.js').Subscriber;
 
 
 //check the email format
-function isemail(email) { 
-    try {
-        if (email.search(/^w+((-w+)|(.w+))*@[a-za-z0-9]+((.|-)[a-za-z0-9]+)*.[a-za-z0-9]+$/) != -1) 
-        { 
-            return true; 
-        }else{ 
-            return false; 
-        } 
-    } catch (error) {
-        Console.log(error);
-    }
-
-} 
+var isemail = function(str) {   
+    var re = /^([a-za-z0-9]+[_|-|.]?)*[a-za-z0-9]+@([a-za-z0-9]+[_|-|.]?)*[a-za-z0-9]+.[a-za-z]{2,3}$/;   
+    return re.test(str);   
+};  
 
 
 // register a new subscriber
@@ -38,7 +29,7 @@ router.post('/', function(req, res) {
             if(!isemail(account)){
                 ret.status = 'error';
                 ret.errorno = 7 //the account is not in email format
-                ret.json(ret);
+                res.json(ret);
             }
             
             
