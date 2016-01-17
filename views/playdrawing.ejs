@@ -29,7 +29,16 @@
 <script type="text/javascript" src="./lang/<%=lang.language%>.js"></script>
 
 <!--- include blocks source files -->
-
+<script type="text/javascript" src="./blocks/object.js"></script>
+<script type="text/javascript" src="./blocks/p5_structure.js"></script>
+<script type="text/javascript" src="./blocks/p5_color.js"></script>
+<script type="text/javascript" src="./blocks/p5_pen.js"></script>
+<script type="text/javascript" src="./blocks/p5_2d_shape.js"></script>
+<script type="text/javascript" src="./blocks/p5_math.js"></script>
+<script type="text/javascript" src="./blocks/p5_keyboard.js"></script>
+<script type="text/javascript" src="./blocks/p5_mouse.js"></script>
+<script type="text/javascript" src="./blocks/p5_env.js"></script>
+<script type="text/javascript" src="./blocks/p5_trigonometry.js"></script>
 
 <!-- Include socket.io -->
 <script src="./socket.io/socket.io.js"></script>
@@ -123,9 +132,9 @@ var workspace;
 
 //define update function when change happens
 function myUpdateFunction() {
-	//all_devices.init();
+	all_objects.init();
 	var code = Blockly.JavaScript.workspaceToCode(workspace);
-	//all_devices.append();
+	all_objects.append();
 
 	//update code textarea and set 'MODIFIED' flag when javascript code is changed
 	if(code != document.getElementById('textarea_code').value){
@@ -140,7 +149,7 @@ $(document).ready(function(){
 	tabClick("tab_sketch");
 
 	//inject blockly
-	var workspace = Blockly.inject( document.getElementById('content_sketch'),
+	workspace = Blockly.inject( document.getElementById('content_sketch'),
 				{media: '../../media/', toolbox:document.getElementById('toolbox')} );
 
 	//add change listener of blockly
@@ -269,6 +278,7 @@ $(document).ready(function(){
 <div id="content_sketch"></div>
 
 <div id="content_canvas"  style="display:none;">
+    <iframe id='processing_iframe' src='template.html'></iframe>
 </div>
 
 <div id="content_code"  style="display:none;">
@@ -460,6 +470,199 @@ $(document).ready(function(){
 
 <category name="<%=lang.Function%>" custom="PROCEDURE"></category>
 
+							
+                            <!--category name="Object Definition">
+                            <block type="object_definition"></block>
+                            <block type="object_property"></block>
+                            <block type="object_function"></block>
+                            <block type="object_get_property"></block>
+                            <block type="object_set_property"></block>
+                            <block type="object_call_with_return_function"></block>
+                            <block type="object_call_no_return_function"></block>
+                            
+                            </category>
+                            <category name="Object Usage">
+                            <block type="object_new_object"></block>
+                            <block type="object_get_variable_s_property"></block>
+                            <block type="object_set_variable_s_property"></block>
+                            <block type="object_call_variable_s_with_retrun_function"></block>
+                            <block type="object_call_variable_s_no_retrun_function"></block>
+                            </category-->
+                            
+
+                            <category name="Structure">
+                            <block type="p5_setup"></block>
+                            <block type="p5_draw"></block>
+                            <block type="p5_preload"></block>
+                            </category>
+
+                            <category name="Color">
+                            <block type="p5_color">
+                                <value name="RED"><block type="math_number"><field name="NUM">255</field></block></value>
+                                <value name="GREEN"><block type="math_number"><field name="NUM">255</field></block></value>
+                                <value name="BLUE"><block type="math_number"><field name="NUM">255</field></block></value>
+                            </block>
+                            </category>
+
+                            <category name="Pen">
+                                <block type='p5_background'>
+                                    <value name="COLOR"><block type="math_number"><field name="NUM">255</field></block></value>
+                                </block>
+                                <block type='p5_clear'></block>
+                                <block type='p5_fill'>
+                                    <value name="COLOR"><block type="math_number"><field name="NUM">255</field></block></value>
+                                </block>
+                                <block type='p5_nofill'></block>
+                                <block type='p5_stroke'>
+                                    <value name="COLOR"><block type="math_number"><field name="NUM">255</field></block></value>
+                                </block>
+                                <block type='p5_nostroke'></block>
+                                <block type='p5_strokeWeight'>
+                                    <value name="WEIGHT"><block type="math_number"><field name="NUM">1</field></block></value>
+                                </block>
+                            </category>
+
+                            <category name='2D Shape'>
+                                <block type='p5_point'>
+                                    <value name="X"><block type="math_number"><field name="NUM">0</field></block></value>
+                                    <value name="Y"><block type="math_number"><field name="NUM">0</field></block></value>
+                                </block>
+                                <block type='p5_line'>
+                                    <value name="X1"><block type="math_number"><field name="NUM">0</field></block></value>
+                                    <value name="Y1"><block type="math_number"><field name="NUM">0</field></block></value>
+                                    <value name="X2"><block type="math_number"><field name="NUM">10</field></block></value>
+                                    <value name="Y2"><block type="math_number"><field name="NUM">10</field></block></value>
+                                </block>
+                                <block type='p5_triangle'>
+                                    <value name="X1"><block type="math_number"><field name="NUM">0</field></block></value>
+                                    <value name="Y1"><block type="math_number"><field name="NUM">0</field></block></value>
+                                    <value name="X2"><block type="math_number"><field name="NUM">10</field></block></value>
+                                    <value name="Y2"><block type="math_number"><field name="NUM">10</field></block></value>
+                                    <value name="X3"><block type="math_number"><field name="NUM">0</field></block></value>
+                                    <value name="Y3"><block type="math_number"><field name="NUM">20</field></block></value>
+                                </block>
+                                <block type='p5_rect'>
+                                    <value name="X"><block type="math_number"><field name="NUM">0</field></block></value>
+                                    <value name="Y"><block type="math_number"><field name="NUM">0</field></block></value>
+                                    <value name="WIDTH"><block type="math_number"><field name="NUM">10</field></block></value>
+                                    <value name="HEIGHT"><block type="math_number"><field name="NUM">10</field></block></value>
+                                </block>
+                                <block type='p5_round_rect'>
+                                    <value name="X"><block type="math_number"><field name="NUM">0</field></block></value>
+                                    <value name="Y"><block type="math_number"><field name="NUM">0</field></block></value>
+                                    <value name="WIDTH"><block type="math_number"><field name="NUM">20</field></block></value>
+                                    <value name="HEIGHT"><block type="math_number"><field name="NUM">20</field></block></value>
+                                    <value name="RADIUS"><block type="math_number"><field name="NUM">5</field></block></value>
+                                </block>
+                                <block type='p5_quad'>
+                                    <value name="X1"><block type="math_number"><field name="NUM">0</field></block></value>
+                                    <value name="Y1"><block type="math_number"><field name="NUM">0</field></block></value>
+                                    <value name="X2"><block type="math_number"><field name="NUM">0</field></block></value>
+                                    <value name="Y2"><block type="math_number"><field name="NUM">10</field></block></value>
+                                    <value name="X3"><block type="math_number"><field name="NUM">10</field></block></value>
+                                    <value name="Y3"><block type="math_number"><field name="NUM">10</field></block></value>
+                                    <value name="X4"><block type="math_number"><field name="NUM">10</field></block></value>
+                                    <value name="Y4"><block type="math_number"><field name="NUM">0</field></block></value>
+                                </block>
+                                <block type='p5_ellipse'>
+                                    <value name="X"><block type="math_number"><field name="NUM">0</field></block></value>
+                                    <value name="Y"><block type="math_number"><field name="NUM">0</field></block></value>
+                                    <value name="WIDTH"><block type="math_number"><field name="NUM">10</field></block></value>
+                                    <value name="HEIGHT"><block type="math_number"><field name="NUM">10</field></block></value>
+                                </block>
+                            </category>
+
+                            <category name='Mathmatics'>
+                                <block type='p5_math_constant'></block>
+                                <block type='p5_math_random'>
+                                    <value name="MIN"><block type="math_number"><field name="NUM">0</field></block></value>
+                                    <value name="MAX"><block type="math_number"><field name="NUM">1</field></block></value>
+                                </block>
+                                <block type='p5_math_abs'>
+                                    <value name="X"><block type="math_number"><field name="NUM">0</field></block></value>
+                                </block>
+                                <block type='p5_math_dist2d'>
+                                    <value name="X1"><block type="math_number"><field name="NUM">0</field></block></value>
+                                    <value name="Y1"><block type="math_number"><field name="NUM">0</field></block></value>
+                                    <value name="X2"><block type="math_number"><field name="NUM">0</field></block></value>
+                                    <value name="Y2"><block type="math_number"><field name="NUM">0</field></block></value>
+                                </block>
+                                <block type='p5_math_dist3d'>
+                                    <value name="X1"><block type="math_number"><field name="NUM">0</field></block></value>
+                                    <value name="Y1"><block type="math_number"><field name="NUM">0</field></block></value>
+                                    <value name="Z1"><block type="math_number"><field name="NUM">0</field></block></value>
+                                    <value name="X2"><block type="math_number"><field name="NUM">0</field></block></value>
+                                    <value name="Y2"><block type="math_number"><field name="NUM">0</field></block></value>
+                                    <value name="Z2"><block type="math_number"><field name="NUM">0</field></block></value>
+                                </block>
+                                <block type='p5_math_map'>
+                                    <value name="VALUE"><block type="math_number"><field name="NUM">5</field></block></value>
+                                    <value name="CURRENT_START"><block type="math_number"><field name="NUM">0</field></block></value>
+                                    <value name="CURRENT_STOP"><block type="math_number"><field name="NUM">10</field></block></value>
+                                    <value name="TARGET_START"><block type="math_number"><field name="NUM">0</field></block></value>
+                                    <value name="TARGET_STOP"><block type="math_number"><field name="NUM">1</field></block></value>
+                                </block>
+                                <block type='p5_math_ceil'>
+                                    <value name="X"><block type="math_number"><field name="NUM">0.5</field></block></value>
+                                </block>
+                                <block type='p5_math_floor'>
+                                    <value name="X"><block type="math_number"><field name="NUM">0.5</field></block></value>
+                                </block>
+                                <block type='p5_math_contrain'>
+                                    <value name="VALUE"><block type="math_number"><field name="NUM">50</field></block></value>
+                                    <value name="MIN"><block type="math_number"><field name="NUM">0</field></block></value>
+                                    <value name="MAX"><block type="math_number"><field name="NUM">100</field></block></value>
+                                </block>
+                            </category>
+
+                            <category name='Trigonometry'>
+                                <block type='p5_trigonometry_anglemode'></block>
+                                <block type='p5_trigonometry_sin'><value name="ANGLE"><block type="p5_math_constant"></block></value></block>
+                                <block type='p5_trigonometry_cos'><value name="ANGLE"><block type="p5_math_constant"></block></value></block>
+                                <block type='p5_trigonometry_tan'><value name="ANGLE"><block type="p5_math_constant"></block></value></block>
+                                <block type='p5_trigonometry_asin'>
+                                    <value name="VALUE"><block type="math_number"><field name="NUM">0</field></block></value>
+                                </block>
+                                <block type='p5_trigonometry_acos'>
+                                    <value name="VALUE"><block type="math_number"><field name="NUM">0</field></block></value>
+                                </block>
+                                <block type='p5_trigonometry_atan'>
+                                    <value name="VALUE"><block type="math_number"><field name="NUM">0</field></block</value>                  
+                                </block>
+                            </category>
+
+                            <category name='Keyboard'>
+                                <block type='p5_keyboard_keyispressed'></block>
+                                <block type='p5_keyboard_key'></block>
+                                <block type='p5_keyboard_keycode'></block>
+                                <block type='p5_keyboard_code'></block>
+                                <block type='p5_keyboard_keypressed'></block>
+                                <block type='p5_keyboard_keyreleased'></block>
+                                <block type='p5_keyboard_keytyped'></block>
+                                <block type='p5_keyboard_keyisdown'>
+                                     <value name="CODE"><block type="p5_keyboard_code"></block></value>
+                                </block>
+                            </category>
+
+                            <category name='Mouse'>
+                                <block type='p5_mouse_mousex'></block>
+                                <block type='p5_mouse_mousey'></block>
+                                <block type='p5_mouse_mouseispressed'></block>
+                                <block type='p5_mouse_mousemoved'></block>
+                                <block type='p5_mouse_mousedragged'></block>
+                                <block type='p5_mouse_mousepressed'></block>
+                                <block type='p5_mouse_mousereleased'></block>
+                                <block type='p5_mouse_mouseclicked'></block>
+                            </category>
+
+                            <category name='Environment'>
+                                <block type='p5_env_createcanvas'>
+                                    <value name="WIDTH"><block type="math_number"><field name="NUM">800</field></block></value>
+                                    <value name="HEIGHT"><block type="math_number"><field name="NUM">600</field></block></value>
+                                </block>
+                                <block type='p5_env_width'></block>
+                                <block type='p5_env_height'></block>
+                            </category>
 </xml>
 
 </body>

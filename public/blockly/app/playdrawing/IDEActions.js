@@ -228,6 +228,10 @@ function download_xml(program, _id) {
                     alert('Error parsing XML:\n' + e);
                     return;
                 }
+                
+                //initiate the all_objects and append obj and prop as default
+                //all_objects.init();
+                //all_objects.append();
                 //load XML into workspace
                 Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
                 //invoke myUpdateFunction() to generate the obj_set for object dropdown menu
@@ -259,14 +263,30 @@ function download_xml(program, _id) {
                     alert('Error parsing XML:\n' + e);
                     return;
                 }
+                
+                //initiate the all_objects and append obj and prop as default
+                //all_objects.init();
+                //all_objects.append();
+                try{
                 //load XML into workspace
-                Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
+                Blockly.Xml.domToWorkspace(workspace, xml);
+                } catch(e){
+                    console.log('domToWorkspace Error: ' + e);
+                }
                 //invoke myUpdateFunction() to generate the obj_set for object dropdown menu
                 myUpdateFunction();
                 //clear the workspace
-                Blockly.mainWorkspace.clear();
+                try{
+                workspace.clear();
+                }catch(e){
+                    console.log('workspace.clear() Error: ' + e);
+                }
                 //load XML again so that even the Chinese characters of the dropdown menu will be shown properly
-                Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
+                try{
+                Blockly.Xml.domToWorkspace(workspace, xml);
+                } catch(e){
+                    console.log('second domToWorkspace Error: ' + e);
+                }
             }
         }). // posting.done
     fail(function() {
@@ -316,13 +336,25 @@ function run() {
     
     //get code
     var code = document.getElementById('textarea_code').value;
+    
+    if (code.indexOf('new p5()') === -1) {
+        code += '\nnew p5();';
+    }
+    
+    var userScript = $('#processing_iframe')[0].contentWindow.document.createElement('script');
+    userScript.type = 'text/javascript';
+    userScript.text = code;
+    userScript.async = false;
+    $('#processing_iframe')[0].contentWindow.document.body.appendChild(userScript);
+    
+    /*
     //prepare P5 and scripts
 	var includeP5 = '<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.20/p5.min.js" type="text/javascript"><\/script>';
 	var scriptStart = '<script type="text/javascript">';
 	var scriptEnd = '<\/script>';
 	//create canvas for processing		
 	var newIframe = createCanvas();
-	newIframe.width = '1024';newIframe.height = '768';
+	//newIframe.width = '1024';newIframe.height = '768';
 	//create datauri	
 	var datauri = 'data:text/html;charset=utf-8,' +
 			encodeURIComponent('<!DOCTYPE html>'+
@@ -339,10 +371,13 @@ function run() {
     newIframe.src = datauri;
     //append the iframe to the content_canvas
 	document.getElementById("content_canvas").appendChild(newIframe);
+    */
 }
 
 function stop() {
-	//get container
+	
+    /*
+    //get container
 	var container = document.getElementById("content_canvas");
 	//get iframe
 	var oldIframe = document.getElementById("processing_iframe");
@@ -350,7 +385,11 @@ function stop() {
 	if(oldIframe){
 		container.removeChild(oldIframe);
 	}
-
+    */
+    
+    //refresh the source file of the processing iframe
+    $('#processing_iframe').attr('src', $('#processing_iframe').attr('src'));
+    
     //set the status to stopped
     runFlag.setFlag('STOPPED');
     
