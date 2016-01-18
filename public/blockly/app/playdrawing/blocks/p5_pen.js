@@ -74,7 +74,7 @@ Blockly.Blocks['p5_nofill'] = {
 
 Blockly.JavaScript['p5_nofill'] = function(block) {
   // TODO: Assemble JavaScript into code variable.
-  var code = 'nofill();\n';
+  var code = 'noFill();\n';
   return code;
 };
 
