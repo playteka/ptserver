@@ -3,7 +3,7 @@
 Blockly.Blocks['p5_mouse_mousex'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("mouseX");
+        .appendField(LANG["mouseX"]);
     this.setInputsInline(true);
     this.setOutput(true, "Number");
     this.setColour(20);
@@ -22,7 +22,7 @@ Blockly.JavaScript['p5_mouse_mousex'] = function(block) {
 Blockly.Blocks['p5_mouse_mousey'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("mouseY");
+        .appendField(LANG["mouseY"]);
     this.setInputsInline(true);
     this.setOutput(true, "Number");
     this.setColour(20);
@@ -41,7 +41,7 @@ Blockly.JavaScript['p5_mouse_mousey'] = function(block) {
 Blockly.Blocks['p5_mouse_mouseispressed'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Mouse is pressed");
+        .appendField(LANG["Mouse is pressed"]);
     this.setInputsInline(true);
     this.setOutput(true, "Boolean");
     this.setColour(20);
@@ -60,7 +60,7 @@ Blockly.JavaScript['p5_mouse_mouseispressed'] = function(block) {
 Blockly.Blocks['p5_mouse_mousemoved'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Mouse Moved");
+        .appendField(LANG["Mouse Moved"]);
     this.appendStatementInput("BODY");
     this.setColour(65);
     this.setTooltip('');
@@ -80,7 +80,7 @@ Blockly.JavaScript['p5_mouse_mousemoved'] = function(block) {
 Blockly.Blocks['p5_mouse_mousedragged'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Mouse Dragged");
+        .appendField(LANG["Mouse Dragged"]);
     this.appendStatementInput("BODY");
     this.setColour(65);
     this.setTooltip('');
@@ -100,7 +100,7 @@ Blockly.JavaScript['p5_mouse_mousedragged'] = function(block) {
 Blockly.Blocks['p5_mouse_mousepressed'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Mouse Pressed");
+        .appendField(LANG["Mouse Pressed"]);
     this.appendStatementInput("BODY");
     this.setColour(65);
     this.setTooltip('');
@@ -121,7 +121,7 @@ Blockly.JavaScript['p5_mouse_mousepressed'] = function(block) {
 Blockly.Blocks['p5_mouse_mousereleased'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Mouse Released");
+        .appendField(LANG["Mouse Released"]);
     this.appendStatementInput("BODY");
     this.setColour(65);
     this.setTooltip('');
@@ -141,7 +141,7 @@ Blockly.JavaScript['p5_mouse_mousereleased'] = function(block) {
 Blockly.Blocks['p5_mouse_mouseclicked'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Mouse Clicked");
+        .appendField(LANG["Mouse Clicked"]);
     this.appendStatementInput("BODY");
     this.setColour(65);
     this.setTooltip('');

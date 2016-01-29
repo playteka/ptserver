@@ -22,13 +22,13 @@ Blockly.JavaScript['p5_math_constant'] = function(block) {
 Blockly.Blocks['p5_math_random'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("random");
+        .appendField(LANG["random"]);
     this.appendValueInput("MIN")
         .setCheck("Number")
-        .appendField("min");
+        .appendField(LANG["min"]);
     this.appendValueInput("MAX")
         .setCheck("Number")
-        .appendField("max");
+        .appendField(LANG["max"]);
     this.setInputsInline(true);
     this.setOutput(true, "Number");
     this.setColour(230);
@@ -46,32 +46,10 @@ Blockly.JavaScript['p5_math_random'] = function(block) {
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
-
-Blockly.Blocks['p5_math_abs'] = {
-  init: function() {
-    this.appendValueInput("X")
-        .setCheck("Number")
-        .appendField("abs");
-    this.setInputsInline(true);
-    this.setOutput(true, "Number");
-    this.setColour(230);
-    this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
-  }
-};
-
-Blockly.JavaScript['p5_math_abs'] = function(block) {
-  var value_x = Blockly.JavaScript.valueToCode(block, 'X', Blockly.JavaScript.ORDER_ATOMIC);
-  // TODO: Assemble JavaScript into code variable.
-  var code = 'abs(' + value_x + ')';
-  // TODO: Change ORDER_NONE to the correct strength.
-  return [code, Blockly.JavaScript.ORDER_ATOMIC];
-};
-
 Blockly.Blocks['p5_math_dist2d'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("dist");
+        .appendField(LANG["dist"]);
     this.appendValueInput("X1")
         .setCheck("Number")
         .appendField("X1");
@@ -106,7 +84,7 @@ Blockly.JavaScript['p5_math_dist2d'] = function(block) {
 Blockly.Blocks['p5_math_dist3d'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("dist 3D");
+        .appendField(LANG["dist 3D"]);
     this.appendValueInput("X1")
         .setCheck("Number")
         .appendField("X1");
@@ -149,21 +127,21 @@ Blockly.JavaScript['p5_math_dist3d'] = function(block) {
 Blockly.Blocks['p5_math_map'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("map");
+        .appendField(LANG["map"]);
     this.appendValueInput("VALUE")
-        .appendField("value");
+        .appendField(LANG["value"]);
     this.appendValueInput("CURRENT_START")
         .setCheck("Number")
-        .appendField("current start");
+        .appendField(LANG["current start"]);
     this.appendValueInput("CURRENT_STOP")
         .setCheck("Number")
-        .appendField("current stop");
+        .appendField(LANG["current stop"]);
     this.appendValueInput("TARGET_START")
         .setCheck("Number")
-        .appendField("target start");
+        .appendField(LANG["target start"]);
     this.appendValueInput("TARGET_STOP")
         .setCheck("Number")
-        .appendField("target stop");
+        .appendField(LANG["target stop"]);
     this.setInputsInline(true);
     this.setOutput(true, "Number");
     this.setColour(230);
@@ -232,16 +210,16 @@ Blockly.JavaScript['p5_math_floor'] = function(block) {
 Blockly.Blocks['p5_math_contrain'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("constrain");
+        .appendField(LANG["constrain"]);
     this.appendValueInput("VALUE")
         .setCheck("Number")
-        .appendField("value");
+        .appendField(LANG["value"]);
     this.appendValueInput("MIN")
         .setCheck("Number")
-        .appendField("min");
+        .appendField(LANG["min"]);
     this.appendValueInput("MAX")
         .setCheck("Number")
-        .appendField("max");
+        .appendField(LANG["max"]);
     this.setInputsInline(true);
     this.setOutput(true, "Number");
     this.setColour(230);
@@ -260,3 +238,106 @@ Blockly.JavaScript['p5_math_contrain'] = function(block) {
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
+Blockly.Blocks['p5_math_trig'] = {
+  init: function() {
+    this.appendValueInput("VALUE")
+        .setCheck("Number")
+        .appendField(new Blockly.FieldDropdown([["sin", "sin"], ["cos", "cos"], ["tan", "tan"], ["asin", "asin"], ["acos", "acos"], ["atan", "atan"]]), "fun");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.Blocks['p5_math_anglemode'] = {
+  init: function() {
+    this.appendDummyInput()
+    	.appendField(LANG["Angle Mode"])
+        .appendField(new Blockly.FieldDropdown([[LANG["RADIANS"], "RADIANS"], [LANG["DEGREES"], "DEGREES"]]), "MODE");
+    this.setInputsInline(true);
+    this.setOutput(false);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(230);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.JavaScript['p5_math_anglemode'] = function(block) {
+  var dropdown_mode = block.getFieldValue('MODE');
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'angleMode(' + dropdown_mode + ');\n' ;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return code;
+};
+
+Blockly.JavaScript['p5_math_trig'] = function(block) {
+  var dropdown_fun = block.getFieldValue('fun');
+  var value_value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
+  //Assemble JavaScript into code variable.
+  var code = dropdown_fun + '(' + value_value +')' ;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.Blocks['p5_math_rounding'] = {
+  init: function() {
+    this.appendValueInput("VALUE")
+        .setCheck("Number")
+        .appendField(new Blockly.FieldDropdown([[LANG["round"], "round"], [LANG["ceil"], "ceil"], [LANG["floor"], "floor"]]), "fun");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.JavaScript['p5_math_rounding'] = function(block) {
+  var dropdown_fun = block.getFieldValue('fun');
+  var value_value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = dropdown_fun + '(' + value_value +')' ;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.Blocks['p5_math_misc'] = {
+  init: function() {
+    this.appendValueInput("VALUE")
+        .setCheck("Number")
+        .appendField(new Blockly.FieldDropdown([[LANG["abs"], "abs"], ["exp", "exp"], ["log", "log"], [LANG["sq"], "sq"], [LANG["sqrt"], "sqrt"]]), "fun");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+
+Blockly.JavaScript['p5_math_misc'] = function(block) {
+  var dropdown_fun = block.getFieldValue('fun');
+  var value_value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
+  //Assemble JavaScript into code variable.
+  var code = dropdown_fun + '(' + value_value +')' ;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.Blocks['p5_math_minmax'] = {
+  init: function() {
+    this.appendValueInput("VALUE")
+        .setCheck("Array")
+        .appendField(new Blockly.FieldDropdown([[LANG["min"], "min"], [LANG["max"], "max"]]), "fun");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.JavaScript['p5_math_minmax'] = function(block) {
+  var dropdown_fun = block.getFieldValue('fun');
+  var value_value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = dropdown_fun + '(' + value_value +')' ;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};

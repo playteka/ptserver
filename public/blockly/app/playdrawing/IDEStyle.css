@@ -31,8 +31,6 @@ table {
 #content_sketch {
     height: 98%;
     width: 98%;
-    
-    overflow: auto;
 }
 
 #content_canvas {

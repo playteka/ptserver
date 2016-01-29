@@ -24,16 +24,16 @@ Blockly.JavaScript['p5_gray'] = function(block) {
 Blockly.Blocks['p5_color'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Color");
+        .appendField(LANG["Color"]);
     this.appendValueInput("RED")
         .setCheck("Number")
-        .appendField("Red");
+        .appendField(LANG["Red"]);
     this.appendValueInput("GREEN")
         .setCheck("Number")
-        .appendField("Green");
+        .appendField(LANG["Green"]);
     this.appendValueInput("BLUE")
         .setCheck("Number")
-        .appendField("Blue");
+        .appendField(LANG["Blue"]);
     this.setInputsInline(true);
     this.setOutput(true, "color_type");
     this.setColour(290);

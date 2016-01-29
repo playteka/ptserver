@@ -8,49 +8,72 @@ init: function(){
     this.object_list.length = 0;
     this.object_list_dropdown.length = 0;
 
-    //clear property JSON array like ['obj':['prop1','prop2',...]]
+    //clear property JSON array like {'obj':['prop1','prop2',...]}
     for(var i in this.property_list){
         this.property_list[i].length = 0;
     }
-    //clear JSON array like ['obj':[['prop1','prop1_inside'],['prop2','prop2_inside']],...]
+    //clear JSON object like {'obj':[['prop1','prop1_inside'],['prop2','prop2_inside']],...}
     for(var i in this.property_list_dropdown){
         this.property_list_dropdown[i].length = 0;
     }
-
-    //clear with_return_function JSON array like ['obj':['fun1','fun2',...]]
-    for(var i in this.with_return_function_list){
-        this.with_return_function_list[i].length = 0;
-    }
-    //clear with_return_function JSON array like ['obj':[['fun1','fun1_inside'],['fun2','fun2_inside']],...]
-    for(var i in this.with_return_function_list_dropdown){
-        this.with_return_function_list_dropdown[i].length = 0;
-    }
  
-    //clear no_return_function JSON array like ['obj':['fun1','fun2',...]]
-    for(var i in this.with_return_function_list){
-        this.no_return_function_list[i].length = 0;
+    //clear function JSON object like {'obj':['fun1','fun2',...]}
+    for(var i in this.function_list){
+        this.function_list[i].length = 0;
     }
-    //clear no_return_function JSON array like ['obj':[['fun1','fun1_inside'],['fun2','fun2_inside']],...]
-    for(var i in this.with_return_function_list_dropdown){
-        this.no_return_function_list_dropdown[i].length = 0;
+    //clear function dropdown menu JSON object like {'obj':[['fun1','fun1_inside'],['fun2','fun2_inside']],...}
+    for(var i in this.function_list_dropdown){
+        this.function_list_dropdown[i].length = 0;
     }
 },
+init_prop:function(object_inside_name){
+    //if the property list of the object is undefined, then create it
+    if (this.property_list[object_inside_name] == undefined) {
+        this.property_list[object_inside_name] = new Array();
+    }
+    //if the property list dropdown menu of the object is undefined, then create it
+    if (this.property_list_dropdown[object_inside_name] == undefined) {
+        this.property_list_dropdown[object_inside_name] = new Array();
+    }
+    //clear the property list of the object
+    this.property_list[object_inside_name].length = 0;
+    //clear the property list dropdown menu of the object
+    this.property_list_dropdown[object_inside_name].length = 0;
+},
+init_fun:function(object_inside_name){
+    //if the function list of the object is undefined, then create it
+    if (this.function_list[object_inside_name] == undefined) {
+        this.function_list[object_inside_name] = new Array();
+    }
+    //if the function list dropdown menu of the object is undefined, then create it
+    if (this.function_list_dropdown[object_inside_name] == undefined) {
+        this.function_list_dropdown[object_inside_name] = new Array();
+    }
+    //clear the function list of the object
+    this.function_list[object_inside_name].length = 0;
+    //clear the function list dropdown menu of the object
+    this.function_list_dropdown[object_inside_name].length = 0;
+},
 append: function(){
-    //object list
+    //if no objects are defined in the program, add 'obj' as default
     if (this.object_list.length == 0) { this.object_list.push('obj'); }
     if (this.object_list_dropdown.length == 0) { this.object_list_dropdown.push(['obj', 'obj']); }
 
-    //property list
+    //if no properties are defined in the 'obj', add 'prop' as default property of 'obj'
     if (this.property_list['obj'].length == 0) { this.property_list['obj'].push('prop'); }
     if (this.property_list_dropdown['obj'].length == 0) { this.property_list_dropdown['obj'].push(['prop', 'prop']); }
 
-    //with_return_function list
-    if (this.with_return_function_list['obj'].length == 0) { this.with_return_function_list['obj'].push('fun'); }
-    if (this.with_return_function_list_dropdown['obj'].length == 0) { this.with_return_function_list_dropdown['obj'].push(['fun', 'fun']); }
-
-    //no_return_function list
-    if (this.no_return_function_list['obj'].length == 0) { this.with_return_function_list['obj'].push('fun'); }
-    if (this.no_return_function_list_dropdown['obj'].length == 0) { this.with_return_function_list_dropdown['obj'].push(['fun', 'fun']); }
+    //if no functions are defined in the 'obj', add 'fun' as default function of 'obj'
+    if (this.function_list['obj'].length == 0) { this.function_list['obj'].push('fun'); }
+    if (this.function_list_dropdown['obj'].length == 0) { this.function_list_dropdown['obj'].push(['fun', 'fun']); }
+},
+append_prop: function(object_inside_name){
+    if (this.property_list[object_inside_name].length == 0) { this.property_list[object_inside_name].push('prop'); }
+    if (this.property_list_dropdown[object_inside_name].length == 0) { this.property_list_dropdown[object_inside_name].push(['prop', 'prop']); }
+},
+append_fun:function(object_inside_name){
+    if (this.function_list[object_inside_name].length == 0) { this.function_list[object_inside_name].push('fun'); }
+    if (this.function_list_dropdown[object_inside_name].length == 0) { this.function_list_dropdown[object_inside_name].push(['fun', 'fun']); }
 },
 create_inside_name: function(outside_name) {
     //return inside_name base on outside_name
@@ -71,20 +94,15 @@ all_objects.current_object = 'none';
 all_objects.object_list = new Array('obj');
 all_objects.object_list_dropdown = new Array(['obj', 'obj']);
 //default value of property list
-all_objects.property_list = new Array();
+all_objects.property_list = {};
 all_objects.property_list['obj'] = new Array('prop');
-all_objects.property_list_dropdown = new Array();
+all_objects.property_list_dropdown = {};
 all_objects.property_list_dropdown['obj'] = new Array(['prop', 'prop']);
-//default value of with_return_function list
-all_objects.with_return_function_list = new Array();
-all_objects.with_return_function_list['obj'] = new Array('fun');
-all_objects.with_return_function_list_dropdown = new Array();
-all_objects.with_return_function_list_dropdown['obj'] = new Array(['fun', 'fun']);
 //default value of no_return_function list
-all_objects.no_return_function_list = new Array();
-all_objects.no_return_function_list['obj'] = new Array('fun');
-all_objects.no_return_function_list_dropdown = new Array();
-all_objects.no_return_function_list_dropdown['obj'] = new Array(['fun', 'fun']);
+all_objects.function_list = {};
+all_objects.function_list['obj'] = new Array('fun');
+all_objects.function_list_dropdown = {};
+all_objects.function_list_dropdown['obj'] = new Array(['fun', 'fun']);
 
 
 //arduino board block
@@ -255,85 +273,20 @@ Blockly.JavaScript['object_definition'] = function(block) {
 
     //get the object name
     var object_name = block.getFieldValue('name');
+    var object_inside_name = all_devices.create_inside_name(object_name);
     
     //push object into the object list and the dropdown menu of object list
-    all_objects.object_list.push(object_name);
-    var inside_name = all_objects.create_inside_name(object_name);
-    all_objects.object_list_dropdown.push([object_name,inside_name]);
+    all_objects.object_list.push(object_inside_name);
+    all_objects.object_list_dropdown.push([object_name,object_inside_name]);
 
-    //initialize property list of this object
-    if(all_objects.property_list[object_name]){
-        //clear the list
-        all_objects.property_list[object_name].length = 0;
-        //push default value into the list
-        all_objects.property_list[object_name].push('prop');
-    }
-    else{
-        //create a list
-        all_objects.property_list[object_name] = new Array();
-        //push default value into the list
-        all_objects.property_list[object_name].push('prop');
-    }
-    //initialize the property dropdown menu
-    if (all_objects.property_list_dropdown[object_name]) {
-        all_objects.property_list_dropdown[object_name].length = 0;
-        //push a default value into the list
-        all_objects.property_list_dropdown[object_name].push(['prop','prop']);
-    }
-    else{
-        all_objects.property_list_dropdown[object_name] = new Array();
-        //push a default value into the list
-        all_objects.property_list_dropdown[object_name].push(['prop','prop']);
-    }
+    //initialize and clear the property list of this object
+    all_objects.init_prop(object_inside_name);
 
-    //initialize with_return_function list of this object
-    if(all_objects.with_return_function_list[object_name]){
-        all_objects.with_return_function_list[object_name].length = 0;
-        //push default value into the list
-        all_objects.with_return_function_list[object_name].push('fun');
-    }
-    else{
-        all_objects.with_return_function_list[object_name] = new Array();
-        //push default value into the list
-        all_objects.with_return_function_list[object_name].push('fun');
-    }
-    //initialize with_return_function list dropdown menu
-    if (all_objects.with_return_function_list_dropdown[object_name]) {
-        all_objects.with_return_function_list_dropdown[object_name].length = 0;
-        //push default value into the list
-        all_objects.with_return_function_list_dropdown[object_name].push(['fun','fun']);
-    }
-    else{
-        all_objects.with_return_function_list_dropdown[object_name] = new Array();
-        //push default value into the list
-        all_objects.with_return_function_list_dropdown[object_name].push(['fun','fun']);
-    }
-
-    //initialize with_return_function list of this object
-    if(all_objects.no_return_function_list[object_name]){
-        all_objects.no_return_function_list[object_name].length = 0;
-        //push default value into the list
-        all_objects.no_return_function_list[object_name].push('fun');
-    }
-    else{
-        all_objects.no_return_function_list[object_name] = new Array();
-        //push default value into the list
-        all_objects.no_return_function_list[object_name].push('fun');
-    }
-    //initialize with_return_function list dropdown menu
-    if (all_objects.no_return_function_list_dropdown[object_name]) {
-        all_objects.no_return_function_list_dropdown[object_name].length = 0;
-        //push default value into the list
-        all_objects.no_return_function_list_dropdown[object_name].push(['fun','fun']);
-    }
-    else{
-        all_objects.no_return_function_list_dropdown[object_name] = new Array();
-        //push default value into the list
-        all_objects.no_return_function_list_dropdown[object_name].push(['fun','fun']);
-    }
+    //initialize and clear the function list of this object
+    all_objects.init_fun(object_inside_name);   
 
     //set this object as current object
-    all_objects.current_object = object_name;
+    all_objects.current_object = object_inside_name;
 
     // assemble the connections
     var connection_list = new Array();
@@ -347,21 +300,17 @@ Blockly.JavaScript['object_definition'] = function(block) {
     //set current object back to 'none'
     all_objects.current_object = 'none';
 
-    //remove the first element from the property list
-    all_objects.property_list[object_name].shift();
-    all_objects.property_list_dropdown[object_name].shift();
-    //remove the first element from with_return_function list
-    all_objects.with_return_function_list[object_name].shift();
-    all_objects.with_return_function_list_dropdown[object_name].shift();
-    //remove the first element from the no_return_function list
-    all_objects.no_return_function_list[object_name].shift();
-    all_objects.no_return_function_list_dropdown[object_name].shift();
+    //append prop if no properties are defined in the object
+    all_objects.append_prop(object_inside_name);
+
+    //append fun if no functions are defined in the object
+    all_objects.append_fun(object_inside_name);
     
     //assemble devices
-    var property_defintions = "\n" + connection_list.join("\n") +"\n";
+    var property_defintions = connection_list.join("\n") +"\n";
     
     //assemble code
-    var code = "function " + inside_name +"() {\n";
+    var code = "function " + object_inside_name +"() {\n";
     code += property_defintions;
     code += "}\n";
     
@@ -389,25 +338,30 @@ Blockly.JavaScript['object_property'] = function(block) {
     //get the property name
     var text_prop_var = block.getFieldValue('prop_var');
     //get the inside property nanme
-    var inside_name = all_objects.create_inside_name(text_prop_var);
+    var inside_name = all_devices.create_inside_name(text_prop_var);
     //get the initial value of the property
     var value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
     //if user didn't set the intial value of the propety, set null as default
     value = value ? value : 'null';
     
-    //get the parent object of this property
-    var parent = all_objects.current_object;
+    //get the owner object of this property
+    var owner = all_objects.current_object;
 
-    if (parent != 'none') {
+    if (owner != 'none') {
         //push the property variable into the property list and the proerty list dropdown menu
-        all_objects.property_list[parent].push(text_prop_var);
-        all_objects.property_list_dropdown[parent].push([text_prop_var,inside_name]);
+        all_objects.property_list[owner].push(inside_name);
+        all_objects.property_list_dropdown[owner].push([text_prop_var,inside_name]);
+        
+        //Assemble code
+        var code = "this." + inside_name + " = " + value + ";"
+    
+        return [code, Blockly.JavaScript.ORDER_ATOMIC];
+    }
+    else{ //owner is 'none'
+        return [null, Blockly.JavaScript.ORDER_ATOMIC];
     }
  
-    //Assemble code
-    var code = "this." + inside_name + " = " + value + ";"
-    
-    return [code, Blockly.JavaScript.ORDER_ATOMIC];
+
 };
 
 // the object property
@@ -419,10 +373,6 @@ init: function() {
     this.appendDummyInput("DUMMY")
     .appendField(LANG["Define function"])
     .appendField(new Blockly.FieldTextInput("fun"), "fun_var");
-
-    this.appendDummyInput("DUMMY")
-    .appendField(LANG["With return"])
-    .appendField(new Blockly.FieldCheckbox("FALSE"), "with_return_var");
 
     this.appendStatementInput("PROGRAM")
 
@@ -436,35 +386,30 @@ Blockly.JavaScript['object_function'] = function(block) {
     //get function name
     var text_fun_var = block.getFieldValue('fun_var');
     //get the inside function name
-    var inside_name = all_objects.create_inside_name(text_fun_var);
-    //whether is has return value
-    var with_return_var = block.getFieldValue('with_return_var');
-    
-    //get the parent object of this property
-    var parent = all_objects.current_object;
-
-    if (parent != 'none') {
-        if (with_return_var == 'TRUE') {
-            //push with_return_function into the list and the dropdown menu list
-            all_objects.with_return_function_list[parent].push(text_fun_var);
-            all_objects.with_return_function_list_dropdown[parent].push([text_fun_var,inside_name]);          
-        }
-        else{ // no return function
-            //push the no_return_function into the list and the dropdown menu list
-            all_objects.no_return_function_list[parent].push(text_fun_var);
-            all_objects.no_return_function_list_dropdown[parent].push([text_fun_var,inside_name]);
-        }
-    }
+    var inside_name = all_devices.create_inside_name(text_fun_var);
     // get program statements
     var program_statements = Blockly.JavaScript.statementToCode(block, 'PROGRAM');
+    
+    //get the owner object of this function
+    var owner = all_objects.current_object;
 
-    //assemble the code
-    var code = 'this.' + inside_name + ' = function(){ \n';
-    code += program_statements;
-    code += '};';
+    if (owner != 'none') {
+        //push the function into the function list and the function list dropdown menu
+        all_objects.function_list[owner].push(text_fun_var);
+        all_objects.function_list_dropdown[owner].push([text_fun_var,inside_name]);
 
-    return [code, Blockly.JavaScript.ORDER_ATOMIC];
+        //assemble the code
+        var code = 'this.' + inside_name + ' = function(){ \n';
+        code += program_statements;
+        code += '};';
+
+        return [code, Blockly.JavaScript.ORDER_ATOMIC];
+    }
+    else{ //owner is 'none'
+        return [null, Blockly.JavaScript.ORDER_ATOMIC];   
+    }
 };  
+
 
 // get property
 Blockly.Blocks['object_get_property'] = {
@@ -516,8 +461,7 @@ init: function() {
     var prop_field = this.getField_('prop_var');
     
     // set the the mendu of prop field to a new array.
-    if (parent != null && parent != 'none' 
-        && all_objects.property_list_dropdown[parent].length > 0) {
+    if (parent != null && parent != 'none') {
         prop_field.menuGenerator_ = all_objects.property_list_dropdown[parent];
     }
     else{ // parent == "none" or null
@@ -528,8 +472,9 @@ init: function() {
 
 Blockly.JavaScript['object_get_property'] = function(block) {
 
+    if (all_objects.current_object != block.parent_object) {
         block.updateShape_(all_objects.current_object);
-    
+    }
 
     if (all_objects.current_object != 'none') {
         var prop_var = block.getFieldValue('prop_var');
@@ -599,8 +544,7 @@ init: function() {
     var prop_field = this.getField_('prop_var');
     
     // set the the mendu of prop field to a new array.
-    if (parent != null && parent != 'none' 
-        && all_objects.property_list_dropdown[parent].length > 0) {
+    if (parent != null && parent != 'none') {
         prop_field.menuGenerator_ = all_objects.property_list_dropdown[parent];
     }
     else{ // parent == "none" or null, or no property defined
@@ -628,104 +572,15 @@ Blockly.JavaScript['object_set_property'] = function(block) {
     }
 };
 
-// call with_return_function in the object definition scope
-Blockly.Blocks['object_call_with_return_function'] = {
-init: function() {
-    this.setHelpUrl('http://www.example.com/');
-    this.setColour(180);
-
-    this.appendDummyInput('FUNCTION')
-    .appendField(LANG["Call function"])
-    .appendField(new Blockly.FieldDropdown(all_objects.with_return_function_list_dropdown['obj']), "fun_var");
-    this.parent_object = 'none';
-    this.updateShape_(this.parent_object);
-
-    this.setOutput(true);
-    this.setTooltip('');
-},
-  /**
-   * Create XML to represent whether the 'divisorInput' should be present.
-   * @return {Element} XML storage element.
-   * @this Blockly.Block
-   */
-  mutationToDom: function() {
-    var container = document.createElement('mutation');
-    container.setAttribute('parentObject', this.parent_object);
-    return container;
-  },
-  /**
-   * Parse XML to restore the 'divisorInput'.
-   * @param {!Element} xmlElement XML storage element.
-   * @this Blockly.Block
-   */
-  domToMutation: function(xmlElement) {
-    var parent = xmlElement.getAttribute('parentObject');
-    this.updateShape_(parent);
-  },
-  /**
-   * Modify this block to have (or not have) an input for 'is divisible by'.
-   * @param {boolean} divisorInput True if this block has a divisor input.
-   * @private
-   * @this Blockly.Block
-   */
-  updateShape_: function(parent) {
-    // set parent_object to the current parent
-    this.parent_object = parent;
-    
-    //get the fun field
-    var fun_field = this.getField_('fun_var');
-    var menu = all_objects.with_return_function_list_dropdown[parent];
-    
-    // set the the mendu of prop field to a new array.
-    if (parent != null && parent != 'none' && menu.length > 0) {
-        fun_field.menuGenerator_ = menu;
-    }
-    else{ // parent == "none" or null, or no with_return_function defined
-        fun_field.menuGenerator_ = all_objects.with_return_function_list_dropdown['obj'];
-    }
-    
-    /*
-    // Add or remove a Value Input.
-    if (parent != 'none') {
-        this.removeInput('FUNCTION');
-        this.appendDummyInput("FUNCTION")
-            .appendField(LANG["Call function"])
-            .appendField(new Blockly.FieldDropdown(all_objects.with_return_function_list_dropdown[parent]), "fun_var");
-    }
-    else{ // parent == "none"
-        this.removeInput('FUNCTION');
-        this.appendDummyInput("FUNCTION")
-            .appendField(LANG["Call function"]);
-    }
-    */
-    }
-};
-
-Blockly.JavaScript['object_call_with_return_function'] = function(block) {
-
-    if (block.parent_object != all_objects.current_object) {
-        block.updateShape_(all_objects.current_object);
-    }
-
-    if (all_objects.current_object != 'none') {
-        var fun_var = block.getFieldValue('fun_var');
-        var code = 'this.' + fun_var + '()';
-        return [code, Blockly.JavaScript.ORDER_ATOMIC];
-    }
-    else{
-        return null;
-    }
-};
-
 // call no_return_function in the object definition scope
-Blockly.Blocks['object_call_no_return_function'] = {
+Blockly.Blocks['object_call_function'] = {
 init: function() {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(180);
 
     this.appendDummyInput('FUNCTION')
     .appendField(LANG["Call function"])
-    .appendField(new Blockly.FieldDropdown(all_objects.no_return_function_list_dropdown['obj']), "fun_var");
+    .appendField(new Blockly.FieldDropdown(all_objects.function_list_dropdown['obj']), "fun_var");
     this.parent_object = 'none';
     this.updateShape_(this.parent_object);
 
@@ -765,34 +620,19 @@ init: function() {
     
     //get the fun field
     var fun_field = this.getField_('fun_var');
-    var menu = all_objects.no_return_function_list_dropdown[parent];
     
     // set the the mendu of prop field to a new array.
-    if (parent != null && parent != 'none' && menu.length > 0) {
-        fun_field.menuGenerator_ = menu;
+    if (parent != null && parent != 'none') {
+        fun_field.menuGenerator_ = all_objects.function_list_dropdown[parent];
     }
-    else{ // parent == "none" or null, or no with_return_function defined
-        fun_field.menuGenerator_ = all_objects.no_return_function_list_dropdown['obj'];
+    else{ // parent == "none" or null, or no function defined
+        fun_field.menuGenerator_ = all_objects.function_list_dropdown['obj'];
+    }
     }
 
-    /*
-    // Add or remove a Value Input.
-    if (parent != 'none') {
-        this.removeInput('FUNCTION');
-        this.appendDummyInput("FUNCTION")
-            .appendField(LANG["Call function"])
-            .appendField(new Blockly.FieldDropdown(all_objects.no_return_function_list_dropdown[parent]), "fun_var");
-    }
-    else{ // parent == "none"
-        this.removeInput('FUNCTION');
-        this.appendDummyInput("FUNCTION")
-            .appendField(LANG["Call function"]);
-    }
-    */
-    }
 };
 
-Blockly.JavaScript['object_call_no_return_function'] = function(block) {
+Blockly.JavaScript['object_call_function'] = function(block) {
 
     if (block.parent_object != all_objects.current_object) {
         block.updateShape_(all_objects.current_object);
@@ -807,7 +647,6 @@ Blockly.JavaScript['object_call_no_return_function'] = function(block) {
         return null;
     }
 };
-
 
 // create a new object
 Blockly.Blocks['object_new_object'] = {
@@ -840,21 +679,25 @@ init: function() {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(180);
 
+    //set 'obj' as default in the object menu
+    this.selected_object = 'obj';
+    //prepare the dropdown for object menu
+    var dropdown = new Blockly.FieldDropdown(all_objects.object_list_dropdown, function(option) {
+        if (option != this.sourceBlock_.selected_object) {
+            this.sourceBlock_.updateShape_(option);            
+        }
+    });
+
     this.appendValueInput("VAR")
         .appendField(LANG["Get"]);
 
-    var dropdown = new Blockly.FieldDropdown(all_objects.object_list_dropdown, function(option) {
-      this.sourceBlock_.updateShape_(option);
-    });
     this.appendDummyInput("OBJECT")
         .appendField(LANG["s"])
         .appendField(dropdown, "object_var");
 
-    this.appendDummyInput('PROPERTY')
-        .appendField('.');
-
-    this.selected_object = 'obj';
-    //this.updateShape_(this.selected_object);
+        this.appendDummyInput("PROPERTY")
+            .appendField('.')
+            .appendField(new Blockly.FieldDropdown(all_objects.property_list_dropdown['obj']), "prop_var");
 
     this.setInputsInline(true);
     this.setOutput(true);
@@ -890,20 +733,16 @@ init: function() {
    */
   updateShape_: function(obj) {
 
-    outside_name = all_objects.find_property_outside_name(obj);
+    this.selected_object = obj; 
 
-    this.selected_object = outside_name;    
+    //get the prop field
+    var prop_field = this.getField_('prop_var');
 
-    if (all_objects.property_list_dropdown[outside_name] != null && all_objects.property_list_dropdown[outside_name].length > 0) {
-        this.removeInput('PROPERTY');
-        this.appendDummyInput("PROPERTY")
-            .appendField('.')
-            .appendField(new Blockly.FieldDropdown(all_objects.property_list_dropdown[outside_name]), "prop_var");
+    if (all_objects.property_list_dropdown[obj] != null) {
+        prop_field.menuGenerator_ = all_objects.property_list_dropdown[obj];
     }
     else {
-        this.removeInput('PROPERTY');
-        this.appendDummyInput("PROPERTY")
-            .appendField('.');
+        prop_field.menuGenerator_ = all_objects.property_list_dropdown['obj'];
     }
     }
 };
@@ -925,29 +764,35 @@ Blockly.JavaScript['object_get_variable_s_property'] = function(block) {
     }
 };
 
+
 // set property from variable
 Blockly.Blocks['object_set_variable_s_property'] = {
 init: function() {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(180);
 
+    //set 'obj' as default in the object menu
+    this.selected_object = 'obj';
+    //prepare the dropdown for object menu
+    var dropdown = new Blockly.FieldDropdown(all_objects.object_list_dropdown, function(option) {
+        if (option != this.sourceBlock_.selected_object) {
+            this.sourceBlock_.updateShape_(option);            
+        }
+    });
+
     this.appendValueInput("VAR")
         .appendField(LANG["Set"]);
 
-    var dropdown = new Blockly.FieldDropdown(all_objects.object_list_dropdown, function(option) {
-      this.sourceBlock_.updateShape_(option);
-    });
     this.appendDummyInput("OBJECT")
         .appendField(LANG["s"])
         .appendField(dropdown, "object_var");
 
     this.appendDummyInput('PROPERTY')
-        .appendField('.');
+        .appendField('.')
+        .appendField(new Blockly.FieldDropdown(all_objects.property_list_dropdown['obj']), "prop_var");
 
     this.appendValueInput("VALUE")
         .appendField(LANG["To"]);
-
-    this.selected_object = 'obj';
 
     this.setInputsInline(true);
     this.setPreviousStatement(true);
@@ -985,29 +830,21 @@ init: function() {
    */
   updateShape_: function(obj) {
 
-    outside_name = all_objects.find_property_outside_name(obj);
+    this.selected_object = obj; 
 
-    this.selected_object = outside_name;    
+    //get the prop field
+    var prop_field = this.getField_('prop_var');
 
-    if (all_objects.property_list_dropdown[outside_name] != null && all_objects.property_list_dropdown[outside_name].length > 0) {
-        this.removeInput('PROPERTY');
-        this.appendDummyInput("PROPERTY")
-            .appendField('.')
-            .appendField(new Blockly.FieldDropdown(all_objects.property_list_dropdown[outside_name]), "prop_var");
-        this.moveInputBefore("PROPERTY", "VALUE");
+    if (all_objects.property_list_dropdown[obj] != null) {
+        prop_field.menuGenerator_ = all_objects.property_list_dropdown[obj];
     }
     else {
-        this.removeInput('PROPERTY');
-        this.appendDummyInput("PROPERTY")
-            .appendField('.');
-        this.moveInputBefore("PROPERTY", "VALUE");
+        prop_field.menuGenerator_ = all_objects.property_list_dropdown['obj'];
     }
     }
 };
 
 Blockly.JavaScript['object_set_variable_s_property'] = function(block) {
-
-    //block.updateShape_(this.selected_object);
     
     var variable= Blockly.JavaScript.valueToCode(block, 'VAR', Blockly.JavaScript.ORDER_ATOMIC);
     var prop_var = block.getFieldValue('prop_var')
@@ -1025,119 +862,31 @@ Blockly.JavaScript['object_set_variable_s_property'] = function(block) {
 };
 
 
-// call with_return_function from variable
-Blockly.Blocks['object_call_variable_s_with_retrun_function'] = {
+// call function from variable
+Blockly.Blocks['object_call_variable_s_function'] = {
 init: function() {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(180);
 
+    //set 'obj' as default in the object menu
+    this.selected_object = 'obj';
+    //prepare the dropdown for object menu
+    var dropdown = new Blockly.FieldDropdown(all_objects.object_list_dropdown, function(option) {
+        if (option != this.sourceBlock_.selected_object) {
+            this.sourceBlock_.updateShape_(option);            
+        }
+    });
+
     this.appendValueInput("VAR")
         .appendField(LANG["Call"]);
 
-    var dropdown = new Blockly.FieldDropdown(all_objects.object_list_dropdown, function(option) {
-      this.sourceBlock_.updateShape_(option);
-    });
     this.appendDummyInput("OBJECT")
         .appendField(LANG["s function"])
         .appendField(dropdown, "object_var");
 
     this.appendDummyInput('FUNCTION')
-        .appendField('.');
-
-    this.selected_object = 'obj';
-    //this.updateShape_(this.selected_object);
-
-    this.setInputsInline(true);
-    this.setOutput(true);
-    this.setTooltip('');
-
-
-},
-  /**
-   * Create XML to represent whether the 'divisorInput' should be present.
-   * @return {Element} XML storage element.
-   * @this Blockly.Block
-   */
-  mutationToDom: function() {
-    var container = document.createElement('mutation');
-    container.setAttribute('selectedObject', this.selected_object);
-    return container;
-  },
-  /**
-   * Parse XML to restore the 'divisorInput'.
-   * @param {!Element} xmlElement XML storage element.
-   * @this Blockly.Block
-   */
-  domToMutation: function(xmlElement) {
-    var obj = xmlElement.getAttribute('selectedObject');
-    this.updateShape_(obj);
-  },
-
-  /**
-   * Modify this block to have (or not have) an input for 'is divisible by'.
-   * @param {boolean} divisorInput True if this block has a divisor input.
-   * @private
-   * @this Blockly.Block
-   */
-  updateShape_: function(obj) {
-
-    outside_name = all_objects.find_property_outside_name(obj);
-
-    this.selected_object = outside_name;    
-
-    if (all_objects.with_return_function_list_dropdown[outside_name] != null && 
-        all_objects.with_return_function_list_dropdown[outside_name].length > 0) {
-        this.removeInput('FUNCTION');
-        this.appendDummyInput("FUNCTION")
-            .appendField('.')
-            .appendField(new Blockly.FieldDropdown(all_objects.with_return_function_list_dropdown[outside_name]), "fun_var");
-    }
-    else {
-        this.removeInput('FUNCTION');
-        this.appendDummyInput("FUNCTION")
-            .appendField('.');
-    }
-    }
-};
-
-Blockly.JavaScript['object_call_variable_s_with_retrun_function'] = function(block) {
-
-    //block.updateShape_(this.selected_object);
-    
-    var variable= Blockly.JavaScript.valueToCode(block, 'VAR', Blockly.JavaScript.ORDER_ATOMIC);
-    var fun_var = block.getFieldValue('fun_var')
-
-    if (variable.length != 0 && fun_var != null) {
-        //assemble code
-        var code = variable + '.' + fun_var + '()';
-        return [code, Blockly.JavaScript.ORDER_ATOMIC];
-    }
-    else{
-        return null;
-    }
-};
-
-// call no_return_function from variable
-Blockly.Blocks['object_call_variable_s_no_retrun_function'] = {
-init: function() {
-    this.setHelpUrl('http://www.example.com/');
-    this.setColour(180);
-
-    this.appendValueInput("VAR")
-        .appendField(LANG["Call"]);
-
-    var dropdown = new Blockly.FieldDropdown(all_objects.object_list_dropdown, function(option) {
-      this.sourceBlock_.updateShape_(option);
-    });
-    this.appendDummyInput("OBJECT")
-        .appendField(LANG["s function"])
-        .appendField(dropdown, "object_var");
-
-    this.appendDummyInput('FUNCTION')
-        .appendField('.');
-
-    this.selected_object = 'obj';
-    //this.updateShape_(this.selected_object);
+        .appendField('.')
+        .appendField(new Blockly.FieldDropdown(all_objects.function_list_dropdown['obj']), "fun_var");
 
     this.setInputsInline(true);
     this.setPreviousStatement(true);
@@ -1175,28 +924,21 @@ init: function() {
    */
   updateShape_: function(obj) {
 
-    outside_name = all_objects.find_property_outside_name(obj);
+    this.selected_object = obj; 
 
-    this.selected_object = outside_name;    
+    //get the prop field
+    var fun_field = this.getField_('fun_var');
 
-    if (all_objects.no_return_function_list_dropdown[outside_name] != null && 
-        all_objects.no_return_function_list_dropdown[outside_name].length > 0) {
-        this.removeInput('FUNCTION');
-        this.appendDummyInput("FUNCTION")
-            .appendField('.')
-            .appendField(new Blockly.FieldDropdown(all_objects.no_return_function_list_dropdown[outside_name]), "fun_var");
+    if (all_objects.function_list_dropdown[obj] != null) {
+        fun_field.menuGenerator_ = all_objects.function_list_dropdown[obj];
     }
     else {
-        this.removeInput('FUNCTION');
-        this.appendDummyInput("FUNCTION")
-            .appendField('.');
+        fun_field.menuGenerator_ = all_objects.function_list_dropdown['obj'];
     }
     }
 };
 
-Blockly.JavaScript['object_call_variable_s_no_retrun_function'] = function(block) {
-
-    //block.updateShape_(this.selected_object);
+Blockly.JavaScript['object_call_variable_s_function'] = function(block) {
     
     var variable= Blockly.JavaScript.valueToCode(block, 'VAR', Blockly.JavaScript.ORDER_ATOMIC);
     var fun_var = block.getFieldValue('fun_var')
