@@ -88,6 +88,12 @@ var LANG = {
     "Radius" : "Radius",
     "Quad" : "Quad",
     "Ellipse" : "Ellipse",
+    "rectMode" : "rectMode",
+    "ellipseMode" : "ellipseMode",
+    "CORNER" : "CORNER",
+    "CORNERS" : "CORNERS",
+    "RADIUS" : "RADIUS",
+    "CENTER" : "CENTER",
     
     //p5_transform
     "Translate" : "Translate",

@@ -104,6 +104,29 @@ Blockly.JavaScript['p5_triangle'] = function(block) {
   return code;
 };
 
+
+Blockly.Blocks['p5_2dshape_rectmode'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(LANG["rectMode"])
+        .appendField(new Blockly.FieldDropdown([[LANG["CORNER"], "CORNER"], [LANG["CORNERS"], "CORNERS"], [LANG["RADIUS"], "RADIUS"], [LANG["CENTER"], "CENTER"]]), "MODE");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(160);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.JavaScript['p5_2dshape_rectmode'] = function(block) {
+  var dropdown_mode = block.getFieldValue('MODE');
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'rectMode(' + dropdown_mode + ');\n';
+  return code;
+};
+
+
+
 Blockly.Blocks['p5_rect'] = {
   init: function() {
     this.appendDummyInput()
@@ -229,6 +252,27 @@ Blockly.JavaScript['p5_quad'] = function(block) {
                      + value_x3 + ',' + value_y3 + ',' + value_x4 + ',' + value_y4 + ');\n';
   return code;
 };
+
+Blockly.Blocks['p5_2dshape_ellipsemode'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(LANG["ellipseMode"])
+        .appendField(new Blockly.FieldDropdown([[LANG["CENTER"], "CENTER"], [LANG["CORNER"], "CORNER"], [LANG["CORNERS"], "CORNERS"], [LANG["RADIUS"], "RADIUS"]]), "MODE");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(160);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.JavaScript['p5_2dshape_ellipsemode'] = function(block) {
+  var dropdown_mode = block.getFieldValue('MODE');
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'rectMode(' + dropdown_mode + ');\n';
+  return code;
+};
+
 
 Blockly.Blocks['p5_ellipse'] = {
   init: function() {

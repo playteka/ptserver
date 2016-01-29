@@ -87,6 +87,12 @@ var LANG = {
     "Radius" : "圆角半径",
     "Quad" : "四边形",
     "Ellipse" : "椭圆",
+    "rectMode" : "长方形模式",
+    "ellipseMode" : "椭圆形模式",
+    "CORNER" : "角",
+    "CORNERS" : "对角",
+    "RADIUS" : "半径",
+    "CENTER" : "中心",
     
     //p5_transform
     "Translate" : "平移",
