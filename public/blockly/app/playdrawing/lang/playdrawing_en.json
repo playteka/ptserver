@@ -26,19 +26,21 @@
     
     "Logic" : "Logic",
     "Loop" : "Loop",
-    "Math" : "Math",
+    "Math" : "Basic Math",
     "Text" : "Text",
     "List" : "List",
     "Variable" : "Variable",
     "Function" : "Function",
-    "System" : "System",
-    "Board" : "Board",
-    "Led" : "Led",
-    "Button" : "Button",
-    "Analog" : "Analog",
-    "Digital" : "Digital",
-    "Pin" : "Pin",
-    "RGBLed" : "RGBLed",
-    "Servo" : "Servo"
+    "Object_Definition" : "Object Definition",
+    "Object_Usage" : "Object Usage",
+    "Structure" : "Structure",
+    "Color" : "Color",
+    "Shapes2D" : "2D Shapes",
+    "Mathmatics" : "Mathmatics",
+    "Trigonometry" : "Trigonometry",
+    "Keyboard" : "Keyboard",
+    "Mouse" : "Mouse",
+    "Transform" : "Transform",
+    "Vertex" : "Vertex" 
     
 }

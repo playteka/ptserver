@@ -2,15 +2,15 @@
 Blockly.Blocks['p5_env_createcanvas'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Create Canvas");
+        .appendField(LANG["Create Canvas"]);
     this.appendValueInput("WIDTH")
         .setCheck("Number")
-        .appendField("Width");
+        .appendField(LANG["Width"]);
     this.appendValueInput("HEIGHT")
         .setCheck("Number")
-        .appendField("Height");
+        .appendField(LANG["Height"]);
     this.appendDummyInput()
-        .appendField("Type")
+        .appendField(LANG["Type"])
         .appendField(new Blockly.FieldDropdown([["2D", "P2D"], ["3D", "WEBGL"]]), "TYPE");
     this.setInputsInline(true);
     this.setPreviousStatement(true);
@@ -30,11 +30,12 @@ Blockly.JavaScript['p5_env_createcanvas'] = function(block) {
   return code;
 };
 
-Blockly.Blocks['p5_env_width'] = {
+Blockly.Blocks['p5_env_measurement'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("width");
-    this.setInputsInline(true);
+        .appendField(new Blockly.FieldDropdown([[LANG["width"], "width"], [LANG["height"], "height"], 
+        [LANG["displayWidth"], "displayWidth"], [LANG["displayHeight"], "displayHeight"], 
+        [LANG["windowWidth"], "windowWidth"], [LANG["windowHeight"], "windowHeight"]]), "value");
     this.setOutput(true, "Number");
     this.setColour(0);
     this.setTooltip('');
@@ -42,28 +43,31 @@ Blockly.Blocks['p5_env_width'] = {
   }
 };
 
-Blockly.JavaScript['p5_env_width'] = function(block) {
+Blockly.JavaScript['p5_env_measurement'] = function(block) {
+  var dropdown_value = block.getFieldValue('value');
   // TODO: Assemble JavaScript into code variable.
-  var code = 'width';
+  var code = dropdown_value ;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
-Blockly.Blocks['p5_env_height'] = {
+Blockly.Blocks['p5_env_fullscreen'] = {
   init: function() {
-    this.appendDummyInput()
-        .appendField("height");
+    this.appendValueInput("VALUE")
+        .setCheck("Boolean")
+        .appendField(LANG["fullScreen"]);
     this.setInputsInline(true);
-    this.setOutput(true, "Number");
+    this.setOutput(true, "Boolean");
     this.setColour(0);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
 };
 
-Blockly.JavaScript['p5_env_height'] = function(block) {
+Blockly.JavaScript['p5_env_fullscreen'] = function(block) {
+  var value_value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
-  var code = 'height';
+  var code = 'fullScreen(' + value_value + ')';
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };

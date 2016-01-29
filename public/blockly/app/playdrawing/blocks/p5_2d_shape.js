@@ -2,7 +2,7 @@
 Blockly.Blocks['p5_point'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Point");
+        .appendField(LANG["Point"]);
     this.appendValueInput("X")
         .setCheck("Number")
         .appendField("X");
@@ -29,7 +29,7 @@ Blockly.JavaScript['p5_point'] = function(block) {
 Blockly.Blocks['p5_line'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Line");
+        .appendField(LANG["Line"]);
     this.appendValueInput("X1")
         .setCheck("Number")
         .appendField("X1");
@@ -64,7 +64,7 @@ Blockly.JavaScript['p5_line'] = function(block) {
 Blockly.Blocks['p5_triangle'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Triangle");
+        .appendField(LANG["Triangle"]);
     this.appendValueInput("X1")
         .setCheck("Number")
         .appendField("X1");
@@ -107,7 +107,7 @@ Blockly.JavaScript['p5_triangle'] = function(block) {
 Blockly.Blocks['p5_rect'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Rectangle");
+        .appendField(LANG["Rectangle"]);
     this.appendValueInput("X")
         .setCheck("Number")
         .appendField("X");
@@ -116,10 +116,10 @@ Blockly.Blocks['p5_rect'] = {
         .appendField("Y");
     this.appendValueInput("WIDTH")
         .setCheck("Number")
-        .appendField("Width");
+        .appendField(LANG["Width"]);
     this.appendValueInput("HEIGHT")
         .setCheck("Number")
-        .appendField("Height");
+        .appendField(LANG["Height"]);
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -142,7 +142,7 @@ Blockly.JavaScript['p5_rect'] = function(block) {
 Blockly.Blocks['p5_round_rect'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Round Rectangle");
+        .appendField(LANG["Round Rectangle"]);
     this.appendValueInput("X")
         .setCheck("Number")
         .appendField("X");
@@ -151,13 +151,13 @@ Blockly.Blocks['p5_round_rect'] = {
         .appendField("Y");
     this.appendValueInput("WIDTH")
         .setCheck("Number")
-        .appendField("Width");
+        .appendField(LANG["Width"]);
     this.appendValueInput("HEIGHT")
         .setCheck("Number")
-        .appendField("Height");
+        .appendField(LANG["Height"]);
     this.appendValueInput("RADIUS")
         .setCheck("Number")
-        .appendField("Radius");
+        .appendField(LANG["Radius"]);
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -181,7 +181,7 @@ Blockly.JavaScript['p5_round_rect'] = function(block) {
 Blockly.Blocks['p5_quad'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Quad");
+        .appendField(LANG["Quad"]);
     this.appendValueInput("X1")
         .setCheck("Number")
         .appendField("X1");
@@ -233,7 +233,7 @@ Blockly.JavaScript['p5_quad'] = function(block) {
 Blockly.Blocks['p5_ellipse'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Ellipse");
+        .appendField(LANG["Ellipse"]);
     this.appendValueInput("X")
         .setCheck("Number")
         .appendField("X");
@@ -242,10 +242,10 @@ Blockly.Blocks['p5_ellipse'] = {
         .appendField("Y");
     this.appendValueInput("WIDTH")
         .setCheck("Number")
-        .appendField("Width");
+        .appendField(LANG["Width"]);
     this.appendValueInput("HEIGHT")
         .setCheck("Number")
-        .appendField("Height");
+        .appendField(LANG["Height"]);
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);

@@ -26,18 +26,21 @@
     
     "Logic" : "逻辑",
     "Loop" : "循环",
-    "Math" : "数学",
+    "Math" : "基本数学",
     "Text" : "文字",
     "List" : "列表",
     "Variable" : "变量",
     "Function" : "函数",
-    "System" : "系统",
-    "Board" : "主板",
-    "Led" : "小灯",
-    "Button" : "按钮",
-    "Analog" : "模拟传感器",
-    "Digital" : "数字传感器",
-    "Pin" : "管脚",
-    "RGBLed" : "彩灯",
-    "Servo" : "舵机"
+    "Object_Definition" : "对象定义",
+    "Object_Usage" : "对象使用",
+    "Structure" : "程序环境",
+    "Color" : "颜色",
+    "Shapes2D" : "二维图形",
+    "Mathmatics" : "数学函数",
+    "Trigonometry" : "三角函数",
+    "Keyboard" : "键盘",
+    "Mouse" : "鼠标",
+    "Transform" : "坐标变换",
+    "Vertex" : "顶点作图" 
+   
 }

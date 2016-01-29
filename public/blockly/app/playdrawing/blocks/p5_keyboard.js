@@ -2,7 +2,7 @@
 Blockly.Blocks['p5_keyboard_keyispressed'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Key is pressed");
+        .appendField(LANG["Key_is_pressed"]);
     this.setInputsInline(true);
     this.setOutput(true, "Boolean");
     this.setColour(65);
@@ -21,7 +21,7 @@ Blockly.JavaScript['p5_keyboard_keyispressed'] = function(block) {
 Blockly.Blocks['p5_keyboard_key'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Key");
+        .appendField(LANG["Key"]);
     this.setInputsInline(true);
     this.setOutput(true, "String");
     this.setColour(65);
@@ -40,7 +40,7 @@ Blockly.JavaScript['p5_keyboard_key'] = function(block) {
 Blockly.Blocks['p5_keyboard_keycode'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("KeyCode");
+        .appendField(LANG["KeyCode"]);
     this.setInputsInline(true);
     this.setOutput(true, "Number");
     this.setColour(65);
@@ -59,7 +59,11 @@ Blockly.JavaScript['p5_keyboard_keycode'] = function(block) {
 Blockly.Blocks['p5_keyboard_code'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown([["BACKSPACE", "BACKSPACE"], ["DELETE", "DELETE"], ["ENTER", "ENTER"], ["RETURN", "RETURN"], ["TAB", "TAB"], ["ESCAPE", "ESCAPE"], ["SHIFT", "SHIFT"], ["option", "OPTIONNAME"], ["CONTROL", "CONTROL"], ["ALT", "ALT"], ["UP_ARROW", "UP_ARROW"], ["DOWN_ARROW", "DOWN_ARROW"], ["LEFT_ARROW", "LEFT_ARROW"], ["RIGHT_ARROW", "RIGHT_ARROW"]]), "CODE");
+        .appendField(new Blockly.FieldDropdown([[LANG["BACKSPACE"], "BACKSPACE"], ["DELETE", "DELETE"],
+         [LANG["ENTER"], "ENTER"], ["RETURN", "RETURN"], ["TAB", "TAB"], ["ESCAPE", "ESCAPE"],
+         ["SHIFT", "SHIFT"], ["OPTION", "OPTION"], ["CONTROL", "CONTROL"], ["ALT", "ALT"], 
+         [LANG["UP_ARROW"], "UP_ARROW"], [LANG["DOWN_ARROW"], "DOWN_ARROW"], [LANG["LEFT_ARROW"], "LEFT_ARROW"], 
+         [LANG["RIGHT_ARROW"], "RIGHT_ARROW"]]), "CODE");
     this.setInputsInline(true);
     this.setOutput(true,"Number");
     this.setColour(65);
@@ -79,7 +83,7 @@ Blockly.JavaScript['p5_keyboard_code'] = function(block) {
 Blockly.Blocks['p5_keyboard_keypressed'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Key Pressed");
+        .appendField(LANG["Key Pressed"]);
     this.appendStatementInput("BODY");
     this.setColour(65);
     this.setTooltip('');
@@ -99,7 +103,7 @@ Blockly.JavaScript['p5_keyboard_keypressed'] = function(block) {
 Blockly.Blocks['p5_keyboard_keyreleased'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Key Released");
+        .appendField(LANG["Key Released"]);
     this.appendStatementInput("BODY");
     this.setColour(65);
     this.setTooltip('');
@@ -119,7 +123,7 @@ Blockly.JavaScript['p5_keyboard_keyreleased'] = function(block) {
 Blockly.Blocks['p5_keyboard_keytyped'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Key Typed");
+        .appendField(LANG["Key Typed"]);
     this.appendStatementInput("BODY");
     this.setColour(65);
     this.setTooltip('');
@@ -140,7 +144,7 @@ Blockly.Blocks['p5_keyboard_keyisdown'] = {
   init: function() {
     this.appendValueInput("CODE")
         .setCheck("Number")
-        .appendField("Key is down");
+        .appendField(LANG["Key is down"]);
     this.setInputsInline(true);
     this.setOutput(true, "Boolean");
     this.setColour(65);
