@@ -32,7 +32,7 @@ Blockly.Blocks['p5_keyboard_key'] = {
 
 Blockly.JavaScript['p5_keyboard_key'] = function(block) {
   // TODO: Assemble JavaScript into code variable.
-  var code = 'Key';
+  var code = 'key';
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
@@ -51,7 +51,7 @@ Blockly.Blocks['p5_keyboard_keycode'] = {
 
 Blockly.JavaScript['p5_keyboard_keycode'] = function(block) {
   // TODO: Assemble JavaScript into code variable.
-  var code = 'KeyCode';
+  var code = 'keyCode';
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
