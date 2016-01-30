@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title><%=lang.PlayDuino%></title>
+<title><%=lang.playdrawing%></title>
 <!-- jQuery -->
 <script src="js/jquery.js"></script>
 <!-- Bootstrap Core CSS -->
@@ -16,10 +16,10 @@
 //change the language
 var changeLanguage = function(language){
 if (language == 'English') {
-window.location.assign('/playduinoconfig?_id=<%=_id%>&lang=en');
+window.location.assign('/playdrawingconfig?_id=<%=_id%>&lang=en');
 }
 else{
-window.location.assign('/playduinoconfig?_id=<%=_id%>&lang=cn');
+window.location.assign('/playdrawingconfig?_id=<%=_id%>&lang=cn');
 }
 };
 
@@ -47,7 +47,7 @@ console.log("heartbeat network error");
 
 var updateProject = function(program, _id, data, success, error){
 data._id = _id;
-var posting = $.post("/playduinoconfig/update", data);
+var posting = $.post("/playdrawingconfig/update", data);
 posting.done(function(result){
 if (result.status == "error") {
 if (result.errorno == 1) {
@@ -80,7 +80,7 @@ var deleteProject = function(program, _id){
 
 if (confirm("<%=lang.delete_project%>")==false) return;
 
-var posting = $.post("/project/deleteplayduino", {"_id" : _id});
+var posting = $.post("/project/deleteplaydrawing", {"_id" : _id});
 posting.done(function(result){
 if (result.status == "error") {
 alert("This project couldn't be delelted!");
@@ -146,7 +146,7 @@ var _id = project._id;
 var project_name = project.project_name;
 var account = project.account;
 var date_created = project.date_created;
-var program = 'playduino';
+var program = 'playdrawing';
 var text = '<tr id=' + DQM(program + _id) + '>';
 text += '<td><a onclick="openProject('+ QM(program) + ',' + QM(_id) +')"><h4 class="list-group-item-heading">' + project_name + '</h4></a></td>';
 text += '<td align="right"><h4 class="list-group-item-heading">' + account + '</h4></td>';
@@ -168,11 +168,11 @@ var current = null; //handler of the current project data object
 $(document).ready(function(){
 
 //set the initial value
-var getting = $.get("/playduinoconfig/getdata?_id=<%=_id%>");
+var getting = $.get("/playdrawingconfig/getdata?_id=<%=_id%>");
 getting.done(function(result){
 current = result;
-$("#playduino_project_name").val(result.project_name);
-$("#playduino_ipaddress").val(result.ipaddress);
+$("#playdrawing_project_name").val(result.project_name);
+$("#playdrawing_ipaddress").val(result.ipaddress);
 if (result.published == '0') {
 publishFlag.setFlag("PRIVATE");
 }
@@ -185,7 +185,7 @@ window.location.assign('/login?lang=<%=lang.language%>');
 });
 
 //display the fork tree
-var posting = $.post("/playduinoconfig/forktree", {"_id":"<%=_id%>"});
+var posting = $.post("/playdrawingconfig/forktree", {"_id":"<%=_id%>"});
 posting.done(function(result){
 var projectlist = result.body;
 for (var i = projectlist.length - 1; i >= 0; i--) {
@@ -199,36 +199,36 @@ add_arrow();
 //do nothing
 });
 
-$("#playduino_project_name").keyup(function(){
+$("#playdrawing_project_name").keyup(function(){
 
 $("#rename_alert_box").hide();
 
-if ($("#playduino_project_name").val() != current.project_name) {
-$("#playduino_rename_button").attr("disabled", false);
+if ($("#playdrawing_project_name").val() != current.project_name) {
+$("#playdrawing_rename_button").attr("disabled", false);
 }
 else{
-$("#playduino_rename_button").attr("disabled", true);
+$("#playdrawing_rename_button").attr("disabled", true);
 }
 });
 
-$("#playduino_ipaddress").keyup(function(){
+$("#playdrawing_ipaddress").keyup(function(){
 
 $("#ipaddress_alert_box").hide();
 
-if ($("#playduino_ipaddress").val() != current.ipaddress) {
-$("#playduino_change_button").attr("disabled", false);
+if ($("#playdrawing_ipaddress").val() != current.ipaddress) {
+$("#playdrawing_change_button").attr("disabled", false);
 }
 else{
-$("#playduino_change_button").attr("disabled", true);
+$("#playdrawing_change_button").attr("disabled", true);
 }
 });
 
-$("#playduino_rename_button").click(function(){
-var new_name = $("#playduino_project_name").val();
+$("#playdrawing_rename_button").click(function(){
+var new_name = $("#playdrawing_project_name").val();
 var data = {};
 data.project_name = new_name;
 
-updateProject('playduino','<%=_id%>', data,
+updateProject('playdrawing','<%=_id%>', data,
 function(){ //success
 current.project_name = new_name;
 $("#rename_alert_box").attr("class", "alert alert-info");
@@ -244,12 +244,12 @@ $("#rename_alert_box").show();
 );
 });
 
-$("#playduino_change_button").click(function(){
-var new_ipaddress = $("#playduino_ipaddress").val();
+$("#playdrawing_change_button").click(function(){
+var new_ipaddress = $("#playdrawing_ipaddress").val();
 var data = {};
 data.ipaddress = new_ipaddress;
 
-updateProject('playduino','<%=_id%>', data,
+updateProject('playdrawing','<%=_id%>', data,
 function(){ //success
 current.ipaddress = new_ipaddress;
 $("#ipaddress_alert_box").attr("class", "alert alert-info");
@@ -265,8 +265,8 @@ $("#ipaddress_alert_box").show();
 );
 });
 
-$("#playduino_ok_button").click(function(){
-window.location.assign('/project?lang=<%=lang.language%>#playduino');
+$("#playdrawing_ok_button").click(function(){
+window.location.assign('/project?lang=<%=lang.language%>#playdrawing');
 });
 
 setInterval("get_heartbeat()", 30*1000);
@@ -280,7 +280,7 @@ var new_published = (status == "Public" ? '1' : '0');
 var data = {};
 data.published = new_published;
 
-updateProject('playduino','<%=_id%>', data,
+updateProject('playdrawing','<%=_id%>', data,
 function(){ //success
 current.published = new_published;
 if (new_published == '1') {
@@ -323,7 +323,7 @@ setTimeout('$("#publish_alert_box").fadeOut(1000)', 3000);
 <span class="icon-bar"></span>
 <span class="icon-bar"></span>
 </button>
-<a class="navbar-brand" href="#"><%=lang.PlayDuino%></a>
+<a class="navbar-brand" href="#"><%=lang.playdrawing%></a>
 </div>
 <div id="navbar" class="collapse navbar-collapse">
 <ul class="nav navbar-nav">
@@ -376,9 +376,9 @@ setTimeout('$("#publish_alert_box").fadeOut(1000)', 3000);
 <div class="panel-heading"><%=lang.Project_Name%></div>
 <div class="panel-body">
 <div class="input-group">
-<input type="text" class="form-control" id="playduino_project_name">
+<input type="text" class="form-control" id="playdrawing_project_name">
 <span class="input-group-btn">
-<button class="btn btn-primary" type="button" id="playduino_rename_button" disabled="true" onclick=""><%=lang.rename%></button>
+<button class="btn btn-primary" type="button" id="playdrawing_rename_button" disabled="true" onclick=""><%=lang.rename%></button>
 </span>
 </div><!-- /input-group -->
 <br>
@@ -391,9 +391,9 @@ setTimeout('$("#publish_alert_box").fadeOut(1000)', 3000);
 <div class="panel-heading"><%=lang.ip_address%></div>
 <div class="panel-body">
 <div class="input-group">
-<input type="text" class="form-control" id="playduino_ipaddress">
+<input type="text" class="form-control" id="playdrawing_ipaddress">
 <span class="input-group-btn">
-<button class="btn btn-primary" type="button" id="playduino_change_button" disabled="true" onclick=""><%=lang.change%></button>
+<button class="btn btn-primary" type="button" id="playdrawing_change_button" disabled="true" onclick=""><%=lang.change%></button>
 </span>
 </div><!-- /input-group -->
 <br>
@@ -418,8 +418,8 @@ setTimeout('$("#publish_alert_box").fadeOut(1000)', 3000);
 <div class="panel panel-danger">
 <div class="panel-heading"><%=lang.Delete_this_project%></div>
 <div class="panel-body">
-<button class="btn btn-danger" type="button" id="playduino_rename_button"
-onclick="deleteProject('playduino','<%=_id%>')"><%=lang.Delete%></button>
+<button class="btn btn-danger" type="button" id="playdrawing_rename_button"
+onclick="deleteProject('playdrawing','<%=_id%>')"><%=lang.Delete%></button>
 <br>
 <div class="alert alert-danger" role="alert" id="publish_alert_box" style="display:none">
 <span class="glyphicon glyphicon-exclamation-sign"></span> rename alert box </div>
@@ -435,7 +435,7 @@ onclick="deleteProject('playduino','<%=_id%>')"><%=lang.Delete%></button>
 </div> <!--/.panel-success -->
 
 <div align="center">
-<button class="btn btn-primary btn-lg" type="button" id="playduino_ok_button" >   <%=lang.OK%>   </button>
+<button class="btn btn-primary btn-lg" type="button" id="playdrawing_ok_button" >   <%=lang.OK%>   </button>
 </div>
 
 
