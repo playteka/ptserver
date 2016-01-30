@@ -258,6 +258,11 @@ $(document).ready(function(){
 <button type="button" class="btn btn-danger" id='info_run' aria-label="Left Align" disabled='true'>Stopped</button>
 </div> <!-- btn-group -->
 <div class="btn-group">
+<button type="button" id="new_winButton" class="btn btn-primary" aria-label="Left Align" onclick="new_win()">
+<span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> <%=lang.new_win%></button>
+<!-- button type="button" class="btn btn-danger" id='info_fork' aria-label="Left Align" disabled='true'>Note: Modification won't be saved</button -->
+</div> <!-- btn-group -->
+<div class="btn-group">
 <button type="button" id="saveButton" class="btn btn-primary" aria-label="Left Align" onclick="upload_xml('playdrawing', '<%=_id%>') ">
 <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> <%=lang.Save%></button>
 <button type="button" class="btn btn-success" id='info_save' aria-label="Left Align" disabled='true'>Saved</button>

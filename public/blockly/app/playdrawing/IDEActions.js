@@ -473,3 +473,19 @@ function fork(program, _id, language) {
         });
     }
 }
+
+function new_win(){
+    //get code
+    var code = document.getElementById('textarea_code').value;
+    
+    if (code.indexOf('new p5()') === -1) {
+        code += '\nnew p5();';
+    }
+    
+    var userScript = $('#processing_iframe')[0].contentWindow.document.createElement('script');
+    userScript.type = 'text/javascript';
+    userScript.text = code;
+    userScript.async = false;
+    var processing_win = window.open('template.html',"", "width=1024, height=768");
+    processing_win.document.body.appendChild(userScript);
+}
