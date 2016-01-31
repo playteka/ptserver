@@ -29,6 +29,7 @@ var LANG = {
     
     //p5_env
     "Create Canvas" : "创建画布",
+    "Resize Canvas" : "修改画布尺寸",
     "Width" : "宽度",
     "Height" : "高度",
     "Type" : "类型",
@@ -87,6 +88,11 @@ var LANG = {
     "Radius" : "圆角半径",
     "Quad" : "四边形",
     "Ellipse" : "椭圆",
+    "Arc" : "弧线",
+    "Start" : "起始角度",
+    "Stop" : "结束角度",
+    "CHORD" : "弓弦",
+    "PIE" : "扇形",
     "rectMode" : "长方形模式",
     "ellipseMode" : "椭圆形模式",
     "CORNER" : "角",

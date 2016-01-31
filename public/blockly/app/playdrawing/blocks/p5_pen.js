@@ -113,7 +113,7 @@ Blockly.Blocks['p5_nostroke'] = {
 
 Blockly.JavaScript['p5_nostroke'] = function(block) {
   // TODO: Assemble JavaScript into code variable.
-  var code = 'nostroke();\n';
+  var code = 'noStroke();\n';
   return code;
 };
 

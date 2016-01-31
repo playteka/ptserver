@@ -308,3 +308,53 @@ Blockly.JavaScript['p5_ellipse'] = function(block) {
   var code = 'ellipse(' + value_x + ',' + value_y + ',' + value_width + ',' + value_height + ');\n';
   return code;
 };
+
+
+Blockly.Blocks['p5_arc'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(LANG["Arc"]);
+    this.appendValueInput("X")
+        .setCheck("Number")
+        .appendField("X");
+    this.appendValueInput("Y")
+        .setCheck("Number")
+        .appendField("Y");
+    this.appendValueInput("WIDTH")
+        .setCheck("Number")
+        .appendField(LANG["Width"]);
+    this.appendValueInput("HEIGHT")
+        .setCheck("Number")
+        .appendField(LANG["Height"]);
+    this.appendValueInput("START")
+        .setCheck("Number")
+        .appendField(LANG["Start"]);
+    this.appendValueInput("STOP")
+        .setCheck("Number")
+        .appendField(LANG["Stop"]);
+    this.appendDummyInput()    
+        .appendField(new Blockly.FieldDropdown([[LANG["OPEN"], "OPEN"], [LANG["CHORD"], "CHORD"], [LANG["PIE"], "PIE"]]), "MODE");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(160);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.JavaScript['p5_arc'] = function(block) {
+  var value_x = Blockly.JavaScript.valueToCode(block, 'X', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_y = Blockly.JavaScript.valueToCode(block, 'Y', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_width = Blockly.JavaScript.valueToCode(block, 'WIDTH', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_height = Blockly.JavaScript.valueToCode(block, 'HEIGHT', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_start = Blockly.JavaScript.valueToCode(block, 'START', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_stop = Blockly.JavaScript.valueToCode(block, 'STOP', Blockly.JavaScript.ORDER_ATOMIC);
+  var dropdown_mode = block.getFieldValue('MODE');
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'arc(' + value_x + ',' + value_y + ',' 
+                        + value_width + ',' + value_height + ',' 
+                        + value_start + ',' + value_stop + ','
+                        + dropdown_mode + ');\n';
+  return code;
+};

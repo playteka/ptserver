@@ -30,6 +30,7 @@ var LANG = {
     
     //P5_env
     "Create Canvas" : "Create Canvas",
+    "Resize Canvas" : "Resize Canvas",
     "Width" : "Width",
     "Height" : "Height",
     "Type" : "Type",
@@ -88,6 +89,11 @@ var LANG = {
     "Radius" : "Radius",
     "Quad" : "Quad",
     "Ellipse" : "Ellipse",
+    "Arc" : "Arc",
+    "Start" : "Start",
+    "Stop" : "Stop",
+    "CHORD" : "CHORD",
+    "PIE" : "PIE",
     "rectMode" : "rectMode",
     "ellipseMode" : "ellipseMode",
     "CORNER" : "CORNER",

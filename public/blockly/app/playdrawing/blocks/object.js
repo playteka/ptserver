@@ -273,7 +273,7 @@ Blockly.JavaScript['object_definition'] = function(block) {
 
     //get the object name
     var object_name = block.getFieldValue('name');
-    var object_inside_name = all_devices.create_inside_name(object_name);
+    var object_inside_name = all_objects.create_inside_name(object_name);
     
     //push object into the object list and the dropdown menu of object list
     all_objects.object_list.push(object_inside_name);
@@ -338,7 +338,7 @@ Blockly.JavaScript['object_property'] = function(block) {
     //get the property name
     var text_prop_var = block.getFieldValue('prop_var');
     //get the inside property nanme
-    var inside_name = all_devices.create_inside_name(text_prop_var);
+    var inside_name = all_objects.create_inside_name(text_prop_var);
     //get the initial value of the property
     var value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
     //if user didn't set the intial value of the propety, set null as default
@@ -386,7 +386,7 @@ Blockly.JavaScript['object_function'] = function(block) {
     //get function name
     var text_fun_var = block.getFieldValue('fun_var');
     //get the inside function name
-    var inside_name = all_devices.create_inside_name(text_fun_var);
+    var inside_name = all_objects.create_inside_name(text_fun_var);
     // get program statements
     var program_statements = Blockly.JavaScript.statementToCode(block, 'PROGRAM');
     

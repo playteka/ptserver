@@ -30,6 +30,33 @@ Blockly.JavaScript['p5_env_createcanvas'] = function(block) {
   return code;
 };
 
+Blockly.Blocks['p5_env_resizecanvas'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(LANG["Resize Canvas"]);
+    this.appendValueInput("WIDTH")
+        .setCheck("Number")
+        .appendField(LANG["Width"]);
+    this.appendValueInput("HEIGHT")
+        .setCheck("Number")
+        .appendField(LANG["Height"]);
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(0);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.JavaScript['p5_env_resizecanvas'] = function(block) {
+  var value_width = Blockly.JavaScript.valueToCode(block, 'WIDTH', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_height = Blockly.JavaScript.valueToCode(block, 'HEIGHT', Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'resizeCanvas(' + value_width + ',' + value_height + ');\n' ;
+  return code;
+};
+
 Blockly.Blocks['p5_env_measurement'] = {
   init: function() {
     this.appendDummyInput()

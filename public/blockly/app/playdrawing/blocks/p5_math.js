@@ -240,14 +240,80 @@ Blockly.JavaScript['p5_math_contrain'] = function(block) {
 
 Blockly.Blocks['p5_math_trig'] = {
   init: function() {
+    var TRIGS = [["sin", "sin"], ["cos", "cos"], ["tan", "tan"], 
+                 ["asin", "asin"], ["acos", "acos"], ["atan", "atan"], ["atan2", "atan2"]];
+    var dropdown = new Blockly.FieldDropdown(TRIGS, function(option) {
+      var additionalInput = (option == 'atan2');
+      this.sourceBlock_.updateShape_(additionalInput);
+    });
+    
     this.appendValueInput("VALUE")
         .setCheck("Number")
-        .appendField(new Blockly.FieldDropdown([["sin", "sin"], ["cos", "cos"], ["tan", "tan"], ["asin", "asin"], ["acos", "acos"], ["atan", "atan"]]), "fun");
+        .appendField(dropdown, "fun");
+        
+    this.setInputsInline(true);
     this.setOutput(true, "Number");
     this.setColour(230);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
+  },
+  
+  /**
+   * Create XML to represent whether the 'additionalInput' should be present.
+   * @return {Element} XML storage element.
+   * @this Blockly.Block
+   */  
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    var additionalInput = (this.getFieldValue('fun') == 'atan2');
+    container.setAttribute('additional_input', additionalInput);
+    return container;
+  },
+  
+  /**
+   * Parse XML to restore the 'additionalInput'.
+   * @param {!Element} xmlElement XML storage element.
+   * @this Blockly.Block
+   */
+  domToMutation: function(xmlElement) {
+    var additionalInput = (xmlElement.getAttribute('additional_input') == 'true');
+    this.updateShape_(additionalInput);
+  },
+  
+  /**
+   * Modify this block to have (or not have) the additional input for 'atan2'.
+   * @param {boolean} additionalInput True if this block has additional input.
+   * @private
+   * @this Blockly.Block
+   */
+  updateShape_: function(addtionalInput) {
+    // Add or remove a Value Input.
+    var inputExists = this.getInput('ADDITION');
+    if (addtionalInput) {
+      if (!inputExists) {
+        this.appendValueInput('ADDITION')
+            .setCheck('Number');
+      }
+    } else if (inputExists) {
+      this.removeInput('ADDITION');
+    }
   }
+};
+
+Blockly.JavaScript['p5_math_trig'] = function(block) {
+  var dropdown_fun = block.getFieldValue('fun');
+  var value_value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
+  //Assemble JavaScript into code variable.
+  var code;
+  if(dropdown_fun == 'atan2'){
+    var value_addtion = Blockly.JavaScript.valueToCode(block, 'ADDITION', Blockly.JavaScript.ORDER_ATOMIC); 
+    code = dropdown_fun + '(' + value_value + ',' + value_addtion + ')' ;    
+  }
+  else{
+    code = dropdown_fun + '(' + value_value +')' ;    
+  }
+  
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.Blocks['p5_math_anglemode'] = {
@@ -273,13 +339,7 @@ Blockly.JavaScript['p5_math_anglemode'] = function(block) {
   return code;
 };
 
-Blockly.JavaScript['p5_math_trig'] = function(block) {
-  var dropdown_fun = block.getFieldValue('fun');
-  var value_value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
-  //Assemble JavaScript into code variable.
-  var code = dropdown_fun + '(' + value_value +')' ;
-  return [code, Blockly.JavaScript.ORDER_ATOMIC];
-};
+
 
 Blockly.Blocks['p5_math_rounding'] = {
   init: function() {
