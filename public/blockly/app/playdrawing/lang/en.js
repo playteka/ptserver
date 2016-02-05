@@ -46,6 +46,13 @@ var LANG = {
     "windowWidth" : "windowWidth",
     "windowHeight" : "windowHeight",
     "fullScreen" : "fullScreen",
+    "year" : "year",
+    "month" : "month",
+    "day" : "day",
+    "hour" : "hour",
+    "minute" : "minute",
+    "second" : "second",
+    "millis" : "millis",
     
     //p5_math
     "random" : "random",
@@ -69,12 +76,17 @@ var LANG = {
     "current stop" : "current stop",
     "target start" : "target start",
     "target stop" : "target stop",
+    "radians" : "radians",
+    "degrees" : "degrees",
     
     //p5_color
     "Color" : "Color",
     "Red" : "Red",
     "Green" : "Green",
     "Blue" : "Blue",
+    "Alpha" : "Alpha",
+    "Color Mode" : "Color Mode",
+    "Range" : "Range",
     
     //p5_pen
     "Background" : "Backgroud",
@@ -133,6 +145,25 @@ var LANG = {
     "QUAD_STRIP" : "QUAD_STRIP",
     "OPEN" : "OPEN",
     "CLOSE" : "CLOSE",
+    
+    //p5_text
+    "text" : "text",
+    "textAlign" : "textAlign",
+    "Horizontal" : "Horizontal",
+    "Vertical" : "Vertical",
+    "ALIGN_LEFT" : "LEFT",
+    "ALIGN_CENTER" : "CENTER",
+    "ALIGN_RIGHT" : "RIGHT",
+    "ALIGN_TOP" : "TOP",
+    "ALIGN_BOTTOM" : "BOTTOM",
+    "ALIGN_BASELINE" : "BASELINE",
+    "Text Leading" : "Text Leading",
+    "Text Size" : "Text Size",
+    "Text Style" : "Text Style",
+    "NORMAL" : "NORMAL",
+    "ITALIC" : "ITALIC",
+    "BOLD" : "BOLD",
+    "Text Width" : "Text Width",
     
     
     //p5_keyboard

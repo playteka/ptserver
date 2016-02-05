@@ -35,13 +35,16 @@
     "Object_Definition" : "Object Definition",
     "Object_Usage" : "Object Usage",
     "Structure" : "Structure",
+    "Environment" : "Environment",
     "Color" : "Color",
+    "Stroke" : "Stroke",
     "Shapes2D" : "2D Shapes",
     "Mathmatics" : "Mathmatics",
     "Trigonometry" : "Trigonometry",
     "Keyboard" : "Keyboard",
     "Mouse" : "Mouse",
     "Transform" : "Transform",
-    "Vertex" : "Vertex" 
+    "Vertex" : "Vertex",
+    "Typography" : "Typography"
     
 }

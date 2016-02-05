@@ -401,3 +401,25 @@ Blockly.JavaScript['p5_math_minmax'] = function(block) {
   var code = dropdown_fun + '(' + value_value +')' ;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
+
+Blockly.Blocks['p5_math_radegrees'] = {
+  init: function() {
+    this.appendValueInput("VALUE")
+        .setCheck("Number")
+        .appendField(new Blockly.FieldDropdown([["radians", "radians"], ["degrees", "degrees"]]), "fun");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.JavaScript['p5_math_radegrees'] = function(block) {
+  var dropdown_fun = block.getFieldValue('fun');
+  var value_value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = dropdown_fun + '(' + value_value + ')' ;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+

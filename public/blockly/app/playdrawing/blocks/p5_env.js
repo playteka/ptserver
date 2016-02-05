@@ -178,3 +178,27 @@ Blockly.JavaScript['p5_env_framecount'] = function(block) {
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
+
+
+Blockly.Blocks['p5_env_datetime'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown(
+            [[LANG["year"], "year"], [LANG["month"], "month"], [LANG["day"], "day"], 
+             [LANG["hour"], "hour"], [LANG["minute"], "minute"], [LANG["second"], "second"], 
+             [LANG["millis"], "millis"]]), "DATETIME");
+    this.setOutput(true, "Number");
+    this.setColour(0);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.JavaScript['p5_env_datetime'] = function(block) {
+  var dropdown_datetime = block.getFieldValue('DATETIME');
+  // TODO: Assemble JavaScript into code variable.
+  var code = dropdown_datetime + '()';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+

@@ -40,11 +40,18 @@ var LANG = {
     "frameCount" : "帧数",
     "width" : "宽度",
     "height" : "高度",
-    "displayWidth" : "画布宽度",
-    "displayHeight" : "画布高度",
+    "displayWidth" : "屏幕宽度",
+    "displayHeight" : "屏幕高度",
     "windowWidth" : "窗口宽度",
     "windowHeight" : "窗口高度",
     "fullScreen" : "全屏",
+    "year" : "年",
+    "month" : "月",
+    "day" : "日",
+    "hour" : "小时",
+    "minute" : "分钟",
+    "second" : "秒",
+    "millis" : "毫秒",
     
     //p5_math
     "random" : "随机数",
@@ -67,13 +74,18 @@ var LANG = {
     "current start" : "当前开始值",
     "current stop" : "当前结束值",
     "target start" : "目标开始值",
-    "target stop" : "目标结束值",    
+    "target stop" : "目标结束值",
+    "radians" : "求弧度",
+    "degrees" : "求角度",    
     
     //p5_color
     "Color" : "颜色",
     "Red" : "红",
     "Green" : "绿",
     "Blue" : "蓝",
+    "Alpha" : "透明",
+    "Color Mode" : "颜色模式",
+    "Range" : "范围",
     
     //p5_pen
     "Background" : "背景",
@@ -132,6 +144,25 @@ var LANG = {
     "QUAD_STRIP" : "四边带形",
     "OPEN" : "开放",
     "CLOSE" : "封闭",
+    
+    //p5_text
+    "text" : "文字",
+    "textAlign" : "文字对齐",
+    "Horizontal" : "水平",
+    "Vertical" : "垂直",
+    "ALIGN_LEFT" : "靠左",
+    "ALIGN_CENTER" : "居中",
+    "ALIGN_RIGHT" : "靠右",
+    "ALIGN_TOP" : "上对齐",
+    "ALIGN_BOTTOM" : "下对齐",
+    "ALIGN_BASELINE" : "基线",
+    "Text Leading" : "行间距",
+    "Text Size" : "字体大小",
+    "Text Style" : "字体样式",
+    "NORMAL" : "正体",
+    "ITALIC" : "斜体",
+    "BOLD" : "粗体",
+    "Text Width" : "文字宽度",
     
     //p5_keyboard
     "Key_is_pressed" : "按键被按下",
