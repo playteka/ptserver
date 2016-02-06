@@ -25,6 +25,37 @@ Blockly.JavaScript['p5_transform_translate'] = function(block) {
   return code;
 };
 
+Blockly.Blocks['p5_transform_translate3d'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(LANG["Translate"]);
+    this.appendValueInput("X")
+        .setCheck("Number")
+        .appendField("X");
+    this.appendValueInput("Y")
+        .setCheck("Number")
+        .appendField("Y");
+    this.appendValueInput("Z")
+        .setCheck("Number")
+        .appendField("Z");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(65);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.JavaScript['p5_transform_translate3d'] = function(block) {
+  var value_x = Blockly.JavaScript.valueToCode(block, 'X', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_y = Blockly.JavaScript.valueToCode(block, 'Y', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_z = Blockly.JavaScript.valueToCode(block, 'Z', Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'translate(' + value_x + ',' + value_y + ',' + value_z + ');\n' ;
+  return code;
+};
+
 Blockly.Blocks['p5_transform_rotate'] = {
   init: function() {
     this.appendDummyInput()
@@ -45,6 +76,29 @@ Blockly.JavaScript['p5_transform_rotate'] = function(block) {
   var value_angle = Blockly.JavaScript.valueToCode(block, 'ANGLE', Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
   var code = 'rotate(' + value_angle +');\n' ;
+  return code;
+};
+
+Blockly.Blocks['p5_transform_rotate3d'] = {
+  init: function() {
+    this.appendValueInput("ANGLE")
+        .setCheck("Number")
+        .appendField(new Blockly.FieldDropdown([[LANG["rotateX"], "rotateX"], 
+            [LANG["rotateY"], "rotateY"], [LANG["rotateZ"], "rotateZ"]]), "fun");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(65);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.JavaScript['p5_transform_rotate3d'] = function(block) {
+  var dropdown_fun = block.getFieldValue('fun');
+  var value_angle = Blockly.JavaScript.valueToCode(block, 'ANGLE', Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = dropdown_fun + '(' + value_angle +');\n' ;
   return code;
 };
 

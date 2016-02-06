@@ -160,3 +160,28 @@ Blockly.JavaScript['p5_keyboard_keyisdown'] = function(block) {
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
+
+
+Blockly.Blocks['p5_keyboard_event'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown([[LANG["keyPressed"], "keyPressed"], 
+            [LANG["keyReleased"], "keyReleased"], [LANG["keyTyped"], "keyTyped"]]), "EVENT");
+    this.appendStatementInput("BODY");
+    this.setInputsInline(true);
+    this.setColour(65);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.JavaScript['p5_keyboard_event'] = function(block) {
+  var dropdown_event = block.getFieldValue('EVENT');
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'function ' + dropdown_event + '() { \n';
+  code += statements_body;
+  code += '}\n'
+  return code;
+};
+
