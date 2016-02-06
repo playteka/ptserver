@@ -44,7 +44,7 @@ Blockly.Blocks['p5_mouse_mouseispressed'] = {
         .appendField(LANG["Mouse is pressed"]);
     this.setInputsInline(true);
     this.setOutput(true, "Boolean");
-    this.setColour(20);
+    this.setColour(65);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -156,4 +156,47 @@ Blockly.JavaScript['p5_mouse_mouseclicked'] = function(block) {
   code += statements_body;
   code += '}\n'
   return code;
+};
+
+Blockly.Blocks['p5_mouse_event'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown([[LANG["mouseClicked"], "mouseClicked"], 
+        [LANG["mousePressed"], "mousePressed"], [LANG["mouseReleased"], "mouseReleased"], 
+        [LANG["mouseMoved"], "mouseMoved"], [LANG["mouseDragged"], "mouseDragged"]]), "EVENT");
+    this.appendStatementInput("BODY");
+    this.setInputsInline(true);
+    this.setColour(65);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.JavaScript['p5_mouse_event'] = function(block) {
+  var dropdown_event = block.getFieldValue('EVENT');
+  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'function ' + dropdown_event + '() { \n';
+  code += statements_body;
+  code += '}\n'
+  return code;
+};
+
+Blockly.Blocks['p5_mouse_variable'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown([["mouseX", "mouseX"], ["mouseY", "mouseY"], ["pmouseX", "pmouseX"], ["pmouseY", "pmouseY"], ["winMouseX", "winMouseX"], ["winMouseY", "winMouseY"], ["pwinMouseX", "pwinMouseX"], ["pwinMouseY", "pwinMouseY"]]), "VAR");
+    this.setOutput(true);
+    this.setColour(65);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.JavaScript['p5_mouse_variable'] = function(block) {
+  var dropdown_var = block.getFieldValue('VAR');
+  // TODO: Assemble JavaScript into code variable.
+  var code = dropdown_var;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
 };

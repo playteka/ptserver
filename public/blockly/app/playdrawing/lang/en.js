@@ -118,9 +118,22 @@ var LANG = {
     "RADIUS" : "RADIUS",
     "CENTER" : "CENTER",
     
+    //p5_3d_shape
+    "plane" : "plane",
+    "sphere" : "sphere",
+    "cylinder" : "cylinder",
+    "cone" : "cone",
+    "torus" : "torus",
+    "box" : "box",
+    "[detail]" : "[detail]",
+    "Tube Radius" : "Tube Radius",
+    
     //p5_transform
     "Translate" : "Translate",
     "Rotate" : "Rotate",
+    "rotateX" : "rotateX",
+    "rotateY" : "rotateY",
+    "rotateZ" : "rotateZ",
     "Scale" : "Scale",
     "Angle" : "Angle",
     "Push" : "Push",
@@ -176,20 +189,20 @@ var LANG = {
     "DOWN_ARROW" : "DOWN_ARROW",
     "LEFT_ARROW" : "LEFT_ARROW",
     "RIGHT_ARROW" : "RIGHT_ARROW",
-    "Key Pressed" : "Key Pressed",
-    "Key Released" : "Key Released",
-    "Key Typed" : "Key Typed",
+    "keyPressed" : "Key Pressed",
+    "keyReleased" : "Key Released",
+    "keyTyped" : "Key Typed",
     "Key is down" : "Key is down",
     
     //p5_mouse
     "mouseX" : "mouseX",
     "mouseY" : "mouseY",
     "Mouse is pressed" : "Mouse is pressed",
-    "Mouse Moved" : "Mouse Moved",
-    "Mouse Dragged" : "Mouse Dragged",
-    "Mouse Pressed" : "Mouse Pressed",
-    "Mouse Released" : "Mouse Release",
-    "Mouse Clicked" : "Mouse Clicked",
+    "mouseMoved" : "Mouse Moved",
+    "mouseDragged" : "Mouse Dragged",
+    "mousePressed" : "Mouse Pressed",
+    "mouseReleased" : "Mouse Release",
+    "mouseClicked" : "Mouse Clicked",
     
     //status of saving operations
     "IDLE" : "Idel",

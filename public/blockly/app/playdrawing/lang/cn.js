@@ -117,9 +117,22 @@ var LANG = {
     "RADIUS" : "半径",
     "CENTER" : "中心",
     
+    //p5_3d_shape
+    "plane" : "平面",
+    "sphere" : "球体",
+    "cylinder" : "圆柱体",
+    "cone" : "圆锥体",
+    "torus" : "圆环体",
+    "box" : "长方体",
+    "[detail]" : "[细节]",
+    "Tube Radius" : "环半径",
+    
     //p5_transform
     "Translate" : "平移",
     "Rotate" : "旋转",
+    "rotateX" : "旋转X",
+    "rotateY" : "旋转Y",
+    "rotateZ" : "旋转Z",
     "Scale" : "缩放",
     "Angle" : "角度",
     "Push" : "入栈",
@@ -174,20 +187,20 @@ var LANG = {
     "DOWN_ARROW" : "下箭头",
     "LEFT_ARROW" : "左箭头",
     "RIGHT_ARROW" : "右箭头",
-    "Key Pressed" : "当按键被按下",
-    "Key Released" : "当按键被放开",
-    "Key Typed" : "当按键被敲击",
+    "keyPressed" : "当按键被按下",
+    "keyReleased" : "当按键被放开",
+    "keyTyped" : "当按键被敲击",
     "Key is down" : "此按键是按下的",
     
     //p5_mouse
     "mouseX" : "鼠标位置X",
     "mouseY" : "鼠标位置Y",
     "Mouse is pressed" : "鼠标是按下的",
-    "Mouse Moved" : "当鼠标移动时",
-    "Mouse Dragged" : "当鼠标拖动时",
-    "Mouse Pressed" : "当鼠标按下时",
-    "Mouse Released" : "当鼠标放开时",
-    "Mouse Clicked" : "当鼠标点击时",
+    "mouseMoved" : "当鼠标移动时",
+    "mouseDragged" : "当鼠标拖动时",
+    "mousePressed" : "当鼠标按下时",
+    "mouseReleased" : "当鼠标放开时",
+    "mouseClicked" : "当鼠标点击时",
     
     //status of saving operations
     "IDLE" : "空闲",
