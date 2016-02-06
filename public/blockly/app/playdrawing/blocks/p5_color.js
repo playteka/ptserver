@@ -65,10 +65,10 @@ Blockly.JavaScript['p5_color'] = function(block) {
 Blockly.Blocks['p5_color_colormode'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Color Mode")
+        .appendField(LANG["Color Mode"])
         .appendField(new Blockly.FieldDropdown([["RGB", "RGB"], ["HSB", "HSB"]]), "MODE");
     this.appendValueInput("RANGE")
-        .appendField("Range");
+        .appendField(LANG["Range"]);
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -96,11 +96,13 @@ Blockly.JavaScript['p5_color_colormode'] = function(block) {
 Blockly.Blocks['p5_color_extract'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Extract")
-        .appendField(new Blockly.FieldDropdown([["red", "red"], ["green", "green"], ["blue", "blue"], ["alpha", "alpha"], ["hue", "hue"], ["saturation", "saturation"], ["brightness", "brightness"]]), "fun");
+        .appendField(LANG["Extract"])
+        .appendField(new Blockly.FieldDropdown([[LANG["red"], "red"], [LANG["green"], "green"], 
+                [LANG["blue"], "blue"], [LANG["alpha"], "alpha"], [LANG["hue"], "hue"], 
+                [LANG["saturation"], "saturation"], [LANG["brightness"], "brightness"]]), "fun");
     this.appendValueInput("COLOR")
         .setCheck("color_type")
-        .appendField("From Color");
+        .appendField(LANG["From Color"]);
     this.setInputsInline(true);
     this.setOutput(true, "Number");
     this.setColour(290);
@@ -121,16 +123,16 @@ Blockly.JavaScript['p5_color_extract'] = function(block) {
 Blockly.Blocks['p5_color_lerpcolor'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Lerp Color");
+        .appendField(LANG["Lerp Color"]);
     this.appendValueInput("COLOR1")
         .setCheck("color_type")
-        .appendField("Color1");
+        .appendField(LANG["Color1"]);
     this.appendValueInput("COLOR2")
         .setCheck("color_type")
-        .appendField("Color2");
+        .appendField(LANG["Color2"]);
     this.appendValueInput("AMOUNT")
         .setCheck("Number")
-        .appendField("Amount");
+        .appendField(LANG["Amount"]);
     this.setInputsInline(true);
     this.setOutput(true, "color_type");
     this.setColour(290);
