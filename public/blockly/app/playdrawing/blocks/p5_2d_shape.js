@@ -269,7 +269,7 @@ Blockly.Blocks['p5_2dshape_ellipsemode'] = {
 Blockly.JavaScript['p5_2dshape_ellipsemode'] = function(block) {
   var dropdown_mode = block.getFieldValue('MODE');
   // TODO: Assemble JavaScript into code variable.
-  var code = 'rectMode(' + dropdown_mode + ');\n';
+  var code = 'ellipseMode(' + dropdown_mode + ');\n';
   return code;
 };
 

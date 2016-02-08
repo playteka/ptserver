@@ -486,6 +486,6 @@ function new_win(){
     userScript.type = 'text/javascript';
     userScript.text = code;
     userScript.async = false;
-    var processing_win = window.open('template.html',"", "width=1024, height=768");
+    var processing_win = window.open('template.html',"", "width=640, height=360");
     processing_win.document.body.appendChild(userScript);
 }

@@ -24,7 +24,7 @@ var LANG = {
 
     //P5_Structure
     'setup' : '开始',
-    'draw' : '循环',
+    'draw' : '循环画',
     'preload' : '预装',
     
     //p5_env
