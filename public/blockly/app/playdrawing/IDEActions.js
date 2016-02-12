@@ -233,13 +233,13 @@ function download_xml(program, _id) {
                 //all_objects.init();
                 //all_objects.append();
                 //load XML into workspace
-                Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
+                Blockly.Xml.domToWorkspace(workspace, xml);
                 //invoke myUpdateFunction() to generate the obj_set for object dropdown menu
                 myUpdateFunction();
                 //clear the workspace
                 Blockly.mainWorkspace.clear();
                 //load XML again so that even the Chinese characters of the dropdown menu will be shown properly
-                Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
+                Blockly.Xml.domToWorkspace(workspace, xml);
             } else if (result.status == 'readwrite') {
 
                 //set the readonly flag to "NO"
