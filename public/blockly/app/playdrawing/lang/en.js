@@ -217,11 +217,12 @@ var LANG = {
     "mouseReleased" : "Mouse Release",
     "mouseClicked" : "Mouse Clicked",
     
-    //status of saving operations
+    //status of saveFlag
     "IDLE" : "Idel",
     "SAVING" : "Saving",
     "SAVED" : "Saved",
     "MODIFIED" : "Modified",
+    "ERROR" : "Error",
     
     //result of download_xml
     "enter_project_name":"Please enter your project name",
