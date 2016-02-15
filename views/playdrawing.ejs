@@ -108,22 +108,30 @@ var redirectLogin = function(program,_id){
 	window.location.assign('/login?redirect=' + program +'&_id=' + _id + '&lang=<%=lang.language%>');
 };
 
-//prompt user to save the program before leave the page
+//automatically save the program before leave the page
 window.onbeforeunload = function() {
-	if (saveFlag.getReadonly() == "NO" && saveFlag.getFlag() == "MODIFIED" ) {
-	return "<%=lang.changes_not_saved%>";
-};
+	if (saveFlag.getReadonly() == "NO" && 
+        (saveFlag.getFlag() == "MODIFIED" ||  saveFlag.getFlag() == "ERROR") ){
+	   upload_xml('playdrawing', '<%=_id%>');
+    //return "<%=lang.changes_not_saved%>";
+    }
 }
 
 //send heartbeat to the server
 function get_heartbeat(){
-	var getting = $.get('/heartbeat');
-	getting.done(function(result){
-	console.log(result);
-	})
-	.fail(function(){
-		console.log("heartbeat network error");
-	});
+	if (saveFlag.getReadonly() == "NO" && 
+        (saveFlag.getFlag() == "MODIFIED" ||  saveFlag.getFlag() == "ERROR") ){
+	   upload_xml('playdrawing', '<%=_id%>');
+    }
+    else{
+       var getting = $.get('/heartbeat');
+	   getting.done(function(result){
+	       console.log(result);
+	   })
+	   .fail(function(){
+	       console.log("heartbeat network error");
+	   });   
+    }
 }
 
 //the flag of login

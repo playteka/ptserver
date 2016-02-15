@@ -215,11 +215,12 @@ var LANG = {
     "mouseReleased" : "当鼠标放开时",
     "mouseClicked" : "当鼠标点击时",
     
-    //status of saving operations
+    //status of saveFlag
     "IDLE" : "空闲",
     "SAVING" : "正在保存",
     "SAVED" : "已保存",
     "MODIFIED" : "已修改",
+    "ERROR" : "保存错误",
     
     //result of download_xml
     "enter_project_name":"请输入你的项目名称",

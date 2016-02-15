@@ -16,7 +16,7 @@
 //var saveFlagChangeEvent = new Event('saveFlagChangeEvent');
 
 var saveFlag=function(){
-    var flag='IDLE'; //IDEL, SAVING, SAVED, MODIFIED
+    var flag='IDLE'; //IDEL, SAVING, SAVED, MODIFIED,ERROR
     var readonly = 'NO'; //YES, NO
     return {
     getFlag:function(){return flag;},
@@ -55,6 +55,10 @@ $(document).on("saveFlagChangeEvent", function(event){
                else if (flag == 'MODIFIED') {
                $('#info_save').html(LANG.MODIFIED);
                $('#info_save').attr("class", "btn btn-danger");
+               }
+               else if (flag == 'ERROR') {
+                    $('#info_save').html(LANG.ERROR);
+                    $('#info_save').attr("class", "btn btn-danger");
                };
                
                });
@@ -133,31 +137,34 @@ function upload_xml(program, _id){
     posting.done(function(result){
                  if (result.status == "error") {
                  if (result.errorno == 1) {
-                 alert("you haven't logged in yet");
+                    console.log("you haven't logged in yet");
                  }
                  else if (result.errorno == 2) {
-                 alert("project does not exist");
+                    console.log("project does not exist");
                  }
                  else if (result.errorno == 3) {
-                 alert("project has been deleted");
+                    console.log("project has been deleted");
                  }
                  else if (result.errorno == 4) {
-                 alert("you have no rights to modify program of another user");
+                    console.log("you have no rights to modify program of another user");
                  }
                  }
                  else{
-                 saveFlag.setFlag('SAVED');
-                 return "success";
+                    saveFlag.setFlag('SAVED');
+                    console.log("upload XML successfully.");
                  }
-                 }).
-    fail(function(){
-         saveFlag.setFlag('MODIFIED');
-         alert("network failed!");
+                 //log the result
+                 console.log(result);
+    }).
+    fail(function(err){
+         saveFlag.setFlag('ERROR');
+         console.log("Fail to upload the XML!");
+         console.log(err);
          });
 }
 
 function download_xml(program, _id){
-    
+
     var posting = $.post("/blockly/app/"+program+"/download", {"_id" : _id});
     posting.done(function(result){
                  if (result.status == "error") {

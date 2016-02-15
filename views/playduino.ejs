@@ -102,19 +102,27 @@ window.location.assign('/login?redirect=' + program +'&_id=' + _id + '&lang=<%=l
 
 //prompt user to save the program before leave the page
 window.onbeforeunload = function() {
-if (saveFlag.getReadonly() == "NO" && saveFlag.getFlag() == "MODIFIED" ) {
-return "<%=lang.changes_not_saved%>";
-};
+    if (saveFlag.getReadonly() == "NO" && 
+        (saveFlag.getFlag() == "MODIFIED" ||  saveFlag.getFlag() == "ERROR") ){
+	   upload_xml('playduino', '<%=_id%>');
+    //return "<%=lang.changes_not_saved%>";
+    }
 }
 
 function get_heartbeat(){
-var getting = $.get('/heartbeat');
-getting.done(function(result){
-console.log(result);
-})
-.fail(function(){
-console.log("heartbeat network error");
-});
+    if (saveFlag.getReadonly() == "NO" && 
+        (saveFlag.getFlag() == "MODIFIED" ||  saveFlag.getFlag() == "ERROR") ){
+	   upload_xml('playduino', '<%=_id%>');
+    }
+    else{
+        var getting = $.get('/heartbeat');
+        getting.done(function(result){
+            console.log(result);
+        })
+        .fail(function(){
+            console.log("heartbeat network error");
+        });
+    }
 }
 
 //the flag of login
@@ -126,33 +134,33 @@ var workspace;
 
 //define update function when change happens
 function myUpdateFunction() {
-all_devices.init();
-var code = Blockly.JavaScript.workspaceToCode(workspace);
-all_devices.append();
+    all_devices.init();
+    var code = Blockly.JavaScript.workspaceToCode(workspace);
+    all_devices.append();
 
-//update code textarea and set 'MODIFIED' flag when javascript code is changed
-if(code != document.getElementById('textarea_code').value){
-document.getElementById('textarea_code').value = code;
-saveFlag.setFlag('MODIFIED');
-}
+    //update code textarea and set 'MODIFIED' flag when javascript code is changed
+    if(code != document.getElementById('textarea_code').value){
+        document.getElementById('textarea_code').value = code;
+        saveFlag.setFlag('MODIFIED');
+    }
 }
 
 $(document).ready(function(){
 
-//select tab_sketch panel
-tabClick("tab_sketch");
+    //select tab_sketch panel
+    tabClick("tab_sketch");
 
-//inject blockly
-var workspace = Blockly.inject( document.getElementById('content_sketch'),
-{media: '../../media/', toolbox:document.getElementById('toolbox')} );
+    //inject blockly
+    var workspace = Blockly.inject( document.getElementById('content_sketch'),
+        {media: '../../media/', toolbox:document.getElementById('toolbox')} );
 
-//add change listener of blockly
-workspace.addChangeListener(myUpdateFunction);
+    //add change listener of blockly
+    workspace.addChangeListener(myUpdateFunction);
 
-//download the xml from server and load it into blockly area
-download_xml('playduino', '<%=_id%>');
+    //download the xml from server and load it into blockly area
+    download_xml('playduino', '<%=_id%>');
 
-setInterval("get_heartbeat()", 30*1000);
+    setInterval("get_heartbeat()", 30*1000);
 });
 
 </script>

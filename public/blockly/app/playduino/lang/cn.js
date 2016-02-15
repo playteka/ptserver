@@ -88,6 +88,7 @@ var LANG = {
     "SAVING" : "正在保存",
     "SAVED" : "已保存",
     "MODIFIED" : "已修改",
+    "ERROR" : "保存错误",
     
     //result of download_xml
     "enter_project_name":"请输入你的项目名称",
