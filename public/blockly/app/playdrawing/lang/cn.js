@@ -55,6 +55,9 @@ var LANG = {
     
     //p5_math
     "random" : "随机数",
+    "randomGaussian" : "高斯随机数",
+    "Mean" : "平均值",
+    "S.Deviation" : "标准差",
     "min" : "最小值",
     "max" : "最大值",
     "abs" : "绝对值",

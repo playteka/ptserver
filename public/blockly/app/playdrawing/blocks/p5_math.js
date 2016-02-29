@@ -46,6 +46,31 @@ Blockly.JavaScript['p5_math_random'] = function(block) {
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
+Blockly.Blocks['p5_math_randomgaussian'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(LANG["randomGaussian"]);
+    this.appendValueInput("MEAN")
+        .appendField(LANG["Mean"]);
+    this.appendValueInput("SD")
+        .appendField(LANG["S.Deviation"]);
+    this.setInputsInline(true);
+    this.setOutput(true);
+    this.setColour(230);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.JavaScript['p5_math_randomgaussian'] = function(block) {
+  var value_mean = Blockly.JavaScript.valueToCode(block, 'MEAN', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_sd = Blockly.JavaScript.valueToCode(block, 'SD', Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'randomGaussian(' + value_mean + ',' + value_sd + ')' ;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
 Blockly.Blocks['p5_math_dist2d'] = {
   init: function() {
     this.appendDummyInput()
@@ -207,7 +232,7 @@ Blockly.JavaScript['p5_math_floor'] = function(block) {
 };
 
 
-Blockly.Blocks['p5_math_contrain'] = {
+Blockly.Blocks['p5_math_constrain'] = {
   init: function() {
     this.appendDummyInput()
         .appendField(LANG["constrain"]);
@@ -228,12 +253,12 @@ Blockly.Blocks['p5_math_contrain'] = {
   }
 };
 
-Blockly.JavaScript['p5_math_contrain'] = function(block) {
+Blockly.JavaScript['p5_math_constrain'] = function(block) {
   var value_value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
   var value_min = Blockly.JavaScript.valueToCode(block, 'MIN', Blockly.JavaScript.ORDER_ATOMIC);
   var value_max = Blockly.JavaScript.valueToCode(block, 'MAX', Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
-  var code = 'contrain(' + value_value + ',' + value_min + ',' + value_max + ')' ;
+  var code = 'constrain(' + value_value + ',' + value_min + ',' + value_max + ')' ;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };

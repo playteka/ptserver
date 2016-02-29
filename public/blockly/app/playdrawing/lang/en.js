@@ -56,6 +56,9 @@ var LANG = {
     
     //p5_math
     "random" : "random",
+    "randomGaussian" : "randomGaussian",
+    "Mean" : "Mean",
+    "S.Deviation" : "S.Deviation",
     "min" : "min",
     "max" : "max",
     "abs" : "abs",

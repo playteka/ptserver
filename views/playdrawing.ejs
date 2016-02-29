@@ -485,7 +485,11 @@ $(document).ready(function(){
                                     <value name="MIN"><block type="math_number"><field name="NUM">0</field></block></value>
                                     <value name="MAX"><block type="math_number"><field name="NUM">1</field></block></value>
                                 </block>
-                                <block type='p5_math_contrain'>
+                                <block type='p5_math_randomgaussian'>
+                                    <value name="MEAN"><block type="math_number"><field name="NUM">0</field></block></value>
+                                    <value name="SD"><block type="math_number"><field name="NUM">1</field></block></value>
+                                </block>
+                                <block type='p5_math_constrain'>
                                     <value name="VALUE"><block type="math_number"><field name="NUM">50</field></block></value>
                                     <value name="MIN"><block type="math_number"><field name="NUM">0</field></block></value>
                                     <value name="MAX"><block type="math_number"><field name="NUM">100</field></block></value>
