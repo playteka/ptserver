@@ -185,7 +185,10 @@ Blockly.JavaScript['p5_mouse_event'] = function(block) {
 Blockly.Blocks['p5_mouse_variable'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown([["mouseX", "mouseX"], ["mouseY", "mouseY"], ["pmouseX", "pmouseX"], ["pmouseY", "pmouseY"], ["winMouseX", "winMouseX"], ["winMouseY", "winMouseY"], ["pwinMouseX", "pwinMouseX"], ["pwinMouseY", "pwinMouseY"]]), "VAR");
+        .appendField(new Blockly.FieldDropdown([["mouseX", "mouseX"], ["mouseY", "mouseY"], 
+        ["pmouseX", "pmouseX"], ["pmouseY", "pmouseY"],
+        ["winMouseX", "winMouseX"], ["winMouseY", "winMouseY"], 
+        ["pwinMouseX", "pwinMouseX"], ["pwinMouseY", "pwinMouseY"]]), "VAR");
     this.setOutput(true);
     this.setColour(65);
     this.setTooltip('');
