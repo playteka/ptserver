@@ -38,5 +38,6 @@
     "Digital" : "数字传感器",
     "Pin" : "管脚",
     "RGBLed" : "彩灯",
-    "Servo" : "舵机"
+    "Servo" : "舵机",
+    "Network" : "网络"
 }

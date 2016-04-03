@@ -80,6 +80,18 @@ var LANG = {
     "clockwise at speed" : "顺时钟转动，速度为",
     "counter clockwise at speed" : "逆时钟转动，速度为",
     
+    //network
+    "Server: name" : "服务器: 名称",
+    "Port:" : "端口:",
+    "Event List" : "事件列表",
+    "Event" : "事件",
+    "Data" : "数据",
+    "Unwrap Data" : "解包数据",
+    "content" : "内容",
+    "no content" : "无内容",
+    "Emit" : "发送",
+    "Wrap Data" : "打包数据",
+    
     //system
     "print log" : "打印",
     

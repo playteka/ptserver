@@ -55,6 +55,9 @@ init: function(){
     //servo
     this.servo.length = 0;
     this.servo_dropdown.length = 0;
+    //server
+    this.server.length = 0;
+    this.server_dropdown.length = 0;
 },
 append: function(){
     //board
@@ -81,6 +84,9 @@ append: function(){
     //servo
     if (this.servo.length == 0) { this.servo.push('servo'); }
     if (this.servo_dropdown.length == 0) { this.servo_dropdown.push(['servo','servo']); }
+    //server
+    if (this.server.length == 0) { this.server.push('server'); }
+    if (this.server_dropdown.length == 0) { this.server_dropdown.push(['server','server']); }
 },
 create_inside_name: function(outside_name) {
     //return outside_name + "_inside"
@@ -115,6 +121,8 @@ all_devices.RGBled_dropdown = new Array(['RGBled','RGBled']);
 //servo
 all_devices.servo = new Array('servo');
 all_devices.servo_dropdown = new Array(['servo','servo']);
-
+//server
+all_devices.server = new Array('server');
+all_devices.server_dropdown = new Array(['server','server']);
 
 
