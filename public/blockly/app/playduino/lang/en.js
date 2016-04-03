@@ -81,6 +81,18 @@ var LANG = {
     "clockwise at speed" : "clockwise at speed",
     "counter clockwise at speed" : "counter clockwise at speed",
     
+    //network
+    "Server: name" : "Server: name",
+    "Port:" : "Port:",
+    "Event List" : "Event List",
+    "Event" : "Event",
+    "Data" : "Data",
+    "Unwrap Data" : "Unwrap Data",
+    "content" : "content",
+    "no content" : "no content",
+    "Emit" : "Emit",
+    "Wrap Data" : "Wrap Data",
+    
     //system
     "print log" : "print log",
     

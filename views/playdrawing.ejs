@@ -42,6 +42,7 @@
 <script type="text/javascript" src="./blocks/p5_transform.js"></script>
 <script type="text/javascript" src="./blocks/p5_vertex.js"></script>
 <script type="text/javascript" src="./blocks/p5_text.js"></script>
+<script type="text/javascript" src="./blocks/p5_network.js"></script>
 
 <!-- Include socket.io -->
 <script src="./socket.io/socket.io.js"></script>
@@ -743,6 +744,14 @@ $(document).ready(function(){
                                 <block type='p5_mouse_mouseispressed'></block>
                                 <block type='p5_mouse_event'></block>
                             </category>    
+                            
+                            <category name="<%=lang.Network%>">
+                                <block type='p5_network_connect'></block>
+                                <block type='p5_network_event'></block>
+                                <block type='p5_network_data_unwrap'></block>
+                                <block type='p5_network_emit'></block>
+                                <block type='p5_network_data_wrap'></block>
+                            </category>                               
                             
                             <category name="<%=lang.Object_Definition%>">
                             <block type="object_definition"></block>

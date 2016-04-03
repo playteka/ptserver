@@ -218,6 +218,16 @@ var LANG = {
     "mouseReleased" : "当鼠标放开时",
     "mouseClicked" : "当鼠标点击时",
     
+    //p5_network
+    "Connect IP:" : "连接 IP:",
+    "Port:" : "端口:",
+    "Event" : "事件",
+    "Data" : "数据",
+    "Unwrap Data" : "解包数据",
+    "content" : "内容",
+    "no content" : "无内容",
+    "Wrap Data" : "打包数据",
+    
     //status of saveFlag
     "IDLE" : "空闲",
     "SAVING" : "正在保存",

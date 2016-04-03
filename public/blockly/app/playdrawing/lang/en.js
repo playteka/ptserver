@@ -220,6 +220,15 @@ var LANG = {
     "mouseReleased" : "Mouse Release",
     "mouseClicked" : "Mouse Clicked",
     
+    //p5_network
+    "Connect IP:" : "Connect IP:",
+    "Port:" : "Port:",
+    "Event" : "Event",
+    "Data" : "Data",
+    "Unwrap Data" : "Unwrap Data",
+    "content" : "content",
+    "Wrap Data" : "Wrap Data",
+    
     //status of saveFlag
     "IDLE" : "Idel",
     "SAVING" : "Saving",

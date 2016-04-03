@@ -38,6 +38,7 @@
     "Digital" : "Digital",
     "Pin" : "Pin",
     "RGBLed" : "RGBLed",
-    "Servo" : "Servo"
+    "Servo" : "Servo",
+    "Network" : "Network"
     
 }

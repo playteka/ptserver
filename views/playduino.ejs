@@ -38,6 +38,7 @@
 <script type="text/javascript" src="./blocks/RGBled.js"></script>
 <script type="text/javascript" src="./blocks/pin.js"></script>
 <script type="text/javascript" src="./blocks/servo.js"></script>
+<script type="text/javascript" src="./blocks/network.js"></script>
 
 <!-- Include socket.io -->
 <script src="./socket.io/socket.io.js"></script>
@@ -581,6 +582,17 @@ $(document).ready(function(){
 <block type="servo_stop_method"></block>
 <block type="servo_cw_method"></block>
 <block type="servo_ccw_method"></block>
+</category>
+
+<category name="<%=lang.Network%>">
+    <block type="network_server">
+        <value name="PORT"><block type="math_number"><field name="NUM">9090</field></block></value>
+    </block>
+    <block type="network_connection_event"></block>
+    <block type="network_message_event"></block>
+    <block type="network_data_unwrap"></block>
+    <block type="network_emit"></block>
+    <block type="network_data_wrap"></block>
 </category>
 
 </xml>
