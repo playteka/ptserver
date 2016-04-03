@@ -227,6 +227,7 @@ var LANG = {
     "Data" : "Data",
     "Unwrap Data" : "Unwrap Data",
     "content" : "content",
+    "no content" : "no content",
     "Wrap Data" : "Wrap Data",
     
     //status of saveFlag
