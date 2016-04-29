@@ -315,7 +315,7 @@ domToMutation: function(xmlElement) {
     
     for (var x = 0; x < this.itemCount_; x++) {
         var input = this.appendValueInput('CONNECTION' + x)
-                        .appendField("content"+x)
+                        .appendField(LANG["content"]+x)
                         .appendField("<==");
         this.moveInputBefore("CONNECTION"+x, "PROGRAM");
         if (x == 0) {
@@ -366,7 +366,7 @@ compose: function(containerBlock) {
     var itemBlock = containerBlock.getInputTargetBlock('STACK');
     while (itemBlock) {
         var input = this.appendValueInput('CONNECTION' + this.itemCount_)
-                        .appendField("content"+this.itemCount_)
+                        .appendField(LANG["content"]+this.itemCount_)
                         .appendField("<==");
         this.moveInputBefore('CONNECTION' + this.itemCount_ , "PROGRAM");
         if (this.itemCount_ == 0) {
