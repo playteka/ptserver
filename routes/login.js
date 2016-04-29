@@ -50,6 +50,7 @@ router.post('/', function (req, res) {
                                
                                //return success
                                ret.status = "success";
+                               ret.errorno = 0;
                                ret.error = "login successfully";
                                //ret.session = sess;
                                //ret.sid = sid;
@@ -59,11 +60,13 @@ router.post('/', function (req, res) {
                                else{ //subscriber is not active
                                ret.status = "error";
                                ret.error = "subscriber is inactive";
+                               ret.errorno = 1;
                                res.json(ret);
                                }
                                }
                                else{  //user name or password wrong
                                ret.status = "error";
+                               ret.errorno = 2;
                                ret.error = "User name does not exist or password wrong";
                                res.json(ret);
                                }

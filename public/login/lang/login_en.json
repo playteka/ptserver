@@ -17,6 +17,8 @@
     "Login" : "Login",
     "Please_sign_up" : "If you are new user, Sign up here please!",
     "Sign_up" : "Sign up",
+    "subscriber_inactive" : "This user is inactive",
+    "user_not_exist_or_password_wrong" : "The user does not exist or password is wrong",
     "user_already_exists" : "User name alreay exists",
     "password_length_less_than_6" : "The length of password is less than 6",
     "user_name_is_not_a_valid_email_address" : "User name is not a valid email address",

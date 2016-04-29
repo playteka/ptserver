@@ -131,69 +131,76 @@ $("#login_Password").val(localStorage.password);
 
 $(document).ready(function(){
 
-$("#login_alert_box").hide();
-$("#register_alert_box").hide();
+	$("#login_alert_box").hide();
+	$("#register_alert_box").hide();
 
-$(".form-control").keyup(function(event){
-$("#login_alert_box").hide();
-$("#register_alert_box").hide();
-});
+	$(".form-control").keyup(function(event){
+		$("#login_alert_box").hide();
+		$("#register_alert_box").hide();
+	});
 
-retrieve(); //retrieve account and password
+	retrieve(); //retrieve account and password
 
 });
 
 var changeLanguage = function(language){
-if (language == 'English') {
-window.location.assign('/login?lang=en');
-}
-else{
-window.location.assign('/login?lang=cn');
-}
+	if (language == 'English') {
+	window.location.assign('/login?lang=en');
+	}
+	else{
+	window.location.assign('/login?lang=cn');
+	}
 };
 
 var show_alert_box = function(which,text){
-value = '<span class="glyphicon glyphicon-exclamation-sign"></span> ' + text;
-$("#"+which+"_alert_box").html(value);
-$("#"+which+"_alert_box").show();
+	value = '<span class="glyphicon glyphicon-exclamation-sign"></span> ' + text;
+	$("#"+which+"_alert_box").html(value);
+	$("#"+which+"_alert_box").show();
 };
 
 $("#login_btn").click(function(){
-var paramerters = {};
-paramerters.account = $("#login_Email").val();
-paramerters.password = $("#login_Password").val();
+	
+	var paramerters = {};
+	paramerters.account = $("#login_Email").val();
+	paramerters.password = $("#login_Password").val();
 
 
-var posting = $.post("/login", paramerters);
-posting.done(function(result){
-//alert("数据：" + JSON.stringify(result) + "\n状态：" + status);
-if (result.status == "success") {
+	var posting = $.post("/login", paramerters);
+	posting.done(function(result){
+		//alert("数据：" + JSON.stringify(result) + "\n状态：" + status);
+		if (result.status == "success") {
 
-//save the account and password into the localstorage if 'remember me' is checked.
-if ($("#login_remember").prop("checked") ){
-remember(paramerters.account, paramerters.password);
-}
-else{ //if 'remeber me' is not checked, clear account and password from localstorage
-remember('', '');
-}
+			//save the account and password into the localstorage if 'remember me' is checked.
+			if ($("#login_remember").prop("checked") ){
+				remember(paramerters.account, paramerters.password);
+			}
+			else{ //if 'remeber me' is not checked, clear account and password from localstorage
+				remember('', '');
+			}
 
 
-if ('<%=redirect%>' != 'NO') { //redirect to the IDE page of the program
-window.location.assign('/blockly/app/<%=redirect%>/?&_id=<%=_id%>&lang=<%=lang.language%>');
-}
-else{  //enter the project center page
-window.location.assign('/project?lang=<%=lang.language%>');
-}
+			if ('<%=redirect%>' != 'NO') { //redirect to the IDE page of the program
+			window.location.assign('/blockly/app/<%=redirect%>/?&_id=<%=_id%>&lang=<%=lang.language%>');
+		}
+		else{  //enter the project center page
+			window.location.assign('/project?lang=<%=lang.language%>');
+		}
+		}
+		else{  //if error, show alert box
+			if (result.errorno == 1) {  //"User name already exists"
+				show_alert_box('login', '<%=lang.subscriber_inactive%>');
+				console.log("login.ejs:" + "/login/post/done/subscriber_inactive");
+			}
+			else if(result.errorno == 2) {
+				show_alert_box('login', '<%=lang.user_not_exist_or_password_wrong%>');
+				console.log("login.ejs:" + "/login/post/done/user_not_exist_or_password_wrong");				
+			}	
+		}
 
-}
-else{  //if error, show alert box
-show_alert_box('login', result.error);
-}
-
-})  //if posting error, show in the alert box
-.fail(function(){
-show_alert_box('login', "Network Connection error!");
-});
+	})  //if posting error, show in the alert box
+	.fail(function(){
+		show_alert_box('login', "Network Connection error!");
+	});
 
 });
 
