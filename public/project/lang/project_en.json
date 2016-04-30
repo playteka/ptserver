@@ -20,5 +20,10 @@
     "Connect_to_Playteka" : "Connect to Playteka:",
     "Public" : "Public",
     "Private" : "Private",
-    "delete_project" : "Do you really want to delete this project?"
+    "delete_project" : "Do you really want to delete this project?",
+    "special_charaters" : "Special charaters like space, ~·!?@#$%*()-+, etc must be removed!",
+    "project_name_consists_of_only_alphabets_and_numbers" : "project name consists of only alphabets and numbers!",
+    "project_name_exists" : "Project name already exists!",
+    "operation_failed" : "Operation failed! Please check your network connection or consult service@playteka.com",
+    "network_failed" : "Oops!network failed"
 }

@@ -20,6 +20,10 @@
     "Connect_to_Playteka" : "连接我们:",
     "Public" : "公开",
     "Private" : "保密",
-    "delete_project" : "是否删除此项目？"
-    
+    "delete_project" : "是否删除此项目？",
+    "special_charaters" : "特殊字符比如空格, ~·!?@#$%*()-+,等等不能出现在项目名中!",
+    "project_name_consists_of_only_alphabets_and_numbers" : "项目名称只能包含字母，文字和数字!",
+    "project_name_exists" : "项目名已存在!",
+    "operation_failed" : "操作失败，请检查网络连接或咨询service@playteka.com",
+    "network_failed" : "糟糕!服务器连接失败"    
 }
