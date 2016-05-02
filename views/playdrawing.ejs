@@ -157,7 +157,7 @@ function myUpdateFunction() {
 
 //show code panel. This is a internal function for debugging
 $(document).keydown(function(event){ 
-    if(event.which==67||altKey||shiftKey){  //ALt + shift + c
+    if(event.which==67 && event.altKey && event.shiftKey){  //ALt + shift + c
         document.getElementById('tab_code').style.display = 'block';
     }
 });
