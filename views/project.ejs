@@ -38,6 +38,25 @@
 
 <script type = "text/javascript">
 
+function tabClick(id) {
+	
+	var TABS_ = ['playdrawing', 'playduino', 'playpi'];
+	
+	// Deselect all tabs and hide all panes.
+	for (var x in TABS_) {
+		document.getElementById('tab_' + TABS_[x]).className = 'inactive';
+		document.getElementById('content_' + TABS_[x]).style.display = 'none';
+	}
+
+	// Activate selected tab.
+	document.getElementById(id).className = 'active';
+	
+	// Show the selected pane.
+	var selected = id.replace('tab_', '');
+	var content = document.getElementById('content_' + selected);
+	content.style.display = 'block';
+}
+
     var changeLanguage = function(language) {
         if (language == 'English') {
             window.location.assign('/project?lang=en');
@@ -309,154 +328,145 @@ $(document).ready(function() {
 <body>
 
     <!-- Navigation -->
-    <nav class = "navbar navbar-default navbar-fixed-top topnav"
-role = "navigation">
-    <div class = "container topnav">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class = "navbar-header">
-    <button type = "button"
-class = "navbar-toggle collapsed"
-data - toggle = "collapse"
-data - target = "#navbar"
-aria - expanded = "false"
-aria - controls = "navbar">
-    <span class = "sr-only"> Toggle navigation </span> <span class = "icon-bar"> </span> <span class = "icon-bar"> </span> <span class = "icon-bar"> </span> </button> <a class = "navbar-brand"
-href = "http://www.playteka.com"> Playteka </a> </div> <div id = "navbar"
-class = "navbar-collapse collapse">
-    <ul class = "nav navbar-nav">
+    <nav class = "navbar navbar-default topnav" role = "navigation">
+<div class = "container topnav">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class = "navbar-header">
+        <button type = "button" class = "navbar-toggle collapsed" data - toggle = "collapse" data - target = "#navbar" aria - expanded = "false" aria - controls = "navbar">
+        <span class = "sr-only"> Toggle navigation </span> 
+        <span class = "icon-bar"> </span> <span class = "icon-bar"> </span> 
+        <span class = "icon-bar"> </span> 
+        </button> 
+        <a class = "navbar-brand"href = "http://www.playteka.com"> Playteka </a> 
+        </div> <!-- navbar-header -->
+
+<div id = "navbar" class = "navbar-collapse collapse">
     
-    <li class = "active"> <a href = "http://localhost:3000"> <%=lang.Home%> </a></li>
-    <li> <a href = "http://www.playteka.com"> <%=lang.Website%> </a></li>
-    <li> <a href = "https://github.com/playteka/playteka/wiki"> <%=lang.Wiki%> </a></li>
-    <li> <a href = "https://github.com/playteka/playteka/issues"> <%=lang.Report_Issues%> </a></li>
-    <li> <a href = "http://www.playteka.com"> <%=lang.Contact%> </a></li>
-    <li> <a href = "#" onclick = "alert('playteka v0.1.5')"> <%=lang.About%> </a></li>
+    <ul class = "nav navbar-nav">
+        <li class = "active"> <a href = "http://localhost:3000"> <%=lang.Home%> </a></li>
+        <li> <a href = "http://www.playteka.com"> <%=lang.Website%> </a></li>
+        <li> <a href = "https://github.com/playteka/playteka/wiki"> <%=lang.Wiki%> </a></li>
+        <li> <a href = "https://github.com/playteka/playteka/issues"> <%=lang.Report_Issues%> </a></li>
+        <li> <a href = "http://www.playteka.com"> <%=lang.Contact%> </a></li>
+        <li> <a href = "#" onclick = "alert('playteka v0.1.5')"> <%=lang.About%> </a></li>
     </ul> 
     
     <ul class = "nav navbar-nav navbar-right">
-    <li class = "dropdown">
-    <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown" role = "button" aria-expanded = "false"> <%=account%> <span class = "caret"> </span></a>
-    <ul class = "dropdown-menu" role = "menu">
-    <li> <a href = '#' onclick = "userProfile()"> <%=lang.User_Profile%> </a></li>
-    <li> <a href = '#' onclick = "logout()"> <%=lang.Logout%> </a></li>
-    </ul> 
-    </li>
-
-    <li class = "dropdown">
-    <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown" role = "button" aria-expanded = "false">
-    <%=lang.current_language%> <span class = "caret"> </span></a>
-    <ul class = "dropdown-menu" role = "menu">
-    <% for(var i=0; i<lang.other_languages.length; i++) { %> <li>
-    <a href = '#' onclick = "changeLanguage('<%= lang.other_languages[i]%>')"> <%=lang.other_languages[i] %> </a> </li>
-    <% } %> 
-    </ul> 
-    </li> 
+        <li class = "dropdown">
+            <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown" role = "button" aria-expanded = "false"> <%=account%> <span class = "caret"> </span></a>
+            <ul class = "dropdown-menu" role = "menu">
+            <li> <a href = '#' onclick = "userProfile()"> <%=lang.User_Profile%> </a></li>
+            <li> <a href = '#' onclick = "logout()"> <%=lang.Logout%> </a></li>
+            </ul> 
+        </li>
+        <li class = "dropdown">
+            <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown" role = "button" aria-expanded = "false">
+            <%=lang.current_language%> <span class = "caret"> </span></a>
+            <ul class = "dropdown-menu" role = "menu">
+            <% for(var i=0; i<lang.other_languages.length; i++) { %> <li>
+            <a href = '#' onclick = "changeLanguage('<%= lang.other_languages[i]%>')"> <%=lang.other_languages[i] %> </a> </li>
+            <% } %> 
+            </ul> 
+        </li> 
+    </ul> <!--ul class = "nav navbar-nav navbar-right" -->
     
-    </ul> <!--ul class = "nav navbar-nav" -->
     </div><!--/.nav - collapse -->
     </div>
-    <!-- /.container -->
+    <!-- /.container topnav -->
     </nav>
 
 
-<!-- Header -->
+<!-- intro-header
 <a name = "home"> </a> <div class = "intro-header">
-    <div class = "container">
-    <div class = "row">
+<div class = "container">
+<div class = "row">
     <div class = "col-lg-12">
     <div class = "intro-message">
     <h1> <img src = "./img/playteka.png"> </h1> <h1> <%=lang.Project_Center%> </h1> <hr class = "intro-divider">
     <h2> Hola!<%=account%>, <%=lang.are_you_ready%> </h2> <ul class = "list-inline">
-    <li> <a href = "#playduino"> <button type = "button"
-class = "btn btn-default btn-lg">
-    <span class = "glyphicon glyphicon-hand-right"> <span> <%=lang.PlayDuino%> </button></a> </li> <li> <a href = "#playpi"> <button type = "button"
-class = "btn btn-default btn-lg">
-    <span class = "glyphicon glyphicon-hand-right"> <span> <%=lang.PlayPi%> </button></a> </li> <li> <a href = "#playdrawing"> <button type = "button"
-class = "btn btn-default btn-lg">
+    <li> <a href = "#playduino"> <button type = "button" class = "btn btn-default btn-lg">
+    <span class = "glyphicon glyphicon-hand-right"> <span> <%=lang.PlayDuino%> </button></a> </li> <li> <a href = "#playpi"> <button type = "button" class = "btn btn-default btn-lg">
+    <span class = "glyphicon glyphicon-hand-right"> <span> <%=lang.PlayPi%> </button></a> </li> <li> <a href = "#playdrawing"> <button type = "button" class = "btn btn-default btn-lg">
     <span class = "glyphicon glyphicon-hand-right"> <span> <%=lang.PlayDrawing%> </button></a> </li> </ul> </div> </div> </div>
-
+</div> 
 </div>
-<!-- /.container -->
-
-</div>
-<!-- /.intro-header -->
+intro-header -->
 
 <!-- Page Content -->
 
-<a name = "playduino"> </a> 
-<div class = "content-section-a">
-<div class = "container">
-    <div class = "row">
+<div class="container" > 
+
+<div class="row">
+<ul class="nav nav-tabs" >
+<li id="tab_playdrawing" role="presentation" class="active" onclick="tabClick(this.id)"><a href="#"><%=lang.PlayDrawing%></a></li>
+<li id="tab_playduino" role="presentation"  class="inactive" onclick="tabClick(this.id)"><a href="#"><%=lang.PlayDuino%></a></li>
+<li id="tab_playpi" role="presentation"  class="inactive" onclick="tabClick(this.id)"><a href="#"><%=lang.PlayPi%></a></li>
+</ul>
+<br>
+</div> <!-- row -->
+
+<div class="row" id='content_playdrawing' style="display:block"> <!-- /row playdrawing-->
     <div class = "col-lg-5 col-sm-6">
-    <hr class = "section-heading-spacer">
-    <div class = "clearfix"> </div> 
-    <h2 class = "section-heading"> <a href = "#home"> <span class = "glyphicon glyphicon-hand-up"> </span></a> <%=lang.PlayDuino%> </h2> 
-    <div class = "input-group">
-    <input type = "text" class = "form-control" placeholder = "<%=lang.Project_Name%>" id = "playduino_project_name">
-    <span class = "input-group-btn">
-    <button class = "btn btn-default" type = "button" id = "playduino_addproject_button" onclick = "add_playduino_project()">
-    <span class = "glyphicon glyphicon-plus"> </span></button>
-    </span> </div><!-- /input - group -->
-    <br>
-    <div class = "alert alert-danger" role = "alert" id = "playduino_alert_box">
-    <span class = "glyphicon glyphicon-exclamation-sign"> </span> <%=lang.special_charaters%></div>
-    <table class = "table table-striped table-hover" id = "playduino_table">
-    </table> 
+        <div class = "input-group">
+        <input type = "text" class = "form-control" placeholder = "<%=lang.Project_Name%>" id = "playdrawing_project_name">
+        <span class = "input-group-btn">
+        <button class = "btn btn-default" type = "button" id = "playdrawing_addproject_button" onclick = "add_playdrawing_project()">
+        <span class = "glyphicon glyphicon-plus"> </span></button>
+        </span> </div><!-- /input - group -->
+        <br>
+        <div class = "alert alert-danger" role = "alert" id = "playdrawing_alert_box">
+        <span class = "glyphicon glyphicon-exclamation-sign"> </span> <%=lang.special_charaters%></div>
+        <table class = "table table-striped table-hover" id = "playdrawing_table">
+        </table> 
+    </div> <!-- col-lg-5 col-sm-6 -->
+    <div class = "col-lg-5 col-lg-offset-2 col-sm-6">
+        <!-- to be added -->
+    </div><!-- /col -->
+</div><!-- /row playdrawing-->
+        
+
+<div class="row" id='content_playduino' style="display:none"> <!-- /row playduino-->
+    <div class = "col-lg-5 col-sm-6">
+        <div class = "input-group">
+        <input type = "text" class = "form-control" placeholder = "<%=lang.Project_Name%>" id = "playduino_project_name">
+        <span class = "input-group-btn">
+        <button class = "btn btn-default" type = "button" id = "playduino_addproject_button" onclick = "add_playduino_project()">
+        <span class = "glyphicon glyphicon-plus"> </span></button>
+        </span> </div><!-- /input - group -->
+        <br>
+        <div class = "alert alert-danger" role = "alert" id = "playduino_alert_box">
+        <span class = "glyphicon glyphicon-exclamation-sign"> </span> <%=lang.special_charaters%></div>
+        <table class = "table table-striped table-hover" id = "playduino_table">
+        </table> 
     </div> <!-- /col-lg-5 col-sm-6 -->
     <div class = "col-lg-5 col-lg-offset-2 col-sm-6">
-    <img class = "img-responsive" src = "img/phones.png" alt = "">
-    </div> <!-- /col img -->
-    </div> <!-- /row -->
-</div><!-- /.container -->
-</div><!-- /.content-section-a -->
+        <!-- to be added -->
+    </div> 
+</div> <!-- ./row playduino -->
 
-<a name = "playpi"> </a> 
-<div class = "content-section-b">
-    <div class = "container">
-    <div class = "row">
-    <div class = "col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
-    <hr class = "section-heading-spacer">
-    <div class = "clearfix"> </div> <h2 class = "section-heading"> <a href = "#home"> <span class = "glyphicon glyphicon-hand-up"> </span></a> <%=lang.PlayPi%> </h2> 
-    <div class = "input-group">
-    <input type = "text" class = "form-control" placeholder = "<%=lang.Project_Name%>" id = "playpi_project_name">
-    <span class = "input-group-btn">
-    <button class = "btn btn-default" type = "button" id = "playpi_addproject_button" onclick = "add_playpi_project()">
-    <span class = "glyphicon glyphicon-plus"> </span></button>
-    </span> </div><!-- /input - group -->
-    <br>
-    <div class = "alert alert-danger" role = "alert" id = "playpi_alert_box">
-    <span class = "glyphicon glyphicon-exclamation-sign"> </span> <%=lang.special_charaters%></div>
-    <table class = "table table-striped table-hover" id = "playpi_table">
-    </table> </div> 
-    <div class = "col-lg-5 col-sm-pull-6  col-sm-6">
-    <img class = "img-responsive" src = "img/dog.png" alt = "">
-    </div> <!-- /col img -->
-    </div> <!-- /row -->
-</div><!-- /.container -->
-</div><!-- /.content-section-b -->
 
-<a name = "playdrawing"> </a> <div class = "content-section-a">
-    <div class = "container">
-    <div class = "row">
+<div class="row" id='content_playpi' style="display:none"> <!-- /row playpi-->
     <div class = "col-lg-5 col-sm-6">
-    <hr class = "section-heading-spacer">
-    <div class = "clearfix"> </div> <h2 class = "section-heading"> <a href = "#home"> <span class = "glyphicon glyphicon-hand-up"> </span></a> <%=lang.PlayDrawing%> </h2> <div class = "input-group">
-    <input type = "text" class = "form-control" placeholder = "<%=lang.Project_Name%>" id = "playdrawing_project_name">
-    <span class = "input-group-btn">
-    <button class = "btn btn-default" type = "button" id = "playdrawing_addproject_button" onclick = "add_playdrawing_project()">
-    <span class = "glyphicon glyphicon-plus"> </span></button>
-    </span> </div><!-- /input - group -->
-    <br>
-    <div class = "alert alert-danger" role = "alert" id = "playdrawing_alert_box">
-    <span class = "glyphicon glyphicon-exclamation-sign"> </span> <%=lang.special_charaters%></div>
-    <table class = "table table-striped table-hover" id = "playdrawing_table">
-    </table> </div> 
+        <div class = "input-group">
+        <input type = "text" class = "form-control" placeholder = "<%=lang.Project_Name%>" id = "playpi_project_name">
+        <span class = "input-group-btn">
+        <button class = "btn btn-default" type = "button" id = "playpi_addproject_button" onclick = "add_playpi_project()">
+        <span class = "glyphicon glyphicon-plus"> </span></button>
+        </span> </div><!-- /input - group -->
+        <br>
+        <div class = "alert alert-danger" role = "alert" id = "playpi_alert_box">
+        <span class = "glyphicon glyphicon-exclamation-sign"> </span> <%=lang.special_charaters%></div>
+        <table class = "table table-striped table-hover" id = "playpi_table">
+        </table> 
+    </div> <!-- /col-lg-5 col-sm-6 -->
     <div class = "col-lg-5 col-lg-offset-2 col-sm-6">
-    <img class = "img-responsive" src = "img/ipad.png" alt = "">
-    </div><!-- /col img -->
-    </div><!-- /row -->
-</div><!-- /.container -->
-</div><!-- /.content-section-a -->
+        <!-- to be added -->
+    </div> 
+
+</div> <!-- /row playpi-->
+
+</div><!-- container-->
+
 
 <a name = "contact"> </a> <div class = "banner">
 
