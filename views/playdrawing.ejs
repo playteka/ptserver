@@ -45,7 +45,7 @@
 <script type="text/javascript" src="./blocks/p5_network.js"></script>
 
 <!-- Include socket.io -->
-<script src="./socket.io/socket.io.js"></script>
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 
 <!-- Include filesaver -->
 <script src="./filesaver/FileSaver.js"></script>
@@ -155,6 +155,13 @@ function myUpdateFunction() {
 	}
 }
 
+//show code panel. This is a internal function for debugging
+$(document).keydown(function(event){ 
+    if(event.which==67||altKey||shiftKey){  //ALt + shift + c
+        document.getElementById('tab_code').style.display = 'block';
+    }
+});
+
 $(document).ready(function(){
 
 	//select tab_sketch panel
@@ -248,11 +255,11 @@ $(document).ready(function(){
 <div class="container-fluid" > <!--it makes blockly slightly shorter than window height -->
 <div class="row">
 <div class="col-md-4">
-<ul class="nav nav-pills nav-justified" >
+<ul class="nav nav-tabs" >
 <li id="tab_sketch" role="presentation" class="active" onclick="tabClick(this.id)"><a href="#"><%=lang.Sketch%></a></li>
 <li id="tab_canvas" role="presentation"  class="inactive" onclick="tabClick(this.id)"><a href="#"><%=lang.Canvas%></a></li>
 <li id="tab_console" role="presentation"  class="inactive" onclick="tabClick(this.id)"><a href="#"><%=lang.Console%></a></li>
-<li id="tab_code" role="presentation" class="inactive" onclick="tabClick(this.id)"><a href="#"><%=lang.Code%></a></li>
+<li id="tab_code" role="presentation" class="inactive" onclick="tabClick(this.id)" style="display:none;"><a href="#"><%=lang.Code%></a></li>
 </ul>
 </div> <!-- col-md-3 -->
 
