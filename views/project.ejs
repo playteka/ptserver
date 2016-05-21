@@ -439,9 +439,41 @@ intro-header -->
         <table class = "table table-striped table-hover" id = "playduino_table">
         </table> 
     </div> <!-- /col-lg-5 col-sm-6 -->
-    <div class = "col-lg-5 col-lg-offset-2 col-sm-6">
-        <!-- to be added -->
-    </div> 
+    <div class = "col-lg-7 col-sm-6">
+    <div class="well">
+        <h3>How does PlayDuino work? </h3>
+        <img src="./img/playduino-topology.png" style="width:600px;height:160px;">
+        <br>
+        <p>PlayDuino is a tool running in your browser to control Arduino microcontroller running Firmata.
+           (Note:It has been tested on Arduino Uno, but it should work on any Arduino boards running Firmata.)
+        </p> 
+        <br>
+        <p>The first step is to prepare a firmata arduino board: </p>
+        <img src="./img/arduino-uno.png" style="width:228px;height:228px;">
+        <ul>
+            <li>Download <a href="http://www.arduino.cc/en/main/software">Arduino IDE</a></li>
+            <li>Plug in your Arduino or Arduino compatible microcontroller via USB</li>
+            <li>Open the Arduino IDE, select: File > Examples > Firmata > StandardFirmata</li>
+            <li>Click the "Upload" button.</li>
+            <li>If the upload was successful, the board is now prepared and you can close the Arduino IDE.</li>
+        </ul>
+        <p> The second step is to install the PlayDuino Server on your computer </p>
+            <ul>
+                <li>Download PlayDuino Server. It has <a href="https://github.com/playteka/playduino/releases/download/v0.1.0/playteka-playduino-win32-v0.1.0.zip">windows version</a> 
+                and <a href="https://github.com/playteka/playduino/releases/download/v0.1.0/playteka-playduino-mac-v0.1.0.zip">  Mac version</a>.
+                Upzip the package.</li>
+                <li>For Mac user, unzip and drop the folder to Application folder of your Mac. then click the icon, you can luanch the PlayDuino server.</li>
+                <li>For windows user, unzip and find playduino.exe in the unzipped folder, then you can click playduino.exe to launch the PlayDuino Server.</li>
+            </ul>
+        <img src="./img/playduino.png" style="width:400px;height:300px;">
+        <p> If you browser and your playduino server is on the same computer, 
+            when you open the playduino project, you can see the connecting button becomes "127.0.0.1 connected" </p>
+        <img src="./img/server_connected.png" style="width:600px;height:200px;">  
+        <br><br>     
+        <h4> Now, enjoy your playduino program!</h4> 
+            
+     </well>
+    </div> <!-- /col-lg-5 col-lg-offset-1 col-sm-6 -->
 </div> <!-- ./row playduino -->
 
 

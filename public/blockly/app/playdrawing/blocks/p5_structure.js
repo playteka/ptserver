@@ -55,3 +55,39 @@ Blockly.JavaScript['p5_preload'] = function(block) {
   code += "}\n"
   return code;
 };
+
+Blockly.Blocks['p5_loop'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(LANG["Loop"]);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(330);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.JavaScript['p5_loop'] = function(block) {
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'loop();\n';
+  return code;
+};
+
+Blockly.Blocks['p5_noloop'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(LANG["NoLoop"]);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(330);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.JavaScript['p5_noloop'] = function(block) {
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'noLoop();\n';
+  return code;
+};
