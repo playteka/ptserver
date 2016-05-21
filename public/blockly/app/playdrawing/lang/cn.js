@@ -26,6 +26,8 @@ var LANG = {
     'setup' : '开始',
     'draw' : '循环画',
     'preload' : '预装',
+    'Loop' : '开始循环',
+    'NoLoop' : '停止循环',
     
     //p5_env
     "Create Canvas" : "创建画布",

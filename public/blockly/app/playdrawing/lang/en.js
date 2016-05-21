@@ -27,6 +27,8 @@ var LANG = {
     'setup' : 'setup',
     'draw' : 'draw',
     'preload' : 'preload',
+    'Loop' : 'Loop',
+    'NoLoop' : 'NoLoop',
     
     //P5_env
     "Create Canvas" : "Create Canvas",
