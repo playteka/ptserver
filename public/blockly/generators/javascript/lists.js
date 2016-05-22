@@ -87,7 +87,12 @@ Blockly.JavaScript['lists_indexOf'] = function(block) {
       Blockly.JavaScript.ORDER_NONE) || '\'\'';
   var argument1 = Blockly.JavaScript.valueToCode(block, 'VALUE',
       Blockly.JavaScript.ORDER_MEMBER) || '[]';
-  var code = argument1 + '.' + operator + '(' + argument0 + ') + 1';
+  //google blockly original code
+  //var code = argument1 + '.' + operator + '(' + argument0 + ') + 1';
+  
+  //change to zero-based indicies: removed '+1'
+  var code = argument1 + '.' + operator + '(' + argument0 + ')';
+  
   return [code, Blockly.JavaScript.ORDER_MEMBER];
 };
 
@@ -122,6 +127,7 @@ Blockly.JavaScript['lists_getIndex'] = function(block) {
       return list + '.pop();\n';
     }
   } else if (where == 'FROM_START') {
+    /* //change to zero-based indicies: remove the '-1'
     // Blockly uses one-based indicies.
     if (Blockly.isNumber(at)) {
       // If the index is a naked number, decrement it right now.
@@ -130,6 +136,7 @@ Blockly.JavaScript['lists_getIndex'] = function(block) {
       // If the index is dynamic, decrement it in code.
       at += ' - 1';
     }
+    */
     if (mode == 'GET') {
       var code = list + '[' + at + ']';
       return [code, Blockly.JavaScript.ORDER_MEMBER];
@@ -218,6 +225,7 @@ Blockly.JavaScript['lists_setIndex'] = function(block) {
       return list + '.push(' + value + ');\n';
     }
   } else if (where == 'FROM_START') {
+    /* //change to zero-based indicies: remove the '-1'
     // Blockly uses one-based indicies.
     if (Blockly.isNumber(at)) {
       // If the index is a naked number, decrement it right now.
@@ -226,6 +234,7 @@ Blockly.JavaScript['lists_setIndex'] = function(block) {
       // If the index is dynamic, decrement it in code.
       at += ' - 1';
     }
+    */
     if (mode == 'SET') {
       return list + '[' + at + '] = ' + value + ';\n';
     } else if (mode == 'INSERT') {
@@ -277,7 +286,9 @@ Blockly.JavaScript['lists_getSublist'] = function(block) {
             '(list, where1, at1, where2, at2) {',
           '  function getAt(where, at) {',
           '    if (where == \'FROM_START\') {',
-          '      at--;',
+          '    //change to zero-base indicies: remove at--',
+          '      //at--;',
+          '      at;',
           '    } else if (where == \'FROM_END\') {',
           '      at = list.length - at;',
           '    } else if (where == \'FIRST\') {',
@@ -290,7 +301,9 @@ Blockly.JavaScript['lists_getSublist'] = function(block) {
           '    return at;',
           '  }',
           '  at1 = getAt(where1, at1);',
-          '  at2 = getAt(where2, at2) + 1;',
+          '    //change to zero-base indicies: remove +1',
+          '    //at2 = getAt(where2, at2) + 1;',
+          '  at2 = getAt(where2, at2);',
           '  return list.slice(at1, at2);',
           '}']);
     var code = functionName + '(' + list + ', \'' +
