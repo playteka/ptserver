@@ -137,3 +137,39 @@ Blockly.JavaScript['p5_strokeWeight'] = function(block) {
   var code = 'strokeWeight(' + value_weight +');\n';
   return code;
 };
+
+Blockly.Blocks['p5_smooth'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(LANG["Smooth"]);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(20);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.JavaScript['p5_smooth'] = function(block) {
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'smooth();\n';
+  return code;
+};
+
+Blockly.Blocks['p5_nosmooth'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(LANG["NoSmooth"]);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(20);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.JavaScript['p5_nosmooth'] = function(block) {
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'noSmooth();\n';
+  return code;
+};

@@ -113,6 +113,8 @@ var LANG = {
     "Stroke Color" : "线条颜色",
     "NoStroke" : "无线条",
     "Stroke Weight" : "线条宽度",
+    "Smooth" : "平滑",
+    "NoSmooth" : "非平滑",
     
     //p5_2d_shape
     "Point" : "点",
