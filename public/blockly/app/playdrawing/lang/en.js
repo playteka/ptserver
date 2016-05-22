@@ -114,6 +114,8 @@ var LANG = {
     "Stroke Color" : "Stroke Color",
     "NoStroke" : "NoStroke",
     "Stroke Weight" : "Stroke Weight",
+    "Smooth" : "Smooth",
+    "NoSmooth" : "NoSmooth",
     
     //p5_2d_shape
     "Point" : "Point",
