@@ -21,7 +21,7 @@ router.get('/', function (req, res) {
            }
            resource.lang = lang;
            resource.account = sess.account;
-           
+
            res.render('playdrawingconfig.ejs', resource);
            });
 

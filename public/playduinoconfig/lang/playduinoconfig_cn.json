@@ -23,5 +23,9 @@
     "Delete" : "删除",
     "delete_project" : "是否确定删除此项目？",
     "fork_tree" : "再创作树",
-    "OK" : "确定"
+    "OK" : "确定",
+    "has_been_renamed" : "项目已经改名为",
+    "not_able_rename" : "抱歉，无法改名!",
+    "IP_has_been_changed" : "IP地址已经被修改为",
+    "IP_not_changed" : "抱歉，修改IP地址不成功！"
 }

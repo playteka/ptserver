@@ -232,13 +232,13 @@ updateProject('playdrawing','<%=_id%>', data,
 function(){ //success
 current.project_name = new_name;
 $("#rename_alert_box").attr("class", "alert alert-info");
-$("#rename_alert_box").html('<span class="glyphicon glyphicon-exclamation-sign"></span>The project has been renamed to "' + new_name + '"');
+$("#rename_alert_box").html('<span class="glyphicon glyphicon-exclamation-sign"></span><%=lang.has_been_renamed%>"' + new_name + '"');
 $("#rename_alert_box").show();
 },
 function(){ //error
 
 $("#rename_alert_box").attr("class", "alert alert-danger");
-$("#rename_alert_box").html('<span class="glyphicon glyphicon-exclamation-sign"></span>Sorry, not able to rename!');
+$("#rename_alert_box").html('<span class="glyphicon glyphicon-exclamation-sign"></span><%=lang.not_able_rename%>');
 $("#rename_alert_box").show();
 }
 );
@@ -253,13 +253,13 @@ updateProject('playdrawing','<%=_id%>', data,
 function(){ //success
 current.ipaddress = new_ipaddress;
 $("#ipaddress_alert_box").attr("class", "alert alert-info");
-$("#ipaddress_alert_box").html('<span class="glyphicon glyphicon-exclamation-sign"></span>The IP address has been changed to ' + new_ipaddress);
+$("#ipaddress_alert_box").html('<span class="glyphicon glyphicon-exclamation-sign"></span><%=lang.IP_has_been_changed%>' + new_ipaddress);
 $("#ipaddress_alert_box").show();
 },
 function(){ //error
 
 $("#ipaddress_alert_box").attr("class", "alert alert-danger");
-$("#ipaddress_alert_box").html('<span class="glyphicon glyphicon-exclamation-sign"></span>Sorry, not able to change the IP address!');
+$("#ipaddress_alert_box").html('<span class="glyphicon glyphicon-exclamation-sign"></span><%=lang.IP_not_changed%>');
 $("#ipaddress_alert_box").show();
 }
 );

@@ -23,5 +23,9 @@
     "Delete" : "Delete",
     "delete_project" : "Do you really want to delete this project?",
     "fork_tree" : "Fork Tree",
-    "OK" : "OK"
+    "OK" : "OK",
+    "has_been_renamed" : "The project has been renamed to ",
+    "not_able_rename" : "Sorry, not able to rename!",
+    "IP_has_been_changed" : "The IP address has been changed to ",
+    "IP_not_changed" : "Sorry, not able to change the IP address!"
 }
