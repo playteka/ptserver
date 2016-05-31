@@ -83,6 +83,15 @@ var LANG = {
     "radians" : "求弧度",
     "degrees" : "求角度",    
     
+    //p5_vector
+    "Vector" : "向量",
+    "Create Vector" : "创建向量",
+    "Create Vector3D" : "创建三维向量",
+    "Number" : "数字",
+    "Length" : "长度",
+    "Limit" : "限制",
+    "Normalize" : "归一",
+    
     //p5_color
     "Color" : "颜色",
     "Red" : "红",

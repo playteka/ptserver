@@ -84,6 +84,15 @@ var LANG = {
     "radians" : "radians",
     "degrees" : "degrees",
     
+     //p5_vector
+    "Vector" : "vector",
+    "Create Vector" : "Create Vector",
+    "Create Vector3D" : "Create Vector3D",
+    "Number" : "Number",
+    "Length" : "Length",
+    "Limit" : "Limit",
+    "Normalize" : "Normalize",
+    
     //p5_color
     "Color" : "Color",
     "Red" : "Red",
