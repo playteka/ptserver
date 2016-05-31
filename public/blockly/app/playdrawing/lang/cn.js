@@ -135,6 +135,8 @@ var LANG = {
     "Quad" : "四边形",
     "Ellipse" : "椭圆",
     "Arc" : "弧线",
+    "Bezier" : "贝泽尔曲线",
+    "Bezier3D" : "三维贝泽尔曲线",
     "Start" : "起始角度",
     "Stop" : "结束角度",
     "CHORD" : "弓弦",

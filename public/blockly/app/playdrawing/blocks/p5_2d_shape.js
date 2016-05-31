@@ -358,3 +358,58 @@ Blockly.JavaScript['p5_arc'] = function(block) {
                         + dropdown_mode + ');\n';
   return code;
 };
+
+Blockly.Blocks['p5_bezier'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(LANG["Bezier"]);
+    this.appendValueInput("X1")
+        .setCheck("Number")
+        .appendField("X1");
+    this.appendValueInput("Y1")
+        .setCheck("Number")
+        .appendField("Y1");
+    this.appendValueInput("X2")
+        .setCheck("Number")
+        .appendField("X2");
+    this.appendValueInput("Y2")
+        .setCheck("Number")
+        .appendField("Y2");
+    this.appendValueInput("X3")
+        .setCheck("Number")
+        .appendField("X3");
+    this.appendValueInput("Y3")
+        .setCheck("Number")
+        .appendField("Y3");
+    this.appendValueInput("X4")
+        .setCheck("Number")
+        .appendField("X4");
+    this.appendValueInput("Y4")
+        .setCheck("Number")
+        .appendField("Y4");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(160);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.JavaScript['p5_bezier'] = function(block) {
+  var value_x1 = Blockly.JavaScript.valueToCode(block, 'X1', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_y1 = Blockly.JavaScript.valueToCode(block, 'Y1', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_x2 = Blockly.JavaScript.valueToCode(block, 'X2', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_y2 = Blockly.JavaScript.valueToCode(block, 'Y2', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_x3 = Blockly.JavaScript.valueToCode(block, 'X3', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_y3 = Blockly.JavaScript.valueToCode(block, 'Y3', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_x4 = Blockly.JavaScript.valueToCode(block, 'X4', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_y4 = Blockly.JavaScript.valueToCode(block, 'Y4', Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'bezier(' + value_x1 + ',' + value_y1 + ','
+                       + value_x2 + ',' + value_y2 + ',' 
+                       + value_x3 + ',' + value_y3 + ','
+                       + value_x4 + ',' + value_y4 + ','
+                       + ');\n';
+  return code;
+};

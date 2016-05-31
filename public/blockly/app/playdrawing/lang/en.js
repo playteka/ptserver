@@ -136,6 +136,8 @@ var LANG = {
     "Quad" : "Quad",
     "Ellipse" : "Ellipse",
     "Arc" : "Arc",
+    "Bezier" : "Bezier",
+    "Bezier3D" : "Bezier3D",
     "Start" : "Start",
     "Stop" : "Stop",
     "CHORD" : "CHORD",
