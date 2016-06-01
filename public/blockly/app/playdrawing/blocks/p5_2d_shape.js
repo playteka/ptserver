@@ -409,7 +409,7 @@ Blockly.JavaScript['p5_bezier'] = function(block) {
   var code = 'bezier(' + value_x1 + ',' + value_y1 + ','
                        + value_x2 + ',' + value_y2 + ',' 
                        + value_x3 + ',' + value_y3 + ','
-                       + value_x4 + ',' + value_y4 + ','
+                       + value_x4 + ',' + value_y4
                        + ');\n';
   return code;
 };
