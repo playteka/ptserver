@@ -42,7 +42,8 @@ Blockly.JavaScript['math_arithmetic'] = function(block) {
     'MINUS': [' - ', Blockly.JavaScript.ORDER_SUBTRACTION],
     'MULTIPLY': [' * ', Blockly.JavaScript.ORDER_MULTIPLICATION],
     'DIVIDE': [' / ', Blockly.JavaScript.ORDER_DIVISION],
-    'POWER': [null, Blockly.JavaScript.ORDER_COMMA]  // Handle power separately.
+    'POWER': [null, Blockly.JavaScript.ORDER_COMMA],  // Handle power separately.
+    'REM': [' % ', Blockly.JavaScript.ORDER_DIVISION]
   };
   var tuple = OPERATORS[block.getFieldValue('OP')];
   var operator = tuple[0];
