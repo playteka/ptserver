@@ -353,6 +353,9 @@ function run() {
     userScript.async = false;
     $('#processing_iframe')[0].contentWindow.document.body.appendChild(userScript);
     
+    //set focus
+    $('#processing_iframe').focus();
+    
     /*
     //prepare P5 and scripts
 	var includeP5 = '<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.20/p5.min.js" type="text/javascript"><\/script>';
