@@ -93,7 +93,7 @@ Blockly.JavaScript['digital_change_event'] = function(block) {
     var statements = Blockly.JavaScript.statementToCode(block, 'PROGRAM');
     
     //Assemble JavaScript into code. eg: my.sensor.on('digitalChange', function() { ...}
-    var code = dropdown_var + ".on('change', function() { \n";
+    var code = dropdown_var + ".on('change', function(_val) { \n";
     code = code + statements;
     code = code + "});\n"
     
@@ -124,7 +124,7 @@ Blockly.JavaScript['digital_data_event'] = function(block) {
     var statements = Blockly.JavaScript.statementToCode(block, 'PROGRAM');
     
     //Assemble JavaScript into code. eg: sensor.on("data", function() { ... }
-    var code = dropdown_var + ".on('data', function() { \n";
+    var code = dropdown_var + ".on('data', function(_val) { \n";
     code = code + statements;
     code = code + "});\n"
     
@@ -146,7 +146,7 @@ init: function() {
 
 Blockly.JavaScript['digital_value_parameter'] = function(block) {
     // TODO: Assemble JavaScript into code variable.
-    var code = 'this.value';
+    var code = '_val';
     
     return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
