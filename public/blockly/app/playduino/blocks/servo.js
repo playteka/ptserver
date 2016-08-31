@@ -44,6 +44,53 @@ Blockly.JavaScript['servo_device'] = function(block) {
     return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
+// the servo device block with option pins of 3,5,6,9,10,11
+Blockly.Blocks['servo_device_v2'] = {
+init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+    .appendField(LANG["Servo: name"])
+    .appendField(new Blockly.FieldTextInput("servo"), "servo_var")
+    .appendField(LANG["pin"])
+    .appendField(new Blockly.FieldDropdown([["3", "3"], ["5", "5"], ["6", "6"], ["9", "9"], ["10", "10"], ["11", "11"]]), "PWM_PIN");
+    this.appendValueInput("min")
+    .setCheck("Number")
+    .appendField(LANG["range: min"]);
+    this.appendValueInput("max")
+    .setCheck("Number")
+    .appendField(LANG["max"]);
+    this.appendDummyInput()
+    .appendField(LANG["type"])
+    .appendField(new Blockly.FieldDropdown([["standard", "standard"], ["continuous", "continuous"]]), "type");
+    this.setInputsInline(true);
+    this.setOutput(true, "device_type");
+    this.setTooltip('');
+}
+};
+
+Blockly.JavaScript['servo_device_v2'] = function(block) {
+    var dropdown_pwm_pin = block.getFieldValue('PWM_PIN');
+    var text_servo_var = block.getFieldValue('servo_var');
+    var value_min = Blockly.JavaScript.valueToCode(block, 'min', Blockly.JavaScript.ORDER_ATOMIC);
+    var value_max = Blockly.JavaScript.valueToCode(block, 'max', Blockly.JavaScript.ORDER_ATOMIC);
+    var value_type = block.getFieldValue('type');
+    
+    //push the servo variable into the arrays for the dropdown menu
+    all_devices.servo.push(text_servo_var);
+    var inside_name = all_devices.create_inside_name(text_servo_var);
+    all_devices.servo_dropdown.push([text_servo_var,inside_name]);
+    
+    //push the servo variable into the object list for REPL
+    all_devices.objects.push(inside_name + " : " + inside_name);
+    
+    //Assemble code like : var servo = new five.Servo({pin: 10, range:[min,max], type: "continuous"});
+    var code = "var " + text_servo_var + " = new five.Servo({pin: " + dropdown_pwm_pin + ", range:[" +value_min + " ," + value_max + "], type: '" + value_type + "'});";
+    
+    return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+
 // the servo device block for playpi
 Blockly.Blocks['playpi_servo_device'] = {
 init: function() {

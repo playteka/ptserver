@@ -554,12 +554,24 @@ $(document).ready(function(){
 </category>
 
 <category name="<%=lang.Servo%>">
-<block type="servo_device">
+<!--block type="servo_device">
 <value name="pin">
 <block type="math_number">
 <field name="NUM">3</field>
 </block>
 </value>
+<value name="min">
+<block type="math_number">
+<field name="NUM">0</field>
+</block>
+</value>
+<value name="max">
+<block type="math_number">
+<field name="NUM">180</field>
+</block>
+</value>
+</block-->
+<block type="servo_device_v2">
 <value name="min">
 <block type="math_number">
 <field name="NUM">0</field>
