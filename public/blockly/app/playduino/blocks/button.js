@@ -44,6 +44,51 @@ Blockly.JavaScript['button_device'] = function(block) {
 };
 
 
+// the button block with 0 as lower limit and 1023 as upper limit
+Blockly.Blocks['button_device_v2'] = {
+init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+    .appendField(LANG["Button: name"])
+    .appendField(new Blockly.FieldTextInput("button"), "var")
+    .appendField(LANG["pin"])
+    .appendField(new Blockly.FieldDropdown([["0", "0"], ["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"], ["5", "5"], ["6", "6"], ["7", "7"], ["8", "8"], ["9", "9"], ["10", "10"], ["11", "11"], ["12", "12"], ["13", "13"]]), "DIGITAL_PIN");
+    this.appendDummyInput()
+    .appendField(LANG["invert"])
+    .appendField(new Blockly.FieldCheckbox("FALSE"), "invert");
+    this.setInputsInline(true);
+    this.setOutput(true, "device_type");
+    this.setTooltip('');
+}
+};
+
+Blockly.JavaScript['button_device_v2'] = function(block) {
+    var dropdown_digital_pin = block.getFieldValue('DIGITAL_PIN');
+    var text_var = block.getFieldValue('var');
+    var checkbox_invert = block.getFieldValue('invert') == 'TRUE';
+    
+    //push the button variable into the led_var_set for the dropdown menu
+    all_devices.button.push(text_var);
+    var inside_name = all_devices.create_inside_name(text_var);
+    all_devices.button_dropdown.push([text_var,inside_name]);
+    
+    //push the servo variable into the object list for REPL
+    all_devices.objects.push(inside_name + " : " + inside_name);
+    
+    //Assemble definition code
+    if (checkbox_invert == false) {
+        var code = "var " + inside_name + " = new five.Button(" + dropdown_digital_pin + ");";
+    }
+    else{
+        var code = "var " + inside_name + " = new five.Button({pin: " + dropdown_digital_pin + ", invert: true});";
+    }
+    
+    
+    return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+
 // the button block for playpi
 Blockly.Blocks['playpi_button_device'] = {
 init: function() {

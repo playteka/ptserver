@@ -43,6 +43,50 @@ Blockly.JavaScript['RGBled_device'] = function(block) {
 };
 
 
+// the RGBled block
+Blockly.Blocks['RGBled_device_v2'] = {
+init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+    .appendField(LANG["RGBled: name"])
+    .appendField(new Blockly.FieldTextInput("RGBled"), "RGBled_var");
+    this.appendDummyInput()
+    .appendField(LANG["red pin"])
+    .appendField(new Blockly.FieldDropdown([["3", "3"], ["5", "5"], ["6", "6"], ["9", "9"], ["10", "10"], ["11", "11"]]), "RED_PIN");
+    this.appendDummyInput()
+    .appendField(LANG["green pin"])
+    .appendField(new Blockly.FieldDropdown([["3", "3"], ["5", "5"], ["6", "6"], ["9", "9"], ["10", "10"], ["11", "11"]]), "GREEN_PIN");
+    this.appendDummyInput()
+    .appendField(LANG["blue pin"])
+    .appendField(new Blockly.FieldDropdown([["3", "3"], ["5", "5"], ["6", "6"], ["9", "9"], ["10", "10"], ["11", "11"]]), "BLUE_PIN");
+    this.setInputsInline(true);
+    this.setOutput(true, "device_type");
+    this.setTooltip('');
+}
+};
+
+Blockly.JavaScript['RGBled_device_v2'] = function(block) {
+    var text_RGBled_var = block.getFieldValue('RGBled_var');
+    var dropdown_red_pin = block.getFieldValue('RED_PIN');
+    var dropdown_green_pin = block.getFieldValue('GREEN_PIN');
+    var dropdown_blue_pin = block.getFieldValue('BLUE_PIN');    
+    
+    //push the RGBled variable into the RGBled_var_set for the dropdown menu o
+    all_devices.RGBled.push(text_RGBled_var);
+    var inside_name = all_devices.create_inside_name(text_RGBled_var);
+    all_devices.RGBled_dropdown.push([text_RGBled_var,inside_name]);
+    
+    //push the servo variable into the object list for REPL
+    all_devices.objects.push(inside_name + " : " + inside_name);
+    
+    //Assemble code like "var b = new five.Led.RGB({pins: {red: 3,green: 5,blue: 6}});"
+    var code = "var " + inside_name + " = new five.Led.RGB({pins: {red: " + dropdown_red_pin + ", green: " + dropdown_green_pin + ", blue: " + dropdown_blue_pin + "}});"
+    
+    return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+
 
 // the RGBled block for playpi
 Blockly.Blocks['playpi_RGBled_device'] = {
