@@ -505,13 +505,7 @@ $(document).ready(function(){
 </category>
 
 <category name="<%=lang.Led%>">
-<block type="led_device">
-<value name="pin">
-<block type="math_number">
-<field name="NUM">13</field>
-</block>
-</value>
-</block>
+<block type="led_device_v2"></block>
 <block type="led_on_method"></block>
 <block type="led_off_method"></block>
 <block type="led_toggle_method"></block>
@@ -520,7 +514,7 @@ $(document).ready(function(){
 </category>
 
 <category name="<%=lang.Button%>">
-<block type="button_device"></block>
+<block type="button_device_v2"></block>
 <block type="button_press_event"></block>
 <block type="button_release_event"></block>
 <block type="button_hold_event"></block>
@@ -535,21 +529,21 @@ $(document).ready(function(){
 </category>
 
 <category name="<%=lang.Digital%>">
-<block type="digital_device"></block>
+<block type="digital_device_v2"></block>
 <block type="digital_change_event"></block>
 <block type="digital_data_event"></block>
 <block type="digital_value_parameter"></block>
 </category>
 
 <category name="<%=lang.Pin%>">
-<block type="pin_device"></block>
+<block type="pin_device_v2"></block>
 <block type="pin_write_method"></block>
 <block type="pin_high_method"></block>
 <block type="pin_low_method"></block>
 </category>
 
 <category name="<%=lang.RGBLed%>">
-<block type="RGBled_device"></block>
+<block type="RGBled_device_v2"></block>
 <block type="RGBled_color_method"></block>
 <block type="color_constant"></block>
 </category>

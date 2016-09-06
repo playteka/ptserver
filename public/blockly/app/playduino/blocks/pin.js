@@ -33,6 +33,40 @@ Blockly.JavaScript['pin_device'] = function(block) {
 };
 
 
+// the pin block
+Blockly.Blocks['pin_device_v2'] = {
+init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+    .appendField(LANG["pin: name"])
+    .appendField(new Blockly.FieldTextInput("pin"), "var")
+    .appendField(LANG["pin"])
+    .appendField(new Blockly.FieldDropdown([["0", "0"], ["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"], ["5", "5"], ["6", "6"], ["7", "7"], ["8", "8"], ["9", "9"], ["10", "10"], ["11", "11"], ["12", "12"], ["13", "13"]]), "DIGITAL_PIN");
+    this.setInputsInline(true);
+    this.setOutput(true, "device_type");
+    this.setTooltip('');
+}
+};
+
+Blockly.JavaScript['pin_device_v2'] = function(block) {
+    var dropdown_digital_pin = block.getFieldValue('DIGITAL_PIN');
+    var text_pin_var = block.getFieldValue('var');
+    
+    //push the pin variable into the pin_var_set for the dropdown menu
+    all_devices.pin.push(text_pin_var);
+    var inside_name = all_devices.create_inside_name(text_pin_var);
+    all_devices.pin_dropdown.push([text_pin_var,inside_name]);
+    
+    //push the servo variable into the object list for REPL
+    all_devices.objects.push(inside_name + " : " + inside_name);
+    
+    //Assemble code like "var pin = new five.Pin(13);"
+    var code = "var " + inside_name + " = new five.Pin(" + dropdown_digital_pin +");";
+    
+    return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
 // the pin block for playpi
 Blockly.Blocks['playpi_pin_device'] = {
 init: function() {
