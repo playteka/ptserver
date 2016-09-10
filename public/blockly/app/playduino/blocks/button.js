@@ -53,7 +53,7 @@ init: function() {
     .appendField(LANG["Button: name"])
     .appendField(new Blockly.FieldTextInput("button"), "var")
     .appendField(LANG["pin"])
-    .appendField(new Blockly.FieldDropdown([["0", "0"], ["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"], ["5", "5"], ["6", "6"], ["7", "7"], ["8", "8"], ["9", "9"], ["10", "10"], ["11", "11"], ["12", "12"], ["13", "13"]]), "DIGITAL_PIN");
+    .appendField(new Blockly.FieldDropdown([["2", "2"], ["3", "3"], ["4", "4"], ["5", "5"], ["6", "6"], ["7", "7"], ["8", "8"], ["9", "9"], ["10", "10"], ["11", "11"], ["12", "12"], ["13", "13"]]), "DIGITAL_PIN");
     this.appendDummyInput()
     .appendField(LANG["invert"])
     .appendField(new Blockly.FieldCheckbox("FALSE"), "invert");
